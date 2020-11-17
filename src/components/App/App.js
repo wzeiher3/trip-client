@@ -68,10 +68,10 @@ export default class App extends Component {
               path={'/'}
               component={DashboardRoute}
             />
-            <PrivateRoute
+            {/* <PrivateRoute
               path={'/learn'}
               component={LearningRoute}
-            />
+            /> */}
             <PublicOnlyRoute
               path={'/register'}
               component={RegistrationRoute}
