@@ -7,3 +7,5 @@ const tripContext = React.createContext({
     setTrips: () => {},
     addTrip: () => {},
 })
+
+export default tripContext;
