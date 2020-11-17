@@ -18,7 +18,7 @@
 .TripCard-title {
   color: black;
   font-weight: bold;
-  font-family: "Fredoka One";
+  font-family: 'Fredoka One';
 }
 
 .TripCard-title > h2 {
@@ -32,7 +32,9 @@
 }
 
 .Categories {
-  padding-bottom: 20px;
+  padding-bottom: 30px;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .TripCard-bottom {
@@ -40,13 +42,17 @@
   height: 80px;
   width: 250px;
   color: white;
-  text-shadow: 4px 1px 1px black;
-  font-weight: bold;
-  font-family: "Fredoka One";
+  text-shadow: 2px 1px 1px black;
+  font-family: 'Fredoka One';
   letter-spacing: 2px;
-  font-size: 26px;
+  font-size: 18px;
 }
 
-.TripCard-days {
-  margin-top: 20px;
+.TripCard-bottom-info > span {
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.TripCard-bottom-info {
+  margin-top: 15px;
 }

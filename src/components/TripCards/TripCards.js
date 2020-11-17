@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import images from "../../assets/images/images";
+import React, { Component } from 'react';
+import images from '../../assets/images/images';
 
-import "./TripCards.css";
+import './TripCards.css';
 
 export default class TripCards extends Component {
   render() {
@@ -19,7 +19,10 @@ export default class TripCards extends Component {
             <p>Categories: Tourist Attraction, Restaurants</p>
           </div>
           <div className="TripCard-bottom">
-            <div className="TripCard-days">Days: 2</div>
+            <div className="TripCard-bottom-info">
+              Days 2 | Rating
+              <span> *****</span>
+            </div>
           </div>
         </div>
       </>

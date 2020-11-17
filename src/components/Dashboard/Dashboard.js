@@ -1,11 +1,9 @@
-import React from "react";
-import { render } from "react-dom";
-import { Link } from "react-router-dom";
-import TripService from "../../services/trip-service";
-import TripContext from "../../contexts/TripContext";
-import TripCards from "../TripCards/TripCards";
-
-import "./Dashboard.css";
+import React from 'react';
+import { render } from 'react-dom';
+import { Link } from 'react-router-dom';
+import TripApiService from '../../services/trip-service';
+import TripContext from '../../contexts/TripContext';
+import TripCards from '../TripCards/TripCards';
 
 export default class Dashboard extends React.Component {
   state = {
@@ -15,7 +13,7 @@ export default class Dashboard extends React.Component {
   static contextType = TripContext;
 
   componentDidMount() {
-    TripService.getTrips()
+    TripApiService.getTrips()
       .then((res) => {
         this.context.setTrips(res);
       })
@@ -24,21 +22,17 @@ export default class Dashboard extends React.Component {
 
   render() {
     console.log(this.context);
+
     return (
       <section className="Dashboard">
         <div className="upperSection">
-          <div className="addTripButton">
-            <p>add Trip button</p>
-          </div>
-          <div className="titleDiv">
-            <p>Title/Info space</p>
-          </div>
-          <div className="myTripsButton">
-            <p>new trip</p>
-          </div>
+          <div className="addTripButton"></div>
+          <div className="titleDiv"></div>
+          <div className="myTripButton"></div>
         </div>
         <div className="lowerSection">
-          <TripCards />;
+          {' '}
+          <TripCards />
         </div>
       </section>
     );
