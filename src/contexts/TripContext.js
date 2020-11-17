@@ -1,6 +1,6 @@
 import React from 'react';
 
-const tripContext = React.createContext({
+const TripContext = React.createContext({
     trips: [], 
     currTripId: null,
     setCurrTripId: () => {}, 
@@ -8,4 +8,4 @@ const tripContext = React.createContext({
     addTrip: () => {},
 })
 
-export default tripContext;
+export default TripContext;
