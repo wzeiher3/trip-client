@@ -12,9 +12,7 @@ import * as serviceWorker from './serviceWorker'
 ReactDOM.render(
   <BrowserRouter>
     <UserProvider>
-      <TripProvider>
         <App />
-      </TripProvider>
     </UserProvider>
   </BrowserRouter>,
   document.getElementById('root'),
