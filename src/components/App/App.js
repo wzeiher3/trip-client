@@ -11,17 +11,52 @@ import NotFoundRoute from '../../routes/NotFoundRoute/NotFoundRoute'
 import './App.css'
 
 export default class App extends Component {
-  state = { hasError: false }
+  state = { 
+    hasError: false, 
+    trips: [],
+    currTripId: null,  
+}
 
   static getDerivedStateFromError(error) {
     console.error(error)
     return { hasError: true }
   }
 
+  setTrips = (res) => {
+    this.setState({
+      trips: res.trips
+    })
+  };
+
+  setCurrTripId = (id) => {
+    this.setState({
+      currTripId: id
+    })
+  }
+
+  handleAddTrip = trip => {
+      this.setState({
+        trips: [
+              ...this.state.trips,
+              trip
+        ]
+      })
+  }
+  
+  
   render() {
     const { hasError } = this.state
+
+    const value = {
+      trips: this.state.trips,
+      currTripId: this.state.currTripId,
+      setTrips: this.setTrips, 
+      setCurrTripId: this.setCurrTripId,
+      addTrip: this.handleAddTrip,
+    };
     return (
       <div className='App'>
+        <languageContext.Provider value={value}>
         <Header />
         <main>
           {hasError && (
@@ -50,6 +85,7 @@ export default class App extends Component {
             />
           </Switch>
         </main>
+        </languageContext.Provider>
       </div>
     );
   }
