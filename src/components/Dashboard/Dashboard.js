@@ -5,6 +5,7 @@ import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
 import TripService from '../../services/trip-service'
 import TripContext from '../../contexts/TripContext'
+import './Dashboard.css'
 
 export default class Dashboard extends React.Component{
     state = {
