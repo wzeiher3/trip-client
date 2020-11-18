@@ -1,10 +1,11 @@
-import React, { Component } from "react";
-import images from "../../assets/images/images";
+import React, { Component } from 'react';
+import images from '../../assets/images/images';
 
-import "./TripCards.css";
+import './TripCards.css';
 
 export default class TripCards extends Component {
   render() {
+    let rating = ['*', '**', '***', '****', '*****'];
     return (
       <>
         <div className="TripCard">
@@ -13,13 +14,16 @@ export default class TripCards extends Component {
           </div>
           <br />
           <div className="TripCard-title">
-            <h2>Philadelphia rules!</h2>
+            <h2>{this.props.title}</h2>
           </div>
           <div className="Categories">
-            <p>Categories: Tourist Attraction, Restaurants</p>
+            <p>Activities: {this.props.activities}</p>
           </div>
           <div className="TripCard-bottom">
-            <div className="TripCard-days">Days: 2</div>
+            <div className="TripCard-bottom-info">
+              Days {this.props.days} | Rating{' '}
+              <span>{rating[this.props.rating - 1]}</span>
+            </div>
           </div>
         </div>
       </>

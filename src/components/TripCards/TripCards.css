@@ -1,38 +1,49 @@
 .TripCard {
-  margin: auto;
   height: 400px;
   width: 250px;
   border-radius: 6px;
-  border: 1px rgb(73, 73, 73) solid;
+  border: 2px rgb(104, 104, 104) solid;
   overflow: hidden;
   text-align: center;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
+  background-color: white;
+  margin: auto;
+  margin-top: 25px;
+}
+
+.TripCard:hover {
+  box-shadow: 2px 11px 11px rgb(122, 122, 122);
+  border: 2px rgb(219, 219, 219) solid;
 }
 
 .TripCard-topimage {
   border-radius: 6px;
+  width: 250px;
 }
 
 .TripCard-title {
   color: black;
   font-weight: bold;
-  font-family: "Fredoka One";
+  font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
 }
 
 .TripCard-title > h2 {
-  font-size: 26px;
+  font-size: 28px;
+  font-weight: 500;
   padding-top: 15px;
   margin: 0;
 }
 
 .TripCard-topimage > img {
   height: 165px;
+  width: 250px;
 }
 
 .Categories {
-  padding-bottom: 20px;
+  padding-bottom: 30px;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .TripCard-bottom {
@@ -40,13 +51,25 @@
   height: 80px;
   width: 250px;
   color: white;
-  text-shadow: 4px 1px 1px black;
-  font-weight: bold;
-  font-family: "Fredoka One";
+  text-shadow: 2px 1px 1px black;
+  font-family: 'Fredoka One';
   letter-spacing: 2px;
-  font-size: 26px;
+  font-size: 18px;
 }
 
-.TripCard-days {
-  margin-top: 20px;
+.TripCard-bottom-info > span {
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.TripCard-bottom-info {
+  padding-top: 15px;
+  width: 250px;
+}
+
+@media all and (min-width: 800px) {
+  .TripCard {
+    margin: 0;
+    margin-top: 40px;
+  }
 }

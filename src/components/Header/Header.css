@@ -1,0 +1,32 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+header > span > h1 > a {
+  text-decoration: none;
+  color: rgb(230, 31, 130);
+  text-shadow: 2px 1px 2px rgb(0, 0, 0);
+  /* color: black; */
+}
+
+header > span > h1 {
+  font-family: 'Archivo Black', Arial, Helvetica, sans-serif;
+  font-size: 46px;
+  margin: 0;
+  display: inline-flex;
+  letter-spacing: -3px;
+}
+
+header > span > img {
+  width: 55px;
+  vertical-align: -34%;
+}
+
+nav {
+  padding: 10px;
+  font-weight: bold;
+  color: #65b1ef;
+}
