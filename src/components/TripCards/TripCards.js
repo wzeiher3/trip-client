@@ -31,7 +31,7 @@ export default class TripCards extends Component {
     return (
       <div className="TripCard">
         <div className="TripCard-topimage">
-          <img src={images.city} alt="city skyline"></img>
+          <img src={images[this.props.image]} alt="city skyline"></img>
         </div>
         <br />
         <div className="TripCard-title">

@@ -32,6 +32,7 @@ export default class Dashboard extends React.Component {
             destination={trip.destination}
             activities={trip.activities}
             short_description={trip.short_description}
+            image={trip.img}
           />
         </Link>
       );
