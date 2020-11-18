@@ -5,7 +5,25 @@ header {
   padding-right: 10px;
 }
 
-header > h1 {
-  font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
-  font-size: 44px;
+header > span > h1 > a {
+  text-decoration: none;
+  color: black;
+}
+
+header > span > h1 {
+  font-family: 'Archivo Black', Arial, Helvetica, sans-serif;
+  font-size: 48px;
+  margin: 0;
+  display: inline-flex;
+  letter-spacing: -3px;
+}
+
+header > span > img {
+  width: 55px;
+  vertical-align: -20%;
+}
+
+nav {
+  padding: 10px;
+  font-weight: bold;
 }

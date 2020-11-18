@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import TokenService from '../../services/token-service';
 import UserContext from '../../contexts/UserContext';
 import './Header.css';
+import images from '../../assets/images/images';
 
 class Header extends Component {
   static contextType = UserContext;
@@ -27,7 +28,7 @@ class Header extends Component {
   renderLoginLink() {
     return (
       <nav>
-        <Link to="/login">Login</Link> <Link to="/register">Sign up</Link>
+        <Link to="/login">Login</Link> | <Link to="/register">Sign up</Link>
       </nav>
     );
   }
@@ -35,9 +36,12 @@ class Header extends Component {
   render() {
     return (
       <header>
-        <h1>
-          <Link to="/">Ways</Link>
-        </h1>
+        <span>
+          <img src={images.map} alt="small globe" />
+          <h1>
+            <Link to="/">Ways</Link>
+          </h1>
+        </span>
         {TokenService.hasAuthToken()
           ? this.renderLogoutLink()
           : this.renderLoginLink()}

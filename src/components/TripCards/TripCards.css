@@ -13,8 +13,8 @@
 }
 
 .TripCard:hover {
-  box-shadow: 2px 11px 11px rgb(141, 141, 141);
-  border: 2px rgb(83, 83, 83) solid;
+  box-shadow: 2px 11px 11px rgb(175, 175, 175);
+  border: 2px rgb(179, 179, 179) solid;
 }
 
 .TripCard-topimage {
