@@ -11,6 +11,29 @@ const TripApiService = {
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     );
   },
+
+  getStops(trip_id) {
+    return fetch(`${config.API_ENDPOINT}/trips/stops/${trip_id}`, {
+      headers: {
+        Authorization: `bearer ${TokenService.getAuthToken()}`,
+      },
+    }).then((res) =>
+      !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+    );
+  },
+
+  postTrip(trip) {
+    return fetch(`${config.API_ENDPOINT}/trips`, {
+      method: 'POST',
+      headers: {
+        Authorization: `bearer ${TokenService.getAuthToken()}`,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(trip),
+    }).then((res) =>
+      !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+    );
+  },
   //   getHead() {
   //     return fetch(`${config.API_ENDPOINT}/language/head`, {
   //       headers: {
