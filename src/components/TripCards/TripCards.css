@@ -2,7 +2,7 @@
   height: 400px;
   width: 250px;
   border-radius: 6px;
-  border: 2px rgb(212, 212, 212) solid;
+  border: 2px rgb(104, 104, 104) solid;
   overflow: hidden;
   text-align: center;
   display: flex;
@@ -13,8 +13,8 @@
 }
 
 .TripCard:hover {
-  box-shadow: 2px 11px 11px rgb(175, 175, 175);
-  border: 2px rgb(179, 179, 179) solid;
+  box-shadow: 2px 11px 11px rgb(122, 122, 122);
+  border: 2px rgb(219, 219, 219) solid;
 }
 
 .TripCard-topimage {
@@ -29,7 +29,8 @@
 }
 
 .TripCard-title > h2 {
-  font-size: 26px;
+  font-size: 28px;
+  font-weight: 500;
   padding-top: 15px;
   margin: 0;
 }
@@ -69,5 +70,6 @@
 @media all and (min-width: 800px) {
   .TripCard {
     margin: 0;
+    margin-top: 40px;
   }
 }
