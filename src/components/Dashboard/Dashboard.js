@@ -24,17 +24,17 @@ export default class Dashboard extends React.Component {
   render() {
     const tripCards = this.context.trips.map((trip, index) => {
       return (
-        <Link key={index} to={`/trips/${trip.id}`}>
-          <TripCards
-            index={index}
-            days={trip.days}
-            rating={trip.rating}
-            destination={trip.destination}
-            activities={trip.activities}
-            short_description={trip.short_description}
-            image={trip.img}
-          />
-        </Link>
+        <TripCards
+          key={index}
+          id={trip.id}
+          index={index}
+          days={trip.days}
+          rating={trip.rating}
+          destination={trip.destination}
+          activities={trip.activities}
+          short_description={trip.short_description}
+          image={trip.img}
+        />
       );
     });
     return (

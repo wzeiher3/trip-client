@@ -9,9 +9,8 @@ import DashboardRoute from '../../routes/DashboardRoute/DashboardRoute';
 import TripContext from '../../contexts/TripContext';
 import NotFoundRoute from '../../routes/NotFoundRoute/NotFoundRoute';
 import AddTripForm from '../AddTripForm/AddTripForm';
-import Trip from '../Trip/Trip';
+import TripView from '../TripView/TripView';
 import './App.css';
-import GoogleMap from '../GoogleMap/GoogleMap';
 
 export default class App extends Component {
   state = {
@@ -63,7 +62,7 @@ export default class App extends Component {
             <Switch>
               <PrivateRoute exact path={'/add-trip'} component={AddTripForm} />
               <Route exact path={'/'} component={DashboardRoute} />
-              <Route path={'/trips/:trips_id'} component={Trip} />
+              <Route path={'/trips/:trips_id'} component={TripView} />
               <PublicOnlyRoute
                 path={'/register'}
                 component={RegistrationRoute}
