@@ -39,9 +39,13 @@
   width: 250px;
 }
 
-.Categories {
+.Activities {
   font-weight: bold;
   font-size: 18px;
+}
+
+.Activities > span {
+  color: rgb(70, 70, 70);
 }
 
 .TripCard-bottom {
