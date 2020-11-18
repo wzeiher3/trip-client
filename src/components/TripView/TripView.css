@@ -1,0 +1,24 @@
+:root {
+    --waysPink: #e61f82;
+    --waysBlue: #4554dd;
+}
+
+.trip {
+    border-top: 10px solid#4554dd;
+    border-radius: 20px;
+    margin-top: 4.5em;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.trip-stop {
+    margin-top: .4em;
+    border-bottom: 3px solid var(--waysBlue);
+    border-top: 4px solid var(--waysPink);
+    border-left: 4px solid var(--waysPink);
+    border-right: 4px solid var(--waysBlue);
+    border-radius: 20px;
+    width: 70%;
+}

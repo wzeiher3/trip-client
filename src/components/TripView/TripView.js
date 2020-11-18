@@ -1,7 +1,11 @@
 import React from 'react';
 import TripApiService from '../../services/trip-service';
+import TripContext from '../../contexts/TripContext'
+import './TripView.css'
 
 export default class Trip extends React.Component {
+  static contextType = TripContext
+
   state = {
     stops: [],
   };
@@ -15,12 +19,31 @@ export default class Trip extends React.Component {
 
   //    }
 
+  getTripDescription() {
+    const { match } = this.props
+    // this.context.currTripId = match.params.trips_id
+    let tripId = match.params.trips_id
+    // it doesn't look like context.trips is being set with the trips?
+    // I don't have time to look into it at the moment, but that seems to 
+    // be the issue
+    console.log(this.context.trips)
+    let tripDescription = ''
+    for (let i = 0; i < this.context.trips.length; i++) {
+      if (tripId === this.context.trips[i].id) {
+        console.log('found a match')
+        tripDescription = this.context.trips[i].short_description
+        return;
+      }
+    }
+    console.log(tripDescription)
+    return tripDescription
+  }
+
   componentDidMount() {
     // get trip ID
     const { match } = this.props;
 
     const trip_id = match.params.trips_id;
-
     // send trips_id with request body
 
     TripApiService.getStops(trip_id).then((res) =>
@@ -29,10 +52,13 @@ export default class Trip extends React.Component {
   }
 
   render() {
+    // testing the getTripDescription function
+  //  this.getTripDescription()
     console.log(this.state.stops);
     const stops = this.state.stops.map((stop, index) => {
       return (
-        <div key={index}>
+        <div className="trip-stop" key={index}>
+
           <div className="trip-header">
             <h2>{stop.stop_name}</h2>
             <span>
@@ -43,7 +69,13 @@ export default class Trip extends React.Component {
         </div>
       );
     });
-    return <div className="trip">{stops}</div>;
+    return (
+
+      <div className="trip">
+        <h2 className='trip-name'>Trip name here</h2>
+        {stops}
+      </div>
+    )
   }
 }
 
