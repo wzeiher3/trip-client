@@ -8,7 +8,9 @@ import LoginRoute from '../../routes/LoginRoute/LoginRoute';
 import DashboardRoute from '../../routes/DashboardRoute/DashboardRoute';
 import TripContext from '../../contexts/TripContext';
 import NotFoundRoute from '../../routes/NotFoundRoute/NotFoundRoute';
+
 import './App.css';
+import GoogleMap from '../GoogleMap/GoogleMap';
 
 export default class App extends Component {
   state = {
