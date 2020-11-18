@@ -24,7 +24,7 @@ export default class App extends Component {
 
   setTrips = (res) => {
     this.setState({
-      trips: res.trips,
+      trips: res,
     });
   };
 

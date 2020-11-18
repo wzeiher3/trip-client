@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import TripApiService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
 import TripCards from '../TripCards/TripCards';
+import './Dashboard.css';
 
 export default class Dashboard extends React.Component {
   state = {
@@ -22,7 +23,19 @@ export default class Dashboard extends React.Component {
 
   render() {
     console.log(this.context);
-
+    const tripCards = this.context.trips.map((trip, index) => {
+      return (
+        <Link to={`${trip.id}`}>
+          <TripCards
+            key={index}
+            days={trip.days}
+            rating={trip.rating}
+            title={trip.trip_title}
+            activities={trip.activities}
+          />
+        </Link>
+      );
+    });
     return (
       <section className="Dashboard">
         <div className="upperSection">
@@ -30,10 +43,7 @@ export default class Dashboard extends React.Component {
           <div className="titleDiv"></div>
           <div className="myTripButton"></div>
         </div>
-        <div className="lowerSection">
-          {' '}
-          <TripCards />
-        </div>
+        <div className="lowerSection">{tripCards}</div>
       </section>
     );
   }

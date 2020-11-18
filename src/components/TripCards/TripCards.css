@@ -1,24 +1,31 @@
 .TripCard {
-  margin: auto;
   height: 400px;
   width: 250px;
   border-radius: 6px;
-  border: 1px rgb(73, 73, 73) solid;
+  border: 2px rgb(212, 212, 212) solid;
   overflow: hidden;
   text-align: center;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
+  background-color: white;
+  margin: auto;
+  margin-top: 25px;
+}
+
+.TripCard:hover {
+  box-shadow: 2px 11px 11px rgb(141, 141, 141);
+  border: 2px rgb(83, 83, 83) solid;
 }
 
 .TripCard-topimage {
   border-radius: 6px;
+  width: 250px;
 }
 
 .TripCard-title {
   color: black;
   font-weight: bold;
-  font-family: 'Fredoka One';
+  font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
 }
 
 .TripCard-title > h2 {
@@ -29,6 +36,7 @@
 
 .TripCard-topimage > img {
   height: 165px;
+  width: 250px;
 }
 
 .Categories {
@@ -54,5 +62,12 @@
 }
 
 .TripCard-bottom-info {
-  margin-top: 15px;
+  padding-top: 15px;
+  width: 250px;
+}
+
+@media all and (min-width: 800px) {
+  .TripCard {
+    margin: 0;
+  }
 }

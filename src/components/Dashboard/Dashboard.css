@@ -1,15 +1,25 @@
-.addTripButton{
-    background-color: aqua;
+.addTripButton {
+  background-color: aqua;
 }
 
-.titleDiv{
-    background-color: cyan;
+.titleDiv {
+  background-color: cyan;
 }
 
-.myTripsButton{
-    background-color: cadetblue;
+.myTripsButton {
+  background-color: cadetblue;
 }
 
-.lowerSection{
-    background-color: cornsilk;
+.lowerSection {
+  background-color: rgb(231, 231, 231);
+  display: flex;
+  flex-direction: column;
+}
+
+@media all and (min-width: 800px) {
+  .lowerSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
 }
