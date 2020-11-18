@@ -8,7 +8,8 @@ import LoginRoute from '../../routes/LoginRoute/LoginRoute';
 import DashboardRoute from '../../routes/DashboardRoute/DashboardRoute';
 import TripContext from '../../contexts/TripContext';
 import NotFoundRoute from '../../routes/NotFoundRoute/NotFoundRoute';
-
+import AddTripForm from '../AddTripForm/AddTripForm';
+import Trip from '../Trip/Trip';
 import './App.css';
 import GoogleMap from '../GoogleMap/GoogleMap';
 
@@ -52,6 +53,7 @@ export default class App extends Component {
       setCurrTripId: this.setCurrTripId,
       addTrip: this.handleAddTrip,
     };
+
     return (
       <div className="App">
         <TripContext.Provider value={value}>
@@ -59,7 +61,9 @@ export default class App extends Component {
           <main>
             {hasError && <p>There was an error! Oh no!</p>}
             <Switch>
-              <PrivateRoute exact path={'/'} component={DashboardRoute} />
+              <PrivateRoute exact path={'/add-trip'} component={AddTripForm} />
+              <Route exact path={'/'} component={DashboardRoute} />
+              <Route path={'/trips/:trips_id'} component={Trip} />
               <PublicOnlyRoute
                 path={'/register'}
                 component={RegistrationRoute}

@@ -31,7 +31,6 @@
 .TripCard-title > h2 {
   font-size: 28px;
   font-weight: 500;
-  padding-top: 15px;
   margin: 0;
 }
 
@@ -41,13 +40,11 @@
 }
 
 .Categories {
-  padding-bottom: 30px;
   font-weight: bold;
   font-size: 18px;
 }
 
 .TripCard-bottom {
-  background-color: rgb(230, 31, 130);
   height: 80px;
   width: 250px;
   color: white;
@@ -57,13 +54,33 @@
   font-size: 18px;
 }
 
+.pink {
+  background-color: rgb(211, 62, 136);
+}
+
+.blue {
+  background-color: rgb(53, 135, 243);
+}
+
+.orange {
+  background-color: rgb(233, 159, 64);
+}
+
+.violet {
+  background-color: rgb(163, 83, 216);
+}
+
+.baby-blue {
+  background-color: rgb(68, 157, 230);
+}
+
 .TripCard-bottom-info > span {
   font-size: 20px;
   vertical-align: middle;
 }
 
 .TripCard-bottom-info {
-  padding-top: 15px;
+  padding-top: 25px;
   width: 250px;
 }
 

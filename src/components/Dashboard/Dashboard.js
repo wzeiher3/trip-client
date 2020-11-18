@@ -22,16 +22,16 @@ export default class Dashboard extends React.Component {
   }
 
   render() {
-    console.log(this.context);
     const tripCards = this.context.trips.map((trip, index) => {
       return (
-        <Link to={`/${trip.id}`}>
+        <Link key={index} to={`/trips/${trip.id}`}>
           <TripCards
-            key={index}
+            index={index}
             days={trip.days}
             rating={trip.rating}
-            title={trip.trip_title}
+            destination={trip.destination}
             activities={trip.activities}
+            short_description={trip.short_description}
           />
         </Link>
       );
@@ -39,9 +39,23 @@ export default class Dashboard extends React.Component {
     return (
       <section className="Dashboard">
         <div className="upperSection">
-          <div className="addTripButton"></div>
+          <div className="addTripButton">
+            <Link to="/add-trip">
+              <div className="myButton">Add a Trip!</div>
+            </Link>
+          </div>
+          <div className="tripSearchBar">
+            <label htmlFor="tripSearchBar">Search Bar</label>
+            <input
+              type="text"
+              placeholder={'Search Trips'}
+              name="tripSearchBar"
+            ></input>
+          </div>
           <div className="titleDiv"></div>
-          <div className="myTripButton"></div>
+          <div className="myTripButton">
+            <div className="myButton">My Trips</div>
+          </div>
         </div>
         <div className="lowerSection">{tripCards}</div>
       </section>
