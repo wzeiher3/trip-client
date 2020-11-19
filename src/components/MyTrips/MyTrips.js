@@ -10,10 +10,10 @@ export default class MyTrips extends Component {
     render() {
         let jwt = TokenService.getAuthToken()
         const user = TokenService.parseJwt(jwt)
-        console.log(user)
-
-        // const userTrips = this.context.trips.filter((trip) => userID === trip.user_id)
-        const tripCards = this.context.trips.map((trip, index) => {
+        // console.log(user)
+        const userTrips = this.context.trips.filter(trip => trip.user_id === user.user_id)
+        // console.log(userTrips)
+        const tripCards = userTrips.map((trip, index) => {
             return (
               <TripCards
                 key={index}
