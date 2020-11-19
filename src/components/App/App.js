@@ -10,8 +10,9 @@ import TripContext from '../../contexts/TripContext';
 import NotFoundRoute from '../../routes/NotFoundRoute/NotFoundRoute';
 import AddTripForm from '../AddTripForm/AddTripForm';
 import TripView from '../TripView/TripView';
-import './App.css';
+import MyTrips from '../MyTrips/MyTrips';
 import TripApiService from '../../services/trip-service';
+import './App.css';
 
 export default class App extends Component {
   state = {
@@ -53,7 +54,6 @@ export default class App extends Component {
 
   render() {
     const { hasError } = this.state;
-
     const value = {
       trips: this.state.trips,
       currTripId: this.state.currTripId,
@@ -70,6 +70,7 @@ export default class App extends Component {
             {hasError && <p>There was an error! Oh no!</p>}
             <Switch>
               <PrivateRoute exact path={'/add-trip'} component={AddTripForm} />
+              <Route path={'/my-trips'} component={MyTrips} />
               <Route exact path={'/'} component={DashboardRoute} />
               <Route path={'/trips/:trips_id'} component={TripView} />
               <PublicOnlyRoute

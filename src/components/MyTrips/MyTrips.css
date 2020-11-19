@@ -1,0 +1,21 @@
+.my-trips {
+    display: flex;
+    flex-direction: row;
+    margin-top: 3em;
+    margin-left: 0;
+    padding-left: 2em;
+    padding-right: 3em;
+    border-top: 5px solid var(--waysBlue);
+    border-radius: 20px;
+}
+
+.trip-cards {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 1em;
+}
+
+.TripCard {
+    margin: 1em;
+}
