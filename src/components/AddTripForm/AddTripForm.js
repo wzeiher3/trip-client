@@ -42,6 +42,8 @@ export default class AddTripForm extends React.Component {
     console.log(this.context.trips);
   };
 
+  
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>

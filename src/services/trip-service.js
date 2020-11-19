@@ -34,6 +34,19 @@ const TripApiService = {
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     );
   },
+
+  postStop(tripId, stop) {
+    return fetch(`${config.API_ENDPOINT}trips/${tripId}/stops`, {
+      method: 'POST',
+      headers: {
+        Authorization: `bearer ${TokenService.getAuthToken()}`,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(stop),
+    }).then((res) =>
+      !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+    );
+  },
   //   getHead() {
   //     return fetch(`${config.API_ENDPOINT}/language/head`, {
   //       headers: {
