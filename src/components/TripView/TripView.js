@@ -53,7 +53,7 @@ export default class Trip extends React.Component {
     };
     let currentStops = this.context.stops;
     
-    TripService.postStop(tripId, stop)
+    TripApiService.postStop(tripId, stop)
       .then((res) => {
         this.context.setStops([res, ...currentStops]);
         this.props.history.push('/');
@@ -85,7 +85,7 @@ export default class Trip extends React.Component {
           Input any notes about your stop
         </label>
         <input type="text" name="description" />
-        <button className="myButton" type="submit" onClick={() => {this.handleSubmitStop}}>
+        <button className="myButton" type="submit" onClick={() => this.handleSubmitStop}>
           Submit!
         </button>
       </form>
