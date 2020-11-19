@@ -11,7 +11,7 @@ export default class MyTrips extends Component {
         let jwt = TokenService.getAuthToken()
         const user = TokenService.parseJwt(jwt)
         
-        const userTrips = this.context.trips.filter(trip => trip.user_id === user.user_id)
+        const userTrips = this.context.trips.map(trip => trip.user_id === user.user_id)
         
         const tripCards = userTrips.map((trip, index) => {
             return (

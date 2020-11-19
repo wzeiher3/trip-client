@@ -15,11 +15,11 @@ export default class Trip extends React.Component {
     formExpanded: false,
   };
 
-  componentDidUpdate() {
-    if (this.state.trip.length === 0 && this.context.trips.length !== 0) {
-      this.setState({ trip: this.context.trips[this.state.currTripID - 1] });
-    }
-  }
+  // componentDidUpdate() {
+  //   if (this.state.trip.length === 0 && this.context.trips.length !== 0) {
+  //     this.setState({ trip: this.context.trips[this.state.currTripID - 1] });
+  //   }
+  // }
 
   componentDidMount() {
     // get trip ID
