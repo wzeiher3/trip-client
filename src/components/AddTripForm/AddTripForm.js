@@ -115,6 +115,7 @@ export default class AddTripForm extends React.Component {
                 onChange={(e) => this.setState({ activities: e.target.value })}
                 type="text"
                 name="activities"
+                placeholder={'Shopping, Sight-seeing, Gnoshing...'}
               />
               <br />
               <div className="trip-rating-days">
