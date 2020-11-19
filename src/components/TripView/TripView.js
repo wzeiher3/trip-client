@@ -1,6 +1,7 @@
 import React from 'react';
 import TripApiService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
+import { Link } from 'react-router-dom'
 import './TripView.css';
 
 export default class Trip extends React.Component {
@@ -9,39 +10,32 @@ export default class Trip extends React.Component {
   state = {
     stops: [],
     currTripID: 0,
-    trips: [],
+    trip: [],
     tripDescription: '',
   };
 
-  getTripDescription() {
-    this.setState({ trips: [...this.context.trips] });
-    let tripID = this.state.currTripID;
-
-    let tripDescription = this.state.trips[tripID].short_description;
-
-    this.setState({ tripDescription: tripDescription });
-    console.log('trip desc:', this.state.tripDescription);
-    // return tripDescription
+  componentDidUpdate() {
+    if (this.state.trip.length === 0 && this.context.trips.length !== 0) {
+      this.setState({ trip: this.context.trips[this.state.currTripID - 1]})
+    }
   }
 
   componentDidMount() {
     // get trip ID
     const { match } = this.props;
-
+    // set trip_id variable
     const trip_id = match.params.trips_id;
 
+    // get stops for the current trip
     TripApiService.getStops(trip_id).then((res) =>
-      this.setState({ stops: [...res] })
-    );
-    this.setState({ currTripID: trip_id });
-    // this.getTripDescription()
-  }
+      // set the state with stops, currTripID
+      this.setState({ stops: [...res], currTripID: trip_id })
+    );    
+  };
 
   render() {
-    // console.log(this.state.currTripID)
-    // testing the getTripDescription function
-    console.log(this.context);
-    // this.getTripDescription()
+
+    // console.log(this.state)
     const stops = this.state.stops.map((stop, index) => {
       return (
         <div className="trip-stop" key={index}>
@@ -57,8 +51,14 @@ export default class Trip extends React.Component {
     });
     return (
       <div className="trip">
-        <h2 className="trip-name">{this.state.tripDescription}</h2>
+        <div className="addStopButton">
+            <Link to="/add-stop">
+              <div className="myButton">Add a Stop!</div>
+            </Link>
+          </div>
+        <h2 className="trip-name">{this.state.trip.short_description}</h2>
         {stops}
+
       </div>
     );
   }
