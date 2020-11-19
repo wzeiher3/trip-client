@@ -12,7 +12,7 @@ export default class AddTripForm extends React.Component {
     short_description: 'Times Square',
     activities: 'Shopping',
     days: 2,
-    rating: 0,
+    rating: 5,
     destination: 'New York, NY',
     error: null,
     images: [
@@ -32,12 +32,20 @@ export default class AddTripForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.setState({ error: null });
-    const { short_description, destination, days, activities } = e.target;
+    const {
+      rating,
+      short_description,
+      destination,
+      days,
+      activities,
+    } = e.target;
     let trip = {
+      rating: rating.value,
       destination: destination.value,
       short_description: short_description.value,
       days: days.value,
       activities: activities.value,
+      img: this.state.images[this.state.imagesScroll],
     };
     let currentTrips = this.context.trips;
     TripService.postTrip(trip)
@@ -109,16 +117,31 @@ export default class AddTripForm extends React.Component {
                 name="activities"
               />
               <br />
-              <label htmlFor="days">
-                How many days does your trip take to complete?
-              </label>
-              <input
-                onChange={(e) => this.setState({ days: e.target.value })}
-                placeholder={1}
-                type="number"
-                id="days"
-                name="days"
-              />
+              <div className="trip-rating-days">
+                <label htmlFor="days">
+                  How many days does your trip take to complete?
+                </label>
+                <input
+                  onChange={(e) => this.setState({ days: e.target.value })}
+                  placeholder={1}
+                  type="number"
+                  id="days"
+                  name="days"
+                />
+              </div>
+              <br />
+              <div className="trip-rating-days">
+                <label htmlFor="rating">Rating:</label>
+                <input
+                  onChange={(e) => this.setState({ rating: e.target.value })}
+                  placeholder={5}
+                  type="number"
+                  id="rating"
+                  name="rating"
+                  maxLength={5}
+                  minLength={1}
+                />
+              </div>
               <br />
               <div className="button-wrapper">
                 <button className="myButton" type="submit">
@@ -154,7 +177,8 @@ export default class AddTripForm extends React.Component {
               </div>
               <div className={`TripCard-bottom blue`}>
                 <div className="TripCard-bottom-info">
-                  Days {this.state.days} | Rating <span>N/A</span>
+                  Days {this.state.days} | Rating{' '}
+                  <span>{this.state.rating}</span>
                 </div>
               </div>
             </div>

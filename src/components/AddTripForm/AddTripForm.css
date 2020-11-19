@@ -25,10 +25,17 @@
   color: rgb(184, 184, 184);
 }
 
-#days {
+#days,
+#rating {
   text-align: center;
   width: 120px;
   margin-left: 10px;
+}
+
+.trip-rating-days {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .TripCardDemo {
