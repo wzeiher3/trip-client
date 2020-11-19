@@ -8,35 +8,20 @@ export default class Trip extends React.Component {
 
   state = {
     stops: [],
+    currTripID: 0,
+    trips: [],
+    tripDescription: '',
   };
 
-  //    getTripStops = () => {
-  //        const { match } = this.props
-
-  //        const trip_id = match.params.trips_id
-
-  //        return trip_id
-
-  //    }
-
   getTripDescription() {
-    const { match } = this.props
-    // this.context.currTripId = match.params.trips_id
-    let tripId = match.params.trips_id
-    // it doesn't look like context.trips is being set with the trips?
-    // I don't have time to look into it at the moment, but that seems to 
-    // be the issue
-    console.log(this.context.trips)
-    let tripDescription = ''
-    for (let i = 0; i < this.context.trips.length; i++) {
-      if (tripId === this.context.trips[i].id) {
-        console.log('found a match')
-        tripDescription = this.context.trips[i].short_description
-        return;
-      }
-    }
-    console.log(tripDescription)
-    return tripDescription
+    this.setState({ trips: [...this.context.trips]})
+    let tripID = this.state.currTripID
+    
+    let tripDescription = this.state.trips[tripID].short_description
+    
+    this.setState({tripDescription: tripDescription})
+    console.log('trip desc:', this.state.tripDescription)
+    // return tripDescription
   }
 
   componentDidMount() {
@@ -44,17 +29,19 @@ export default class Trip extends React.Component {
     const { match } = this.props;
 
     const trip_id = match.params.trips_id;
-    // send trips_id with request body
-
+   
     TripApiService.getStops(trip_id).then((res) =>
       this.setState({ stops: [...res] })
     );
+    this.setState({currTripID: trip_id})
+    // this.getTripDescription()
   }
-
+  
   render() {
+    console.log(this.state.currTripID)
     // testing the getTripDescription function
-  //  this.getTripDescription()
-    console.log(this.state.stops);
+    // console.log(this.context.trips)
+    // this.getTripDescription()
     const stops = this.state.stops.map((stop, index) => {
       return (
         <div className="trip-stop" key={index}>
@@ -72,7 +59,7 @@ export default class Trip extends React.Component {
     return (
 
       <div className="trip">
-        <h2 className='trip-name'>Trip name here</h2>
+        <h2 className='trip-name'>{this.state.tripDescription}</h2>
         {stops}
       </div>
     )

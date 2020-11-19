@@ -11,6 +11,7 @@ import NotFoundRoute from '../../routes/NotFoundRoute/NotFoundRoute';
 import AddTripForm from '../AddTripForm/AddTripForm';
 import TripView from '../TripView/TripView';
 import './App.css';
+import TripApiService from '../../services/trip-service';
 
 export default class App extends Component {
   state = {
