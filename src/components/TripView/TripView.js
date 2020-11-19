@@ -1,7 +1,6 @@
 import React from 'react';
 import TripApiService from '../../services/trip-service';
-import TripContext from '../../contexts/TripContext';
-import TripService from '../../services/trip-service'
+import TripContext from '../../contexts/TripContext'; 
 import { Link } from 'react-router-dom'
 import './TripView.css';
 
