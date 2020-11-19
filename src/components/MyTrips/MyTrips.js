@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import TripContext from '../../contexts/TripContext'
 import TripCards from '../TripCards/TripCards'
 import TokenService from '../../services/token-service'
+import './MyTrips.css'
 
 
 export default class MyTrips extends Component {
@@ -32,7 +33,9 @@ export default class MyTrips extends Component {
             <section className="my-trips">
                 <h2>My Trips</h2>
                 <hr />
+                <div className="trip-cards">
                 {tripCards}
+                </div>
             </section>
 
         )
