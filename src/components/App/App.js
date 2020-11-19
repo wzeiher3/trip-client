@@ -17,6 +17,7 @@ export default class App extends Component {
   state = {
     hasError: false,
     trips: [],
+    stops: [],
     currTripId: null,
   };
 
@@ -37,6 +38,23 @@ export default class App extends Component {
       currTripId: id,
     });
   };
+
+  findTrip = (id) => {
+     const {trips} = this.state;
+
+    const trip =  trips.map(trip => id === trip.id)
+
+    if(!trip)
+        return "There is no Trip of this Id"
+    else  
+        return trip
+  }
+
+  setStops = (stops) => {
+      this.setState({
+        stops: stops
+      })
+  }
 
   handleAddTrip = (trip) => {
     this.setState({
@@ -61,6 +79,8 @@ export default class App extends Component {
       setTrips: this.setTrips,
       setCurrTripId: this.setCurrTripId,
       addTrip: this.handleAddTrip,
+      findTrip: this.findTrip,
+      setStops: this.setStops,
     };
 
     return (

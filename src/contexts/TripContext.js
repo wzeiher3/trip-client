@@ -6,6 +6,8 @@ const TripContext = React.createContext({
   setCurrTripId: () => {},
   setTrips: () => {},
   addTrip: () => {},
+  setStops: () => {},
+  findTrip: () => {},
 });
 
 export default TripContext;
