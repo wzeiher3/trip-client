@@ -26,7 +26,6 @@ export default class App extends Component {
   }
 
   setTrips = (res) => {
-    console.log('this is happening!');
     this.setState({
       trips: res,
     });

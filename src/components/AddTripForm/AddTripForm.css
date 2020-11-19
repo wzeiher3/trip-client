@@ -1,0 +1,77 @@
+.addTripForm {
+  padding: 10px;
+  width: 100%;
+  margin: auto;
+}
+
+.addTripForm > label {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.addTripForm > input {
+  margin-bottom: 12px;
+}
+
+.addTripSection > div > h2 {
+  font-size: 44px;
+  font-weight: bold;
+  color: #65b1ef;
+  text-align: center;
+  font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
+}
+
+.addTripForm > input::-webkit-input-placeholder {
+  color: rgb(184, 184, 184);
+}
+
+#days {
+  text-align: center;
+  width: 120px;
+  margin-left: 10px;
+}
+
+.TripCardDemo {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.TripCardDemo-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
+.TripCardDemo-wrapper > img {
+  width: 50px;
+  height: 50px;
+  align-self: flex-start;
+  margin: 100px 5px 0px 5px;
+}
+
+.TripCardDemo-wrapper > img:active {
+  margin-top: 101px;
+}
+
+@media all and (min-width: 460px) {
+  .addTripForm {
+    width: 600px;
+  }
+  .addTripForm > input {
+    margin-bottom: 12px;
+  }
+  .TripCardDemo-wrapper {
+    width: 600px;
+  }
+}
+
+@media all and (max-width: 350px) {
+  .TripCardDemo-wrapper > img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .TripCard-bottom-info {
+    width: 200px;
+  }
+}

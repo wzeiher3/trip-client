@@ -20,7 +20,6 @@ export default class Trip extends React.Component {
     let tripDescription = this.state.trips[tripID].short_description;
 
     this.setState({ tripDescription: tripDescription });
-    console.log('trip desc:', this.state.tripDescription);
     // return tripDescription
   }
 
@@ -40,7 +39,6 @@ export default class Trip extends React.Component {
   render() {
     // console.log(this.state.currTripID)
     // testing the getTripDescription function
-    console.log(this.context);
     // this.getTripDescription()
     const stops = this.state.stops.map((stop, index) => {
       return (

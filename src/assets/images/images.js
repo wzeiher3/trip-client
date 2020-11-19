@@ -6,8 +6,12 @@ import mountain from './mountain.jpg';
 import countryside from './countryside.jpg';
 import restaurant from './countryside.jpg';
 import amusementpark from './amusementpark.jpg';
+import arrow_left from './arrow-left.png';
+import arrow_right from './arrow-right.png';
 
 let images = {
+  arrow_left,
+  arrow_right,
   city,
   map,
   nightlife,
