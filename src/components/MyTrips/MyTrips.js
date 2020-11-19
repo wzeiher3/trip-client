@@ -31,8 +31,11 @@ export default class MyTrips extends Component {
           });
         return (
             <section className="my-trips">
+                <div className="my-trips-header">
+
                 <h2>My Trips</h2>
                 <hr />
+                </div>
                 <div className="trip-cards">
                 {tripCards}
                 </div>
