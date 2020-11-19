@@ -12,6 +12,7 @@ export default class Trip extends React.Component {
     currTripID: 0,
     trip: [],
     tripDescription: '',
+    formExpanded: false,
   };
 
   componentDidUpdate() {
@@ -52,9 +53,9 @@ export default class Trip extends React.Component {
     return (
       <div className="trip">
         <div className="addStopButton">
-            <Link to="/add-stop">
-              <div className="myButton">Add a Stop!</div>
-            </Link>
+            
+              <div className="myButton" onClick={this.setState({formExpanded: true})}>Add a Stop!</div>
+            
           </div>
         <h2 className="trip-name">{this.state.trip.short_description}</h2>
         {stops}
