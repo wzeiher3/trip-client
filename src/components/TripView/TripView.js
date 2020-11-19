@@ -85,7 +85,7 @@ export default class Trip extends React.Component {
           Input any notes about your stop
         </label>
         <input type="text" name="description" />
-        <button className="myButton" type="submit">
+        <button className="myButton" type="submit" onClick={() => {this.handleSubmitStop}}>
           Submit!
         </button>
       </form>
@@ -115,11 +115,11 @@ export default class Trip extends React.Component {
         {stops}
 
         
-        {/* {this.renderStopForm && this.state.formExpanded } */}
+        {this.renderStopForm && this.state.formExpanded }
         
         <div className="addStopButton">
             
-              <div className="myButton" onClick={this.setState({formExpanded: true})}>Add a Stop!</div>
+              <div className="myButton" onClick={() =>{this.setState({formExpanded: true})}}>Add a Stop!</div>
             
           </div>
 
