@@ -13,13 +13,14 @@ export default class Trip extends React.Component {
     trip: [],
     tripDescription: '',
     formExpanded: false,
+    updated: false,
   };
 
-  // componentDidUpdate() {
-  //   if (this.state.trip.length === 0 && this.context.trips.length !== 0) {
-  //     this.setState({ trip: this.context.trips[this.state.currTripID - 1] });
-  //   }
-  // }
+  componentDidUpdate() {
+    if (this.state.trip.length === 0 && this.context.trips.length !== 0) {
+      this.setState({ trip: this.context.trips[this.state.currTripID - 1] });
+    }
+  }
 
   componentDidMount() {
     // get trip ID
@@ -33,14 +34,24 @@ export default class Trip extends React.Component {
       this.setState({ stops: [...res], currTripID: trip_id })
     );
   }
+   
 
+  updateState = () => {
+    this.setState({formExpanded: !this.state.formExpanded})
+    console.log(this.state.formExpanded)
+  }
 
   handleSubmitStop = (e) => {
     e.preventDefault();
     this.setState({ error: null });
     const { stop_name, description, category, city, state } = e.target;
 
-    let tripId = this.context.currTripId;
+    const { match } = this.props;
+    // set trip_id variable
+    
+
+    let tripId = match.params.trips_id;;
+    console.log('this is tripId', tripId)
     let stop = {
       trip_id: tripId,
       longitude: "temp", 
@@ -53,15 +64,17 @@ export default class Trip extends React.Component {
     };
     let currentStops = this.context.stops;
     
-    TripApiService.postStop(tripId, stop)
+    TripApiService.postStop(stop)
       .then((res) => {
+        console.log(res)
         this.context.setStops([res, ...currentStops]);
-        this.props.history.push('/');
+        // this.props.history.push('/');
+        this.updateState()
       })
       .catch((error) => {
         this.setState({ error });
       });
-    console.log(this.context.stops);
+      // this.setState({updated: !this.state.updated});
   };
 
   renderStopForm = () => {
@@ -72,11 +85,11 @@ export default class Trip extends React.Component {
         <label htmlFor="city">
           City
         </label>
-        <input type="number" name="city" />
+        <input type="text" name="city" />
         <label htmlFor="state">
           State
         </label>
-        <input type="number" name="state" />
+        <input type="text" name="state" />
         <label htmlFor="category">
           What kind of stop is this?
         </label>
@@ -119,9 +132,7 @@ export default class Trip extends React.Component {
         {this.state.formExpanded ? this.renderStopForm() : null}
         
         <div className="addStopButton">
-            
               <div className="myButton" onClick={() =>{this.setState({formExpanded: !this.state.formExpanded})}}>Add a Stop!</div>
-            
           </div>
 
       </div>
