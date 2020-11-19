@@ -22,6 +22,10 @@
   width: 250px;
 }
 
+.TripCard-middle-section {
+  height: 133px;
+}
+
 .TripCard-title {
   color: black;
   font-weight: bold;
@@ -32,6 +36,7 @@
   font-size: 28px;
   font-weight: 500;
   margin: 0;
+  padding: 0;
 }
 
 .TripCard-topimage > img {
@@ -41,7 +46,9 @@
 
 .Activities {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 17px;
+  min-height: 18px;
+  padding-left: 1px;
 }
 
 .Activities > span {
@@ -52,9 +59,8 @@
   height: 80px;
   width: 250px;
   color: white;
-  text-shadow: 2px 1px 1px black;
+  text-shadow: 2px 1px 1px rgb(36, 36, 36);
   font-family: 'Fredoka One';
-  letter-spacing: 2px;
   font-size: 18px;
 }
 

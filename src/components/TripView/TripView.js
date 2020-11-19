@@ -15,11 +15,11 @@ export default class Trip extends React.Component {
     formExpanded: false,
   };
 
-  componentDidUpdate() {
-    if (this.state.trip.length === 0 && this.context.trips.length !== 0) {
-      this.setState({ trip: this.context.trips[this.state.currTripID - 1]})
-    }
-  }
+  // componentDidUpdate() {
+  //   if (this.state.trip.length === 0 && this.context.trips.length !== 0) {
+  //     this.setState({ trip: this.context.trips[this.state.currTripID - 1] });
+  //   }
+  // }
 
   componentDidMount() {
     // get trip ID
@@ -31,8 +31,8 @@ export default class Trip extends React.Component {
     TripApiService.getStops(trip_id).then((res) =>
       // set the state with stops, currTripID
       this.setState({ stops: [...res], currTripID: trip_id })
-    );    
-  };
+    );
+  }
 
 
   handleSubmitStop = (e) => {
@@ -94,8 +94,9 @@ export default class Trip extends React.Component {
   }
 
   render() {
-
-    // console.log(this.state)
+    // console.log(this.state.currTripID)
+    // testing the getTripDescription function
+    // this.getTripDescription()
     const stops = this.state.stops.map((stop, index) => {
       return (
         <div className="trip-stop" key={index}>

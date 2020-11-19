@@ -4,30 +4,21 @@ import { Link } from 'react-router-dom';
 
 import './TripCards.css';
 
+let sequence = 0;
+
 export default class TripCards extends Component {
-  sequenceColorOnCard = (index) => {
-    let colors = [
-      'blue',
-      'pink',
-      'orange',
-      'violet',
-      'baby-blue',
-      'blue',
-      'pink',
-      'orange',
-      'violet',
-      'blue',
-      'baby-blue',
-    ];
-    let number = index;
-    if (index > 10) {
-      number = Math.floor(index / 10);
+  sequenceColorOnCard = () => {
+    let colors = ['blue', 'pink', 'orange', 'violet', 'baby-blue'];
+    if (sequence > 4) {
+      sequence = 0;
     }
+    let number = sequence;
+    sequence++;
     return colors[number];
   };
 
   render() {
-    let color = this.sequenceColorOnCard(this.props.index);
+    let color = this.sequenceColorOnCard();
     let rating = ['*', '**', '***', '****', '*****'];
     return (
       <div className="TripCard">
@@ -37,12 +28,14 @@ export default class TripCards extends Component {
               <img src={images[this.props.image]} alt="city skyline"></img>
             </div>
             <br />
-            <div className="TripCard-title">
-              <h2>{this.props.destination}</h2>
-            </div>
-            <div className="Activities">
-              <span>{this.props.short_description}</span>
-              <p>Activities: {this.props.activities}</p>
+            <div className="TripCard-middle-section">
+              <div className="TripCard-title">
+                <h2>{this.props.destination}</h2>
+              </div>
+              <div className="Activities">
+                <span>{this.props.short_description}</span>
+                <p>Activities: {this.props.activities}</p>
+              </div>
             </div>
             <div className={`TripCard-bottom ${color}`}>
               <div className="TripCard-bottom-info">
