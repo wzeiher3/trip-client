@@ -26,6 +26,7 @@ export default class App extends Component {
   }
 
   setTrips = (res) => {
+    console.log('this is happening!');
     this.setState({
       trips: res,
     });
@@ -41,6 +42,14 @@ export default class App extends Component {
     this.setState({
       trips: [...this.state.trips, trip],
     });
+  };
+
+  componentDidMount = () => {
+    TripApiService.getTrips()
+      .then((res) => {
+        this.setTrips(res);
+      })
+      .catch((error) => this.setState({ error: error }));
   };
 
   render() {

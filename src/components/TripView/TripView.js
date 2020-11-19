@@ -1,10 +1,10 @@
 import React from 'react';
 import TripApiService from '../../services/trip-service';
-import TripContext from '../../contexts/TripContext'
-import './TripView.css'
+import TripContext from '../../contexts/TripContext';
+import './TripView.css';
 
 export default class Trip extends React.Component {
-  static contextType = TripContext
+  static contextType = TripContext;
 
   state = {
     stops: [],
@@ -14,13 +14,13 @@ export default class Trip extends React.Component {
   };
 
   getTripDescription() {
-    this.setState({ trips: [...this.context.trips]})
-    let tripID = this.state.currTripID
-    
-    let tripDescription = this.state.trips[tripID].short_description
-    
-    this.setState({tripDescription: tripDescription})
-    console.log('trip desc:', this.state.tripDescription)
+    this.setState({ trips: [...this.context.trips] });
+    let tripID = this.state.currTripID;
+
+    let tripDescription = this.state.trips[tripID].short_description;
+
+    this.setState({ tripDescription: tripDescription });
+    console.log('trip desc:', this.state.tripDescription);
     // return tripDescription
   }
 
@@ -29,23 +29,22 @@ export default class Trip extends React.Component {
     const { match } = this.props;
 
     const trip_id = match.params.trips_id;
-   
+
     TripApiService.getStops(trip_id).then((res) =>
       this.setState({ stops: [...res] })
     );
-    this.setState({currTripID: trip_id})
+    this.setState({ currTripID: trip_id });
     // this.getTripDescription()
   }
-  
+
   render() {
-    console.log(this.state.currTripID)
+    // console.log(this.state.currTripID)
     // testing the getTripDescription function
-    // console.log(this.context.trips)
+    console.log(this.context);
     // this.getTripDescription()
     const stops = this.state.stops.map((stop, index) => {
       return (
         <div className="trip-stop" key={index}>
-
           <div className="trip-header">
             <h2>{stop.stop_name}</h2>
             <span>
@@ -57,12 +56,11 @@ export default class Trip extends React.Component {
       );
     });
     return (
-
       <div className="trip">
-        <h2 className='trip-name'>{this.state.tripDescription}</h2>
+        <h2 className="trip-name">{this.state.tripDescription}</h2>
         {stops}
       </div>
-    )
+    );
   }
 }
 
