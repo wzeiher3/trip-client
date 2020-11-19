@@ -55,7 +55,9 @@ export default class Dashboard extends React.Component {
           </div>
           <div className="titleDiv"></div>
           <div className="myTripButton">
-            <div className="myButton">My Trips</div>
+            <Link to='/my-trips'>
+              <div className="myButton">My Trips</div>
+            </Link>
           </div>
         </div>
         <div className="lowerSection">{tripCards}</div>
