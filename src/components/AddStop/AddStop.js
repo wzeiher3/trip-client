@@ -20,14 +20,15 @@ export default class AddTripForm extends React.Component {
     this.setState({ error: null });
     const { stop_name, description, category } = e.target;
 
-
+    let tripId = this.context.currTripId;
     let stop = {
+      trip_id: tripId,
       stop_name: stop_name.value,
       description: description.value,
       category: category.value,
     };
     let currentStops = this.context.stops;
-    let tripId = this.context.currTripId;
+    
     TripService.postStop(tripId, stop)
       .then((res) => {
         this.context.setStops([res, ...currentStops]);
