@@ -116,11 +116,11 @@ export default class Trip extends React.Component {
         {stops}
 
         
-        {this.renderStopForm && this.state.formExpanded }
+        {this.state.formExpanded ? this.renderStopForm() : null}
         
         <div className="addStopButton">
             
-              <div className="myButton" onClick={() =>{this.setState({formExpanded: true})}}>Add a Stop!</div>
+              <div className="myButton" onClick={() =>{this.setState({formExpanded: !this.state.formExpanded})}}>Add a Stop!</div>
             
           </div>
 
