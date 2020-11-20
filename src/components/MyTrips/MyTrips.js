@@ -8,13 +8,11 @@ export default class MyTrips extends Component {
   static contextType = TripContext;
 
   state = {
-      displayOptions: false,
-      userTrips: [],
+    displayOptions: false,
+    userTrips: [],
   };
 
-  handleDeleteTrip = () => {
-    
-  };
+  handleDeleteTrip = () => {};
 
   render() {
     let jwt = TokenService.getAuthToken();
@@ -26,32 +24,38 @@ export default class MyTrips extends Component {
 
     const tripCards = userTrips.map((trip, index) => {
       return (
-          <div className='my-trip-card-wrapper'  onMouseEnter={() => this.setState({displayOptions: true})} onMouseLeave={() => this.setState({displayOptions: false})}>
-           
-        <TripCards
+        <div
           key={index}
-          id={trip.id}
-          index={index}
-          days={trip.days}
-          rating={trip.rating}
-          destination={trip.destination}
-          activities={trip.activities}
-          short_description={trip.short_description}
-          image={trip.img}
-        />
-         {this.state.displayOptions ? 
-        <div className="edit-delete-trip-buttons">
-
-         <div className="button-wrapper">
+          className="my-trip-card-wrapper"
+          onMouseEnter={() => this.setState({ displayOptions: true })}
+          onMouseLeave={() => this.setState({ displayOptions: false })}
+        >
+          <TripCards
+            id={trip.id}
+            index={index}
+            days={trip.days}
+            rating={trip.rating}
+            destination={trip.destination}
+            activities={trip.activities}
+            short_description={trip.short_description}
+            image={trip.img}
+          />
+          {this.state.displayOptions ? (
+            <div className="edit-delete-trip-buttons">
               <div className="button-wrapper">
-                <button className="myButton delete-btn" type="click" onClick={() => this.handleDeleteTrip}>
-                  Delete trip
-                </button>
+                <div className="button-wrapper">
+                  <button
+                    className="myButton delete-btn"
+                    type="click"
+                    onClick={() => this.handleDeleteTrip}
+                  >
+                    Delete trip
+                  </button>
+                </div>
               </div>
+            </div>
+          ) : null}
         </div>
-        </div>
-        : null}
-        </div> 
       );
     });
     return (
@@ -60,7 +64,7 @@ export default class MyTrips extends Component {
           <h2>My Trips</h2>
           <hr />
         </div>
-        <div className="my-trip-cards" >{tripCards}</div>
+        <div className="my-trip-cards">{tripCards}</div>
       </section>
     );
   }
