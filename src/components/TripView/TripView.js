@@ -1,7 +1,7 @@
 import React from 'react';
 import TripApiService from '../../services/trip-service';
-import TripContext from '../../contexts/TripContext';
-import { Link } from 'react-router-dom';
+import TripContext from '../../contexts/TripContext'; 
+import { Link } from 'react-router-dom'
 import './TripView.css';
 
 export default class Trip extends React.Component {
@@ -13,13 +13,14 @@ export default class Trip extends React.Component {
     trip: [],
     tripDescription: '',
     formExpanded: false,
+    updated: false,
   };
 
-  // componentDidUpdate() {
-  //   if (this.state.trip.length === 0 && this.context.trips.length !== 0) {
-  //     this.setState({ trip: this.context.trips[this.state.currTripID - 1] });
-  //   }
-  // }
+  componentDidUpdate() {
+    if (this.state.trip.length === 0 && this.context.trips.length !== 0) {
+      this.setState({ trip: this.context.trips[this.state.currTripID - 1] });
+    }
+  }
 
   componentDidMount() {
     // get trip ID
@@ -32,6 +33,77 @@ export default class Trip extends React.Component {
       // set the state with stops, currTripID
       this.setState({ stops: [...res], currTripID: trip_id })
     );
+  }
+   
+
+  updateState = () => {
+    this.setState({formExpanded: !this.state.formExpanded})
+    console.log(this.state.formExpanded)
+  }
+
+  handleSubmitStop = (e) => {
+    e.preventDefault();
+    this.setState({ error: null });
+    const { stop_name, description, category, city, state } = e.target;
+
+    const { match } = this.props;
+    // set trip_id variable
+    
+
+    let tripId = match.params.trips_id;;
+    console.log('this is tripId', tripId)
+    let stop = {
+      trip_id: tripId,
+      longitude: "temp", 
+      latitude: "temp",
+      city: city.value,
+      state: state.value,
+      stop_name: stop_name.value,
+      description: description.value,
+      category: category.value,
+    };
+    let currentStops = this.context.stops;
+    
+    TripApiService.postStop(stop)
+      .then((res) => {
+        console.log(res)
+        this.context.setStops([res, ...currentStops]);
+        // this.props.history.push('/');
+        this.updateState()
+      })
+      .catch((error) => {
+        this.setState({ error });
+      });
+      // this.setState({updated: !this.state.updated});
+  };
+
+  renderStopForm = () => {
+    return (
+      <form onSubmit={this.handleSubmitStop}>
+        <label htmlFor="stop_name">Input the name of your stop!</label>
+        <input type="text" name="stop_name" />
+        <label htmlFor="city">
+          City
+        </label>
+        <input type="text" name="city" />
+        <label htmlFor="state">
+          State
+        </label>
+        <input type="text" name="state" />
+        <label htmlFor="category">
+          What kind of stop is this?
+        </label>
+        <input type="text" name="category" />
+        <label htmlFor="description">
+          Input any notes about your stop
+        </label>
+        <input type="text" name="description" />
+        <button className="myButton" type="submit" onClick={() => this.handleSubmitStop}>
+          Submit!
+        </button>
+      </form>
+    );
+
   }
 
   render() {
@@ -53,16 +125,16 @@ export default class Trip extends React.Component {
     });
     return (
       <div className="trip">
-        <div className="addStopButton">
-          <div
-            className="myButton"
-            onClick={() => this.setState({ formExpanded: true })}
-          >
-            Add a Stop!
-          </div>
-        </div>
         <h2 className="trip-name">{this.state.trip.short_description}</h2>
         {stops}
+
+        
+        {this.state.formExpanded ? this.renderStopForm() : null}
+        
+        <div className="addStopButton">
+              <div className="myButton" onClick={() =>{this.setState({formExpanded: !this.state.formExpanded})}}>Add a Stop!</div>
+          </div>
+
       </div>
     );
   }

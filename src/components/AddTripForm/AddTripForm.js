@@ -74,6 +74,8 @@ export default class AddTripForm extends React.Component {
     }
   };
 
+  
+
   render() {
     return (
       <>
