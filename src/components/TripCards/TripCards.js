@@ -9,7 +9,7 @@ let sequence = 0;
 export default class TripCards extends Component {
   sequenceColorOnCard = () => {
     let colors = ['blue', 'pink', 'orange', 'violet', 'baby-blue'];
-    if (sequence > 4) {
+    if (sequence > colors.length - 1) {
       sequence = 0;
     }
     let number = sequence;
@@ -17,9 +17,13 @@ export default class TripCards extends Component {
     return colors[number];
   };
 
+  shouldComponentUpdate() {
+    sequence = 0;
+    return false;
+  }
+
   render() {
     let color = this.sequenceColorOnCard();
-    let rating = ['*', '**', '***', '****', '*****'];
     return (
       <div className="TripCard">
         <Link to={`/trips/${this.props.id}`}>
@@ -39,8 +43,7 @@ export default class TripCards extends Component {
             </div>
             <div className={`TripCard-bottom ${color}`}>
               <div className="TripCard-bottom-info">
-                Days {this.props.days} | Rating{' '}
-                <span>{rating[this.props.rating - 1]}</span>
+                Days {this.props.days} | Rating <span>{this.props.rating}</span>
               </div>
             </div>
           </div>

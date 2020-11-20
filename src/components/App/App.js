@@ -67,7 +67,7 @@ export default class App extends Component {
             {hasError && <p>There was an error! Oh no!</p>}
             <Switch>
               <PrivateRoute exact path={'/add-trip'} component={AddTripForm} />
-              <Route path={'/my-trips'} component={MyTrips} />
+              <PrivateRoute path={'/my-trips'} component={MyTrips} />
               <Route exact path={'/'} component={DashboardRoute} />
               <Route path={'/trips/:trips_id'} component={TripView} />
               <PublicOnlyRoute

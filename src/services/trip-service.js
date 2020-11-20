@@ -35,8 +35,8 @@ const TripApiService = {
     );
   },
 
-  postStop(tripId, stop) {
-    return fetch(`${config.API_ENDPOINT}trips/${tripId}/stops`, {
+  postStop(stop) {
+    return fetch(`${config.API_ENDPOINT}/trips/stops`, {
       method: 'POST',
       headers: {
         Authorization: `bearer ${TokenService.getAuthToken()}`,
