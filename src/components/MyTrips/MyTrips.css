@@ -9,11 +9,33 @@
   border-radius: 20px;
 }
 
-.trip-cards {
+.my-trip-cards {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   padding: 1em;
+}
+
+.edit-delete-trip-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.delete-btn {
+    width: 7em !important;
+}
+
+.delete-btn, .edit-btn {
+    width: 5em;
+    font-size: 1em;
+    text-align: center;
+    margin: .4em 0 0 0;
+    padding: 0;
+}
+
+.my-trip-card-wrapper {
+    margin: 1em;
 }
 
 /* .TripCard {
