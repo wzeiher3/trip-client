@@ -105,8 +105,6 @@ export default class Trip extends React.Component {
 
   render() {
     let isTripCreator = this.context.verifyAuth(this.state.trip.user_id);
-    console.log(isTripCreator);
-    console.log(this.state);
     const stops = this.state.stops.map((stop, index) => {
       return (
         <div className="trip-stop" key={index}>
