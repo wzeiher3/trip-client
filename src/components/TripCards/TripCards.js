@@ -19,6 +19,7 @@ export default class TripCards extends Component {
 
   shouldComponentUpdate() {
     sequence = 0;
+    return false;
   }
 
   render() {

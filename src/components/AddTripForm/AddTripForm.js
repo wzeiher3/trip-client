@@ -12,7 +12,6 @@ export default class AddTripForm extends React.Component {
     short_description: 'Times Square',
     activities: 'Shopping',
     days: 2,
-    rating: 5,
     destination: 'New York, NY',
     error: null,
     images: [
@@ -74,8 +73,6 @@ export default class AddTripForm extends React.Component {
     }
   };
 
-  
-
   render() {
     return (
       <>
@@ -133,19 +130,6 @@ export default class AddTripForm extends React.Component {
                 />
               </div>
               <br />
-              <div className="trip-rating-days">
-                <label htmlFor="rating">Rating:</label>
-                <input
-                  onChange={(e) => this.setState({ rating: e.target.value })}
-                  placeholder={5}
-                  type="number"
-                  id="rating"
-                  name="rating"
-                  max={5}
-                  min={1}
-                />
-              </div>
-              <br />
               <div className="button-wrapper">
                 <button className="myButton" type="submit">
                   Submit!
@@ -180,8 +164,7 @@ export default class AddTripForm extends React.Component {
               </div>
               <div className={`TripCard-bottom blue`}>
                 <div className="TripCard-bottom-info">
-                  Days {this.state.days} | Rating{' '}
-                  <span>{this.state.rating}</span>
+                  Days {this.state.days} | Rating <span>N/A</span>
                 </div>
               </div>
             </div>
