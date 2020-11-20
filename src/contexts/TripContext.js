@@ -1,4 +1,5 @@
 import React from 'react';
+import UserContext from './UserContext';
 
 const TripContext = React.createContext({
   trips: [],
@@ -8,6 +9,7 @@ const TripContext = React.createContext({
   setTrips: () => {},
   addTrip: () => {},
   addStop: () => {},
+  verifyAuth: () => {},
 });
 
 export default TripContext;
@@ -19,6 +21,7 @@ export class TripProvider extends React.Component {
       stops: [], 
   }
 
+  static contextType = UserContext;
 
   setTrips = (res) => {
     this.setState({
@@ -45,6 +48,11 @@ export class TripProvider extends React.Component {
   };
 
   render(){
+  verifyAuth = (id) => {
+    return id === this.context.user.id;
+  };
+
+  render() {
     const value = {
       trips: this.state.trips,
       currTripId: this.state.currTripId,
@@ -53,14 +61,13 @@ export class TripProvider extends React.Component {
       addTrip: this.handleAddTrip,
       addStop: this.addStop,
       stops: this.state.stops,
+      verifyAuth: this.verifyAuth,
     };
 
     return (
-        <TripContext.Provider value={value}>
-            {this.props.children}
-        </TripContext.Provider>
-    )
-
+      <TripContext.Provider value={value}>
+        {this.props.children}
+      </TripContext.Provider>
+    );
   }
-
 }
