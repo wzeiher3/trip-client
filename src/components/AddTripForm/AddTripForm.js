@@ -75,7 +75,6 @@ export default class AddTripForm extends React.Component {
   };
 
   render() {
-    console.log(this.state);
     return (
       <>
         <section className="addTripSection">
