@@ -1,7 +1,7 @@
 import React from 'react';
 import TripApiService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
-
+import { Link } from 'react-router-dom';
 import './TripView.css';
 
 export default class Trip extends React.Component {
@@ -10,14 +10,14 @@ export default class Trip extends React.Component {
   state = {
     stops: [],
     currTripID: 0,
-    trip: [],
+    trip: { user_id: 0 },
     tripDescription: '',
     formExpanded: false,
     updated: false,
   };
 
   componentDidUpdate() {
-    if (this.state.trip.length === 0 && this.context.trips.length !== 0) {
+    if (this.state.trip.user_id === 0 && this.context.trips.length !== 0) {
       this.setState({ trip: this.context.trips[this.state.currTripID - 1] });
     };
   };
@@ -37,8 +37,6 @@ export default class Trip extends React.Component {
 
   updateState = () => {
     this.setState({ formExpanded: !this.state.formExpanded });
-    console.log(this.state.formExpanded);
-    // this.setState({ trip: this.context.trips[this.state.currTripID - 1] })
   };
 
   handleSubmitStop = (e) => {
@@ -50,7 +48,6 @@ export default class Trip extends React.Component {
     // set trip_id variable
 
     let tripId = match.params.trips_id;
-    console.log('this is tripId', tripId);
     let stop = {
       trip_id: tripId,
       longitude: 'temp',
@@ -61,16 +58,20 @@ export default class Trip extends React.Component {
       description: description.value,
       category: category.value,
     };
-    // let currentStops = this.context.stops;
 
     TripApiService.postStop(stop)
       .then((res) => {
         console.log(res);
-        // this.context.setStops([res, ...currentStops]);
-        // this.props.history.push('/');
-        this.setState({ stops: [res, ...this.state.stops]});
-        
-        // console.log(this.state.stops)
+
+        console.log(res);
+        // this.context.addStop(res);
+        console.log(res);
+        let currentStops = this.state.stops;
+        this.setState({
+          stops: [...currentStops, res],
+          formExpanded: false,
+        });
+        console.log(this.state.stops);
       })
       .catch((error) => {
         this.setState({ error });
@@ -94,7 +95,7 @@ export default class Trip extends React.Component {
         <button
           className="myButton"
           type="submit"
-          onClick={() => this.handleSubmitStop}
+          onClick={(e) => this.handleSubmitStop}
         >
           Submit!
         </button>
@@ -105,10 +106,6 @@ export default class Trip extends React.Component {
   render() {
     console.log(this.state.trip)
     let isTripCreator = this.context.verifyAuth(this.state.trip.user_id);
-    // console.log(this.state.currTripID)
-    // testing the getTripDescription function
-    // this.getTripDescription()
-    
     const stops = this.state.stops.map((stop, index) => {
       return (
         <div className="trip-stop" key={index}>
