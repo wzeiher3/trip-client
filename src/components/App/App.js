@@ -19,46 +19,26 @@ export default class App extends Component {
     hasError: false
   };
 
+  static contextType=TripContext;
+  
   static getDerivedStateFromError(error) {
     console.error(error);
     return { hasError: true };
   }
 
-  // setTrips = (res) => {
-  //   this.setState({
-  //     trips: res,
-  //   });
-  // };
-
-  // setCurrTripId = (id) => {
-  //   this.setState({
-  //     currTripId: id,
-  //   });
-  // };
-
-  // handleAddTrip = (trip) => {
-  //   this.setState({
-  //     trips: [...this.state.trips, trip],
-  //   });
-  // };
+ 
 
   componentDidMount = () => {
     TripApiService.getTrips()
       .then((res) => {
-        this.setTrips(res);
+        this.context.setTrips(res);
       })
       .catch((error) => this.setState({ error: error }));
   };
 
   render() {
     const { hasError } = this.state;
-    // const value = {
-    //   trips: this.state.trips,
-    //   currTripId: this.state.currTripId,
-    //   setTrips: this.setTrips,
-    //   setCurrTripId: this.setCurrTripId,
-    //   addTrip: this.handleAddTrip,
-    // };
+
 
     return (
       <div className="App">

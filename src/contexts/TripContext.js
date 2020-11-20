@@ -2,10 +2,12 @@ import React from 'react';
 
 const TripContext = React.createContext({
   trips: [],
+  stops: [],
   currTripId: null,
   setCurrTripId: () => {},
   setTrips: () => {},
   addTrip: () => {},
+  addStop: () => {},
 });
 
 export default TripContext;
@@ -14,6 +16,7 @@ export class TripProvider extends React.Component {
   state={
       trips: [], 
       currTripId: null,
+      stops: [], 
   }
 
 
@@ -35,6 +38,12 @@ export class TripProvider extends React.Component {
     });
   };
 
+  addStop = (stop) => {
+    this.setState({
+      stops: [...this.state.stops, stop]
+    });
+  };
+
   render(){
     const value = {
       trips: this.state.trips,
@@ -42,6 +51,8 @@ export class TripProvider extends React.Component {
       setTrips: this.setTrips,
       setCurrTripId: this.setCurrTripId,
       addTrip: this.handleAddTrip,
+      addStop: this.addStop,
+      stops: this.state.stops,
     };
 
     return (

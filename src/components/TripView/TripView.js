@@ -20,6 +20,8 @@ export default class Trip extends React.Component {
     if (this.state.trip.length === 0 && this.context.trips.length !== 0) {
       this.setState({ trip: this.context.trips[this.state.currTripID - 1] });
     }
+
+
   }
 
   componentDidMount() {
@@ -62,14 +64,20 @@ export default class Trip extends React.Component {
       description: description.value,
       category: category.value,
     };
-    let currentStops = this.context.stops;
     
     TripApiService.postStop(stop)
       .then((res) => {
         console.log(res)
-        this.context.setStops([res, ...currentStops]);
-        // this.props.history.push('/');
-        this.updateState()
+     
+        console.log(res)
+        // this.context.addStop(res);
+        console.log(res)
+        let currentStops = this.state.stops;
+        this.setState({
+          stops: [...currentStops, res],
+          formExpanded: false
+        })
+        console.log(this.state.stops)
       })
       .catch((error) => {
         this.setState({ error });
@@ -98,7 +106,7 @@ export default class Trip extends React.Component {
           Input any notes about your stop
         </label>
         <input type="text" name="description" />
-        <button className="myButton" type="submit" onClick={() => this.handleSubmitStop}>
+        <button className="myButton" type="submit" onClick={(e) => this.handleSubmitStop}>
           Submit!
         </button>
       </form>
