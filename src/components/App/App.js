@@ -16,9 +16,7 @@ import './App.css';
 
 export default class App extends Component {
   state = {
-    hasError: false,
-    trips: [],
-    currTripId: null,
+    hasError: false
   };
 
   static getDerivedStateFromError(error) {
@@ -26,23 +24,23 @@ export default class App extends Component {
     return { hasError: true };
   }
 
-  setTrips = (res) => {
-    this.setState({
-      trips: res,
-    });
-  };
+  // setTrips = (res) => {
+  //   this.setState({
+  //     trips: res,
+  //   });
+  // };
 
-  setCurrTripId = (id) => {
-    this.setState({
-      currTripId: id,
-    });
-  };
+  // setCurrTripId = (id) => {
+  //   this.setState({
+  //     currTripId: id,
+  //   });
+  // };
 
-  handleAddTrip = (trip) => {
-    this.setState({
-      trips: [...this.state.trips, trip],
-    });
-  };
+  // handleAddTrip = (trip) => {
+  //   this.setState({
+  //     trips: [...this.state.trips, trip],
+  //   });
+  // };
 
   componentDidMount = () => {
     TripApiService.getTrips()
@@ -54,17 +52,16 @@ export default class App extends Component {
 
   render() {
     const { hasError } = this.state;
-    const value = {
-      trips: this.state.trips,
-      currTripId: this.state.currTripId,
-      setTrips: this.setTrips,
-      setCurrTripId: this.setCurrTripId,
-      addTrip: this.handleAddTrip,
-    };
+    // const value = {
+    //   trips: this.state.trips,
+    //   currTripId: this.state.currTripId,
+    //   setTrips: this.setTrips,
+    //   setCurrTripId: this.setCurrTripId,
+    //   addTrip: this.handleAddTrip,
+    // };
 
     return (
       <div className="App">
-        <TripContext.Provider value={value}>
           <Header />
           <main>
             {hasError && <p>There was an error! Oh no!</p>}
@@ -81,7 +78,6 @@ export default class App extends Component {
               <Route component={NotFoundRoute} />
             </Switch>
           </main>
-        </TripContext.Provider>
       </div>
     );
   }
