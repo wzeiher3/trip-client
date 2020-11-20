@@ -10,17 +10,20 @@ export default class Trip extends React.Component {
   state = {
     stops: [],
     currTripID: 0,
-    trip: { user_id: 0 },
+    // trip: {
+    //   user_id: 0,
+    //   short_description: '',
+    // },
     tripDescription: '',
     formExpanded: false,
     updated: false,
   };
 
-  componentDidUpdate() {
-    if (this.state.trip.user_id === 0 && this.context.trips.length !== 0) {
-      this.setState({ trip: this.context.trips[this.state.currTripID - 1] });
-    }
-  }
+  // componentDidUpdate() {
+  //   if (this.state.trip.user_id === 0 && this.context.trips.length !== 0) {
+  //     this.setState({ trip: this.context.trips[this.state.currTripID - 1] });
+  //   }
+  // }
 
   componentDidMount() {
     // get trip ID
@@ -104,7 +107,9 @@ export default class Trip extends React.Component {
   };
 
   render() {
-    let isTripCreator = this.context.verifyAuth(this.state.trip.user_id);
+    let isTripCreator = this.context.verifyAuth(
+      this.context.trip[this.state.currTripID].user_id
+    );
     const stops = this.state.stops.map((stop, index) => {
       return (
         <div className="trip-stop" key={index}>
@@ -120,7 +125,9 @@ export default class Trip extends React.Component {
     });
     return (
       <div className="trip">
-        <h2 className="trip-name">{this.state.trip.short_description}</h2>
+        <h2 className="trip-name">
+          {this.context.trip[this.state.currTripID].short_description}
+        </h2>
         {stops}
 
         {this.state.formExpanded ? this.renderStopForm() : null}
