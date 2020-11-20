@@ -15,6 +15,8 @@ import TripApiService from '../../services/trip-service';
 import './App.css';
 
 export default class App extends Component {
+
+  static contextType = TripContext
   state = {
     hasError: false
   };
@@ -45,7 +47,7 @@ export default class App extends Component {
   componentDidMount = () => {
     TripApiService.getTrips()
       .then((res) => {
-        this.setTrips(res);
+        this.context.setTrips(res);
       })
       .catch((error) => this.setState({ error: error }));
   };

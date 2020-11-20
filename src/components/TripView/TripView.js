@@ -19,25 +19,26 @@ export default class Trip extends React.Component {
   componentDidUpdate() {
     if (this.state.trip.length === 0 && this.context.trips.length !== 0) {
       this.setState({ trip: this.context.trips[this.state.currTripID - 1] });
-    }
-  }
+    };
+  };
 
   componentDidMount() {
     // get trip ID
     const { match } = this.props;
     // set trip_id variable
     const trip_id = match.params.trips_id;
-
     // get stops for the current trip
     TripApiService.getStops(trip_id).then((res) =>
       // set the state with stops, currTripID
-      this.setState({ stops: [...res], currTripID: trip_id })
+      this.setState({ stops: [...res], currTripID: trip_id }),
     );
+    
   }
 
   updateState = () => {
     this.setState({ formExpanded: !this.state.formExpanded });
     console.log(this.state.formExpanded);
+    // this.setState({ trip: this.context.trips[this.state.currTripID - 1] })
   };
 
   handleSubmitStop = (e) => {
@@ -60,14 +61,16 @@ export default class Trip extends React.Component {
       description: description.value,
       category: category.value,
     };
-    let currentStops = this.context.stops;
+    // let currentStops = this.context.stops;
 
     TripApiService.postStop(stop)
       .then((res) => {
         console.log(res);
-        this.context.setStops([res, ...currentStops]);
+        // this.context.setStops([res, ...currentStops]);
         // this.props.history.push('/');
-        this.updateState();
+        this.setState({ stops: [res, ...this.state.stops]});
+        
+        // console.log(this.state.stops)
       })
       .catch((error) => {
         this.setState({ error });
@@ -100,10 +103,12 @@ export default class Trip extends React.Component {
   };
 
   render() {
+    console.log(this.state.trip)
     let isTripCreator = this.context.verifyAuth(this.state.trip.user_id);
     // console.log(this.state.currTripID)
     // testing the getTripDescription function
     // this.getTripDescription()
+    
     const stops = this.state.stops.map((stop, index) => {
       return (
         <div className="trip-stop" key={index}>
