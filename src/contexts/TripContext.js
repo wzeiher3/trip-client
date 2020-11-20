@@ -47,11 +47,12 @@ export class TripProvider extends React.Component {
     });
   };
 
-  render(){
   verifyAuth = (id) => {
     return id === this.context.user.id;
   };
 
+
+  
   render() {
     const value = {
       trips: this.state.trips,
@@ -70,4 +71,5 @@ export class TripProvider extends React.Component {
       </TripContext.Provider>
     );
   }
+
 }
