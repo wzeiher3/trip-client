@@ -18,48 +18,45 @@ export default class App extends Component {
 
   static contextType = TripContext
   state = {
-    hasError: false
+    hasError: false,
   };
 
-  static contextType=TripContext;
-  
+  static contextType = TripContext;
+
   static getDerivedStateFromError(error) {
     console.error(error);
     return { hasError: true };
   }
-
- 
 
   componentDidMount = () => {
     TripApiService.getTrips()
       .then((res) => {
         this.context.setTrips(res);
       })
-      .catch((error) => this.setState({ error: error }));
+      .catch((error) => this.setState({ error: error }))
+      .finally(() => {
+        this.context.setLoading(false);
+      });
   };
 
   render() {
     const { hasError } = this.state;
 
-
     return (
       <div className="App">
-          <Header />
-          <main>
-            {hasError && <p>There was an error! Oh no!</p>}
-            <Switch>
-              <PrivateRoute exact path={'/add-trip'} component={AddTripForm} />
-              <PrivateRoute path={'/my-trips'} component={MyTrips} />
-              <Route exact path={'/'} component={DashboardRoute} />
-              <Route path={'/trips/:trips_id'} component={TripView} />
-              <PublicOnlyRoute
-                path={'/register'}
-                component={RegistrationRoute}
-              />
-              <PublicOnlyRoute path={'/login'} component={LoginRoute} />
-              <Route component={NotFoundRoute} />
-            </Switch>
-          </main>
+        <Header />
+        <main>
+          {hasError && <p>There was an error! Oh no!</p>}
+          <Switch>
+            <PrivateRoute exact path={'/add-trip'} component={AddTripForm} />
+            <PrivateRoute path={'/my-trips'} component={MyTrips} />
+            <Route exact path={'/'} component={DashboardRoute} />
+            <Route path={'/trips/:trips_id'} component={TripView} />
+            <PublicOnlyRoute path={'/register'} component={RegistrationRoute} />
+            <PublicOnlyRoute path={'/login'} component={LoginRoute} />
+            <Route component={NotFoundRoute} />
+          </Switch>
+        </main>
       </div>
     );
   }
