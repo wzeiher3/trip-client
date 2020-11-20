@@ -4,7 +4,7 @@ import nightlife from './nightlife.jpg';
 import hiking from './hiking.jpg';
 import mountain from './mountain.jpg';
 import countryside from './countryside.jpg';
-import restaurant from './countryside.jpg';
+import restaurant from './restaurant.jpg';
 import amusementpark from './amusementpark.jpg';
 
 let images = {
