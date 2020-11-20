@@ -31,15 +31,8 @@ export default class AddTripForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.setState({ error: null });
-    const {
-      rating,
-      short_description,
-      destination,
-      days,
-      activities,
-    } = e.target;
+    const { short_description, destination, days, activities } = e.target;
     let trip = {
-      rating: rating.value,
       destination: destination.value,
       short_description: short_description.value,
       days: days.value,
