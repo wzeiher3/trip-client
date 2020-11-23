@@ -23,8 +23,9 @@ input {
 }
 
 .auth-section > h2 {
-  font-size: 27px;
+  font-size: 24px;
   color: rgb(230, 31, 130);
+  font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
 }
 
 .form-wrapper {

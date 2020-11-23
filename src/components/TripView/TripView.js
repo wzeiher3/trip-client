@@ -36,7 +36,10 @@ export default class Trip extends React.Component {
       if (res.length >= 1) {
         this.setState({ stops: [...res], currTripID: trip_id });
       } else {
-        this.setState({ stops: [{user_id: 0, short_description: 'Add a Stop!'}], currTripID: trip_id });
+        this.setState({
+          stops: [{ user_id: 0, short_description: 'Add a Stop!' }],
+          currTripID: trip_id,
+        });
       }
       // set the state with stops, currTripID
     });
@@ -81,6 +84,16 @@ export default class Trip extends React.Component {
     // this.setState({updated: !this.state.updated});
   };
 
+  isTripCreator = () => {
+    let isTripCreator = false;
+    if (this.props.isLoaded === true) {
+      isTripCreator = this.context.verifyAuth(
+        this.context.trips[this.props.match.params.trips_id - 1].user_id
+      );
+    }
+    return isTripCreator;
+  };
+
   renderStopForm = () => {
     return (
       <form onSubmit={this.handleSubmitStop}>
@@ -106,16 +119,6 @@ export default class Trip extends React.Component {
   };
 
   render() {
-    // get user id from context
-    // check id with verify auth
-    console.log(this.context.trips)
-    // console.log(this.context.trips[10].user_id)
-    let isTripCreator = false
-    console.log(this.props.isLoaded)
-    if(this.props.isLoaded === true) {
-      isTripCreator = this.context.verifyAuth(this.context.trips[this.props.match.params.trips_id - 1].user_id);
-      console.log('is trip creator', isTripCreator);
-    }
     const stops = this.state.stops.map((stop, index) => {
       return (
         <div className="trip-stop" key={index}>
@@ -136,7 +139,7 @@ export default class Trip extends React.Component {
 
         {this.state.formExpanded ? this.renderStopForm() : null}
 
-        {isTripCreator && (
+        {this.isTripCreator() && (
           <div className="addStopButton">
             <div
               className="myButton"
