@@ -40,25 +40,15 @@ class RegistrationForm extends Component {
   render() {
     const { error } = this.state;
     return (
-<<<<<<< HEAD
       <div className="form-wrapper">
         <form action="#" className="LoginForm" onSubmit={this.handleSubmit}>
           <div role="alert">{error && <p>{error}</p>}</div>
-=======
-      <section className='container'>
-        <form className="LoginForm" onSubmit={this.handleSubmit}>
-          <div role="alert">{error && <p>{error}</p>}</div>
-          <h2>Sign up</h2>
->>>>>>> Devon-signin-style
           <div>
             <Label htmlFor="registration-name-input">
               Enter your name
               <Required />
-<<<<<<< HEAD
             </Label>
-=======
-            </Label><br />
->>>>>>> Devon-signin-style
+            <br />
             <Input
               ref={this.firstInput}
               id="registration-name-input"
@@ -70,22 +60,16 @@ class RegistrationForm extends Component {
             <Label htmlFor="registration-username-input">
               Choose a username
               <Required />
-<<<<<<< HEAD
             </Label>
-=======
-            </Label><br />
->>>>>>> Devon-signin-style
+            <br />
             <Input id="registration-username-input" name="username" required />
           </div>
           <div>
             <Label htmlFor="registration-password-input">
               Choose a password
               <Required />
-<<<<<<< HEAD
             </Label>
-=======
-            </Label><br />
->>>>>>> Devon-signin-style
+            <br />
             <Input
               id="registration-password-input"
               name="password"
@@ -94,7 +78,6 @@ class RegistrationForm extends Component {
             />
           </div>
           <footer>
-<<<<<<< HEAD
             <div className="button-wrapper">
               <Link to="/login">Already have an account?</Link>
               <br />
@@ -106,13 +89,6 @@ class RegistrationForm extends Component {
           </footer>
         </form>
       </div>
-=======
-            <Button type="submit">Sign up</Button>{' '}
-            <Link to="/login">Already have an account?</Link>
-          </footer>
-        </form>
-      </section>
->>>>>>> Devon-signin-style
     );
   }
 }
