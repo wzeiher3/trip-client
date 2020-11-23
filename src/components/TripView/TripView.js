@@ -125,9 +125,11 @@ export default class Trip extends React.Component {
             </span>
           </div>
           <p>{stop.description}</p>
-          <button onClick={() => this.handleDeleteStop(stop.id)}>
-            Delete Stop
-          </button>
+          {this.isTripCreator() && (
+            <button onClick={() => this.handleDeleteStop(stop.id)}>
+              Delete Stop
+            </button>
+          )}
         </div>
       );
     });
