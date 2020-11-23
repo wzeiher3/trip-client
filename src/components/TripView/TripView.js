@@ -101,8 +101,8 @@ export default class Trip extends React.Component {
   };
 
   render() {
-    let isTripCreator = this.context.verifyAuth(this.state.stops[0].user_id);
-    console.log(isTripCreator);
+    // let isTripCreator = this.context.verifyAuth(this.state.stops[0].user_id);
+    // console.log(isTripCreator);
     const stops = this.state.stops.map((stop, index) => {
       return (
         <div className="trip-stop" key={index}>
@@ -123,7 +123,7 @@ export default class Trip extends React.Component {
 
         {this.state.formExpanded ? this.renderStopForm() : null}
 
-        {isTripCreator && (
+        {true && (
           <div className="addStopButton">
             <div
               className="myButton"

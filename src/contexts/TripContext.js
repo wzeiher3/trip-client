@@ -55,7 +55,11 @@ export class TripProvider extends React.Component {
   };
 
   verifyAuth = (id) => {
-    return id === this.context.user.id;
+    if (this.context.user.id !== undefined) {
+      return id === this.context.user.id;
+    } else {
+      return false;
+    }
   };
 
   render() {
