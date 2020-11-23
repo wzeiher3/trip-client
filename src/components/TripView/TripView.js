@@ -34,7 +34,9 @@ export default class Trip extends React.Component {
     TripApiService.getStops(trip_id).then((res) => {
       console.log(res);
       if (res.length !== 0) {
-        this.setState({ stops: [...res]});
+        this.setState({ stops: [...res], currTripID: trip_id });
+      } else {
+        this.setState({ currTripID: trip_id });
       }
       // set the state with stops, currTripID
     });
@@ -105,7 +107,7 @@ export default class Trip extends React.Component {
 
   render() {
     let isTripCreator = this.context.verifyAuth(this.state.stops[0].user_id);
-    console.log(isTripCreator)
+    console.log(isTripCreator);
     const stops = this.state.stops.map((stop, index) => {
       return (
         <div className="trip-stop" key={index}>
