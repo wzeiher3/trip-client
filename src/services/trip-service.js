@@ -47,6 +47,17 @@ const TripApiService = {
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     );
   },
+
+  deleteTrip(trip_id) {
+    return fetch(`${config.API_ENDPOINT}/trips/${trip_id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `bearer ${TokenService.getAuthToken()}`,
+      },
+    }).then((res) =>
+      !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+    );
+  },
   //   getHead() {
   //     return fetch(`${config.API_ENDPOINT}/language/head`, {
   //       headers: {
