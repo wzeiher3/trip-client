@@ -9,7 +9,6 @@ export default class MyTrips extends Component {
   static contextType = TripContext;
 
   state = {
-    displayOptions: false,
     userTrips: [],
   };
 
@@ -26,8 +25,6 @@ export default class MyTrips extends Component {
         <div
           key={index}
           className="my-trip-card-wrapper"
-          onMouseEnter={() => this.setState({ displayOptions: true })}
-          onMouseLeave={() => this.setState({ displayOptions: false })}
         >
           <TripCards
             id={trip.id}
@@ -39,21 +36,6 @@ export default class MyTrips extends Component {
             short_description={trip.short_description}
             image={trip.img}
           />
-          {this.state.displayOptions ? (
-            <div className="edit-delete-trip-buttons">
-              <div className="button-wrapper">
-                <div className="button-wrapper">
-                  <button
-                    className="myButton delete-btn"
-                    type="click"
-                    onClick={() => this.handleDeleteTrip}
-                  >
-                    Delete trip
-                  </button>
-                </div>
-              </div>
-            </div>
-          ) : null}
         </div>
       );
     });
