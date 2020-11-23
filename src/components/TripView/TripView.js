@@ -64,17 +64,11 @@ export default class Trip extends React.Component {
 
     TripApiService.postStop(stop)
       .then((res) => {
-        console.log(res);
-
-        console.log(res);
-        // this.context.addStop(res);
-        console.log(res);
         let currentStops = this.state.stops;
         this.setState({
           stops: [...currentStops, res],
           formExpanded: false,
         });
-        console.log(this.state.stops);
       })
       .catch((error) => {
         this.setState({ error });
@@ -107,9 +101,9 @@ export default class Trip extends React.Component {
   };
 
   render() {
-    let isTripCreator = this.context.verifyAuth(
-      this.context.trip[this.state.currTripID].user_id
-    );
+    // let isTripCreator = this.context.verifyAuth(
+    //   this.context.trip[this.state.currTripID].user_id
+    // );
     const stops = this.state.stops.map((stop, index) => {
       return (
         <div className="trip-stop" key={index}>
@@ -126,13 +120,13 @@ export default class Trip extends React.Component {
     return (
       <div className="trip">
         <h2 className="trip-name">
-          {this.context.trip[this.state.currTripID].short_description}
+          {/* {this.context.trip[this.state.currTripID].short_description} */}
         </h2>
         {stops}
 
         {this.state.formExpanded ? this.renderStopForm() : null}
 
-        {isTripCreator && (
+        {true && (
           <div className="addStopButton">
             <div
               className="myButton"

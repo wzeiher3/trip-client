@@ -14,6 +14,8 @@ import MyTrips from '../MyTrips/MyTrips';
 import TripApiService from '../../services/trip-service';
 import './App.css';
 
+
+
 export default class App extends Component {
   state = {
     hasError: false,
@@ -32,9 +34,6 @@ export default class App extends Component {
         this.context.setTrips(res);
       })
       .catch((error) => this.setState({ error: error }))
-      .finally(() => {
-        this.context.setLoading(false);
-      });
   };
 
   render() {
