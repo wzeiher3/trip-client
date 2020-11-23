@@ -11,7 +11,6 @@ const TripContext = React.createContext({
   addStop: () => {},
   verifyAuth: () => {},
   setLoading: () => {},
-  loading: true,
 });
 
 export default TripContext;
@@ -21,7 +20,6 @@ export class TripProvider extends React.Component {
     trips: [],
     currTripId: null,
     stops: [],
-    loading: true,
   };
 
   static contextType = UserContext;
@@ -32,11 +30,11 @@ export class TripProvider extends React.Component {
     });
   };
 
-  setLoading = (statement) => {
-    this.setState({
-      loading: statement,
-    });
-  };
+  // setLoading = (statement) => {
+  //   this.setState({
+  //     loading: statement,
+  //   });
+  // };
 
   setCurrTripId = (id) => {
     this.setState({
@@ -70,8 +68,6 @@ export class TripProvider extends React.Component {
       addStop: this.addStop,
       stops: this.state.stops,
       verifyAuth: this.verifyAuth,
-      setLoading: this.setLoading,
-      loading: true,
     };
 
     return (

@@ -19,19 +19,11 @@ export default class Trip extends React.Component {
     updated: false,
   };
 
-<<<<<<< HEAD
-  componentDidUpdate() {
-    if (this.state.trip.user_id === 0 && this.context.trips.length !== 0) {
-      this.setState({ trip: this.context.trips[this.state.currTripID - 1] });
-    };
-  };
-=======
   // componentDidUpdate() {
   //   if (this.state.trip.user_id === 0 && this.context.trips.length !== 0) {
   //     this.setState({ trip: this.context.trips[this.state.currTripID - 1] });
   //   }
   // }
->>>>>>> 8b6ba160d6e84f7e46135e26266f6b4a83b12f4e
 
   componentDidMount() {
     // get trip ID
@@ -72,17 +64,11 @@ export default class Trip extends React.Component {
 
     TripApiService.postStop(stop)
       .then((res) => {
-        console.log(res);
-
-        console.log(res);
-        // this.context.addStop(res);
-        console.log(res);
         let currentStops = this.state.stops;
         this.setState({
           stops: [...currentStops, res],
           formExpanded: false,
         });
-        console.log(this.state.stops);
       })
       .catch((error) => {
         this.setState({ error });
@@ -115,14 +101,18 @@ export default class Trip extends React.Component {
   };
 
   render() {
-<<<<<<< HEAD
+
     console.log(this.state.trip)
     let isTripCreator = this.context.verifyAuth(this.state.trip.user_id);
-=======
+
     let isTripCreator = this.context.verifyAuth(
       this.context.trip[this.state.currTripID].user_id
     );
->>>>>>> 8b6ba160d6e84f7e46135e26266f6b4a83b12f4e
+
+    // let isTripCreator = this.context.verifyAuth(
+    //   this.context.trip[this.state.currTripID].user_id
+    // );
+
     const stops = this.state.stops.map((stop, index) => {
       return (
         <div className="trip-stop" key={index}>
@@ -139,13 +129,13 @@ export default class Trip extends React.Component {
     return (
       <div className="trip">
         <h2 className="trip-name">
-          {this.context.trip[this.state.currTripID].short_description}
+          {/* {this.context.trip[this.state.currTripID].short_description} */}
         </h2>
         {stops}
 
         {this.state.formExpanded ? this.renderStopForm() : null}
 
-        {isTripCreator && (
+        {true && (
           <div className="addStopButton">
             <div
               className="myButton"
