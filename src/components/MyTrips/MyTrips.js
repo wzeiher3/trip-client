@@ -12,8 +12,6 @@ export default class MyTrips extends Component {
     userTrips: [],
   };
 
-  handleDeleteTrip = () => {};
-
   render() {
     let jwt = TokenService.getAuthToken();
     const user = TokenService.parseJwt(jwt);
@@ -22,10 +20,7 @@ export default class MyTrips extends Component {
     );
     const tripCards = userTrips.map((trip, index) => {
       return (
-        <div
-          key={index}
-          className="my-trip-card-wrapper"
-        >
+        <div key={index} className="my-trip-card-wrapper">
           <TripCards
             id={trip.id}
             index={index}

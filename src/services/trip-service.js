@@ -12,8 +12,18 @@ const TripApiService = {
     );
   },
 
+  getTrip(trip_id) {
+    return fetch(`${config.API_ENDPOINT}/trips/${trip_id}`, {
+      headers: {
+        Authorization: `bearer ${TokenService.getAuthToken()}`,
+      },
+    }).then((res) =>
+      !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+    );
+  },
+
   getStops(trip_id) {
-    return fetch(`${config.API_ENDPOINT}/trips/stops/${trip_id}`, {
+    return fetch(`${config.API_ENDPOINT}/stops/${trip_id}`, {
       headers: {
         Authorization: `bearer ${TokenService.getAuthToken()}`,
       },
@@ -36,7 +46,7 @@ const TripApiService = {
   },
 
   postStop(stop) {
-    return fetch(`${config.API_ENDPOINT}/trips/stops`, {
+    return fetch(`${config.API_ENDPOINT}/stops`, {
       method: 'POST',
       headers: {
         Authorization: `bearer ${TokenService.getAuthToken()}`,
@@ -57,6 +67,21 @@ const TripApiService = {
     }).then((res) =>
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     );
+  },
+
+  deleteStop(stop_id) {
+    return fetch(`${config.API_ENDPOINT}/stops/${stop_id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `bearer ${TokenService.getAuthToken()}`,
+      },
+    }).then((res) => {
+      if (!res.ok) {
+        res.json().then((e) => Promise.reject(e));
+      } else {
+        return;
+      }
+    });
   },
   //   getHead() {
   //     return fetch(`${config.API_ENDPOINT}/language/head`, {

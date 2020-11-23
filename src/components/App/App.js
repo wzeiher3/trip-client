@@ -15,11 +15,9 @@ import TripApiService from '../../services/trip-service';
 import './App.css';
 
 export default class App extends Component {
-
-  static contextType = TripContext
+  static contextType = TripContext;
   state = {
     hasError: false,
-    isLoaded: false,
   };
 
   static contextType = TripContext;
@@ -34,15 +32,10 @@ export default class App extends Component {
       .then((res) => {
         this.context.setTrips(res);
       })
-      .then(res => {
-        this.setState({ isLoaded: true })
-        }
-      )
       .catch((error) => this.setState({ error: error }));
   };
 
   render() {
-    console.log('Latest');
     const { hasError } = this.state;
 
     return (
@@ -54,10 +47,10 @@ export default class App extends Component {
             <PrivateRoute exact path={'/add-trip'} component={AddTripForm} />
             <PrivateRoute path={'/my-trips'} component={MyTrips} />
             <Route exact path={'/'} component={DashboardRoute} />
-            <Route path={'/trips/:trips_id'} render={(props) => (
-              <TripView {...props} isLoaded={this.state.isLoaded}
-              />
-             )} />
+            <Route
+              path={'/trips/:trips_id'}
+              render={(props) => <TripView {...props} />}
+            />
             <PublicOnlyRoute path={'/register'} component={RegistrationRoute} />
             <PublicOnlyRoute path={'/login'} component={LoginRoute} />
             <Route component={NotFoundRoute} />

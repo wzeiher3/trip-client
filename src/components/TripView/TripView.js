@@ -8,22 +8,13 @@ export default class Trip extends React.Component {
   static contextType = TripContext;
 
   state = {
-    stops: [{ user_id: 0, short_description: 'Add a Stop!' }],
+    stops: [],
+    trip: [{ user_id: 0, short_description: 'Add a Stop!' }],
     currTripID: 0,
-    // trip: {
-    //   user_id: 0,
-    //   short_description: '',
-    // },
     tripDescription: '',
     formExpanded: false,
     updated: false,
   };
-
-  // componentDidUpdate() {
-  //   if (this.state.trip.user_id === 0 && this.context.trips.length !== 0) {
-  //     this.setState({ trip: this.context.trips[this.state.currTripID - 1] });
-  //   }
-  // }
 
   componentDidMount() {
     // get trip ID
@@ -31,18 +22,20 @@ export default class Trip extends React.Component {
     // set trip_id variable
     const trip_id = match.params.trips_id;
     // get stops for the current trip
-    TripApiService.getStops(trip_id).then((res) => {
-      console.log(res);
-      if (res.length >= 1) {
-        this.setState({ stops: [...res], currTripID: trip_id });
-      } else {
-        this.setState({
-          stops: [{ user_id: 0, short_description: 'Add a Stop!' }],
-          currTripID: trip_id,
-        });
-      }
-      // set the state with stops, currTripID
-    });
+    TripApiService.getTrip(trip_id)
+      .then((res) => {
+        this.setState({ trip: res, currTripID: res.id });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    TripApiService.getStops(trip_id)
+      .then((res) => {
+        this.setState({ stops: res });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   updateState = () => {
@@ -53,10 +46,8 @@ export default class Trip extends React.Component {
     e.preventDefault();
     this.setState({ error: null });
     const { stop_name, description, category, city, state } = e.target;
-
     const { match } = this.props;
     // set trip_id variable
-
     let tripId = match.params.trips_id;
     let stop = {
       trip_id: tripId,
@@ -71,26 +62,19 @@ export default class Trip extends React.Component {
 
     TripApiService.postStop(stop)
       .then((res) => {
-        console.log(res);
-        let currentStops = this.state.stops;
         this.setState({
-          stops: [...currentStops, res],
+          stops: [...this.state.stops, res],
           formExpanded: false,
         });
       })
       .catch((error) => {
         this.setState({ error });
       });
-    // this.setState({updated: !this.state.updated});
   };
 
   isTripCreator = () => {
     let isTripCreator = false;
-    if (this.props.isLoaded === true) {
-      isTripCreator = this.context.verifyAuth(
-        this.context.trips[this.props.match.params.trips_id - 1].user_id
-      );
-    }
+    isTripCreator = this.context.verifyAuth(this.state.trip[0].user_id);
     return isTripCreator;
   };
 
@@ -118,6 +102,18 @@ export default class Trip extends React.Component {
     );
   };
 
+  handleDeleteStop = (stop_id) => {
+    TripApiService.deleteStop(stop_id)
+      .then(() => {
+        this.setState({
+          stops: this.state.stops.filter((stop) => stop_id !== stop.id),
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   render() {
     const stops = this.state.stops.map((stop, index) => {
       return (
@@ -129,12 +125,15 @@ export default class Trip extends React.Component {
             </span>
           </div>
           <p>{stop.description}</p>
+          <button onClick={() => this.handleDeleteStop(stop.id)}>
+            Delete Stop
+          </button>
         </div>
       );
     });
     return (
       <div className="trip">
-        <h2 className="trip-name">{this.state.stops[0].short_description}</h2>
+        <h2 className="trip-name">{this.state.trip[0].short_description}</h2>
         {stops}
 
         {this.state.formExpanded ? this.renderStopForm() : null}
