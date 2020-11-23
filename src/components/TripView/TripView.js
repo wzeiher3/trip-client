@@ -32,10 +32,11 @@ export default class Trip extends React.Component {
     const trip_id = match.params.trips_id;
 
     // get stops for the current trip
-    TripApiService.getStops(trip_id).then((res) =>
+    TripApiService.getStops(trip_id).then((res) => {
+    console.log(res)
       // set the state with stops, currTripID
       this.setState({ stops: [...res], currTripID: trip_id })
-    );
+    });
   }
 
   updateState = () => {
