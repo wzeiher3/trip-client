@@ -8,7 +8,7 @@ export default class Trip extends React.Component {
   static contextType = TripContext;
 
   state = {
-    stops: [{ user_id: 0, short_description: '' }],
+    stops: [{ user_id: 0, short_description: 'Add a Stop!' }],
     currTripID: 0,
     // trip: {
     //   user_id: 0,
@@ -34,8 +34,10 @@ export default class Trip extends React.Component {
     // get stops for the current trip
     TripApiService.getStops(trip_id).then((res) => {
       console.log(res);
+      if (res.length !== 0) {
+        this.setState({ stops: [...res], currTripID: trip_id });
+      }
       // set the state with stops, currTripID
-      this.setState({ stops: [...res], currTripID: trip_id });
     });
   }
 
@@ -65,6 +67,7 @@ export default class Trip extends React.Component {
 
     TripApiService.postStop(stop)
       .then((res) => {
+        console.log(res);
         let currentStops = this.state.stops;
         this.setState({
           stops: [...currentStops, res],
@@ -102,8 +105,7 @@ export default class Trip extends React.Component {
   };
 
   render() {
-    // let isTripCreator = this.context.verifyAuth(this.state.stops[0].user_id);
-    // console.log(isTripCreator);
+    let isTripCreator = this.context.verifyAuth(this.state.stops[0].user_id);
     const stops = this.state.stops.map((stop, index) => {
       return (
         <div className="trip-stop" key={index}>
@@ -119,12 +121,12 @@ export default class Trip extends React.Component {
     });
     return (
       <div className="trip">
-        <h2 className="trip-name">{this.state.stops.short_description}</h2>
+        <h2 className="trip-name">{this.state.stops[0].short_description}</h2>
         {stops}
 
         {this.state.formExpanded ? this.renderStopForm() : null}
 
-        {true && (
+        {isTripCreator && (
           <div className="addStopButton">
             <div
               className="myButton"
