@@ -42,7 +42,6 @@ export default class AddTripForm extends React.Component {
     let currentTrips = this.context.trips;
     TripService.postTrip(trip)
       .then((res) => {
-        console.log(res);
         this.context.setTrips([res, ...currentTrips]);
         this.props.history.push('/');
       })

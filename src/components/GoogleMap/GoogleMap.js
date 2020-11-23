@@ -1,43 +1,64 @@
-// import React from 'react';
-// import { GoogleMap, LoadScript } from '@react-google-maps/api';
+/* global google */
 
-// const containerStyle = {
-//   width: '400px',
-//   height: '400px',
-// };
+import React from 'react';
+import config from '../../config';
 
-// const center = {
-//   lat: -73.98513,
-//   lng: 40.7,
-// };
+export default class GoogleMap extends React.Component {
+  getGoogleMaps() {
+    // If we haven't already defined the promise, define it
+    if (!this.googleMapsPromise) {
+      this.googleMapsPromise = new Promise((resolve) => {
+        // Add a global handler for when the API finishes loading
+        window.resolveGoogleMapsPromise = () => {
+          // Resolve the promise
+          resolve(google);
 
-// function MyComponent() {
-//   const [map, setMap] = React.useState(null);
+          // Tidy up
+          delete window.resolveGoogleMapsPromise;
+        };
 
-//   const onLoad = React.useCallback(function callback(map) {
-//     const bounds = new window.google.maps.LatLngBounds();
-//     map.fitBounds(bounds);
-//     setMap(map);
-//   }, []);
+        // Load the Google Maps API
+        const script = document.createElement("script");
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${config.API_KEY}&libraries=localContext&v=beta&callback=resolveGoogleMapsPromise`;
+        script.async = true;
+        document.body.appendChild(script);
+      });
+    }
 
-//   const onUnmount = React.useCallback(function callback(map) {
-//     setMap(null);
-//   }, []);
+    // Return a promise for the Google Maps API
+    return this.googleMapsPromise;
+  }
 
-//   return (
-//     <LoadScript googleMapsApiKey="AIzaSyDTJKKolyKsSVxwQTVH6mh651l0SfClgrM">
-//       <GoogleMap
-//         mapContainerStyle={containerStyle}
-//         center={center}
-//         zoom={10}
-//         onLoad={onLoad}
-//         onUnmount={onUnmount}
-//       >
-//         {/* Child components, such as markers, info windows, etc. */}
-//         <></>
-//       </GoogleMap>
-//     </LoadScript>
-//   );
-// }
+  componentWillMount() {
+    // Start Google Maps API loading since we know we'll soon need it
+    this.getGoogleMaps();
+  }
 
-// export default React.memo(MyComponent);
+  componentDidMount() {
+    // Once the Google Maps API has finished loading, initialize the map
+    let map;
+    this.getGoogleMaps().then((google) => {
+      const uluru = {lat: -25.363, lng: 131.044};
+      const localContextMapView = new google.maps.localContext.LocalContextMapView({
+        element: document.getElementById("map"),
+        placeTypePreferences: ["restaurant", "tourist_attraction"],
+        maxPlaceCount: 12,
+      });
+      map = localContextMapView.map;
+      map.setOptions({
+        center: { lat: 51.507307, lng: -0.08114 },
+        zoom: 14,
+      });
+    
+    });
+  }
+
+  render() {
+    return (
+      <div onClick={(ev) => console.log(ev.target)}>
+        <h1>Contact</h1>
+        <div id="map" style={{width: 800, height: 800}}></div>
+      </div>
+    )
+  }
+}

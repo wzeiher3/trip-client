@@ -11,7 +11,6 @@ const UserContext = React.createContext({
   setUser: () => {},
   processLogin: () => {},
   processLogout: () => {},
-  verifyAuthorization: () => {},
 });
 
 export default UserContext;
@@ -102,10 +101,6 @@ export class UserProvider extends Component {
       });
   };
 
-  verifyAuthorization = () => {
-    console.log(this.context.user.id);
-  };
-
   render() {
     const value = {
       user: this.state.user,
@@ -115,7 +110,6 @@ export class UserProvider extends Component {
       setUser: this.setUser,
       processLogin: this.processLogin,
       processLogout: this.processLogout,
-      verifyAuthorization: this.verifyAuthorization,
     };
     return (
       <UserContext.Provider value={value}>
