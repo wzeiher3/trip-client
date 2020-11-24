@@ -32,11 +32,13 @@ export default class Trip extends React.Component {
     const trip_id = match.params.trips_id;
     // get stops for the current trip
     TripApiService.getStops(trip_id).then((res) => {
-      console.log(res);
       if (res.length >= 1) {
         this.setState({ stops: [...res], currTripID: trip_id });
       } else {
-        this.setState({ stops: [{user_id: 0, short_description: 'Add a Stop!'}], currTripID: trip_id });
+        this.setState({
+          stops: [{ user_id: 0, short_description: 'Add a Stop!' }],
+          currTripID: trip_id,
+        });
       }
       // set the state with stops, currTripID
     });
@@ -68,7 +70,6 @@ export default class Trip extends React.Component {
 
     TripApiService.postStop(stop)
       .then((res) => {
-        console.log(res);
         let currentStops = this.state.stops;
         this.setState({
           stops: [...currentStops, res],
@@ -108,13 +109,12 @@ export default class Trip extends React.Component {
   render() {
     // get user id from context
     // check id with verify auth
-    console.log(this.context.trips)
     // console.log(this.context.trips[10].user_id)
-    let isTripCreator = false
-    console.log(this.props.isLoaded)
-    if(this.props.isLoaded === true) {
-      isTripCreator = this.context.verifyAuth(this.context.trips[this.props.match.params.trips_id - 1].user_id);
-      console.log('is trip creator', isTripCreator);
+    let isTripCreator = false;
+    if (this.props.isLoaded === true) {
+      isTripCreator = this.context.verifyAuth(
+        this.context.trips[this.props.match.params.trips_id - 1].user_id
+      );
     }
     const stops = this.state.stops.map((stop, index) => {
       return (

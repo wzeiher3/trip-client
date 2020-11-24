@@ -7,28 +7,53 @@ import TripCards from '../TripCards/TripCards';
 import './Dashboard.css';
 
 export default class Dashboard extends React.Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
       error: null,
-      searchQuery: "",
+      searchQuery: '',
       filteredTrips: [],
+      searchUpdated: true,
     };
   }
 
   static contextType = TripContext;
   // state is taking two key changes to fully update
-  // 
+  //
   setQuery = (e) => {
-    let value = e.target.value
-    if(e.keyCode === 13){
-      console.log(value)
-      this.setState({searchQuery: value}, this.forceUpdate())
+    let value = e.target.value;
+    if (e.keyCode === 13) {
+      this.setState({
+        filteredTrips: this.context.trips.filter((trip) => {
+          return trip.destination.toLowerCase().includes(value.toLowerCase());
+        }),
+        searchUpdated: true,
+      });
     }
+    return;
+  };
 
-  }
+  // shouldComponentUpdate = () => {
+  //   if (this.state.searchUpdated === true) {
+  //     return true;
+  //     //   this.setState(
+  //     //     {
+  //     //       filteredTrips: this.context.trips.filter((trip) => {
+  //     //         return trip.destination
+  //     //           .toLowerCase()
+  //     //           .includes(this.state.searchQuery.toLowerCase());
+  //     //       }),
+  //     //       searchUpdated: false,
+  //     //     },
+  //     //     () => this.forceUpdate()
+  //     //   );
+  //     //   return false;
+  //     // }
+  //   }
+  //   return false;
+  // };
 
-  // filterTrips = (value) => {  
+  // filterTrips = (value) => {
   //   // const nonFilteredTrips = this.context.trips
   //   let query = value.toLowerCase()
   //   const filterTrips = this.context.trips.filter(trip => {
@@ -39,22 +64,30 @@ export default class Dashboard extends React.Component {
   //   this.setState({ filteredTrips: filterTrips }, this.forceUpdate())
   // }
 
-  componentDidMount() {
-    TripApiService.getTrips()
-      .then((res) => {
-        this.context.setTrips(res);
-        // this.setState({filteredTrips: res})
-      })
-      .catch((error) => this.setState({ error: error }));
-    } 
-
   render() {
-    let tripCards = this.context.trips.filter((trip) => {
-      if(this.state.searchQuery == null) return trip
-      else if (trip.destination.toLowerCase().includes(this.state.searchQuery.toLowerCase())) {
-        return trip
-      }
-    }).map((trip, index) => {
+    console.log(this.state.searchQuery);
+    console.log(this.state);
+    console.log('Rendering...');
+    // console.log(this.state.searchQuery);
+    // let filteredTripCards = this.context.trips.filter((trip) => {
+    //   if (this.state.searchQuery == null) return trip;
+    //   else if (
+    //     trip.destination
+    //       .toLowerCase()
+    //       .includes(this.state.searchQuery.toLowerCase())
+    //   ) {
+    //     return trip;
+    //   }
+    //   return console.log('Nothing!');
+    // });
+    let tripsToMap = [];
+    if (this.state.filteredTrips.length > 0) {
+      tripsToMap = this.state.filteredTrips;
+    } else {
+      tripsToMap = this.context.trips;
+    }
+    console.log(tripsToMap);
+    let tripCards = tripsToMap.map((trip, index) => {
       return (
         <TripCards
           key={index}
@@ -69,8 +102,6 @@ export default class Dashboard extends React.Component {
         />
       );
     });
-  
-    console.log(tripCards)
     return (
       <section className="Dashboard">
         <div className="upperSection">
@@ -80,12 +111,15 @@ export default class Dashboard extends React.Component {
             </Link>
           </div>
           <div className="tripSearchBar">
-            <label htmlFor="tripSearchBar" >Search Bar</label>
+            <label htmlFor="tripSearchBar">Search Bar</label>
             <input
               type="text"
               placeholder={'Search for a destination...'}
               name="tripSearchBar"
-              onKeyDown={this.setQuery}
+              onKeyDown={(e) => {
+                this.setState({ searchUpdated: false });
+                this.setQuery(e);
+              }}
             ></input>
           </div>
           <div className="titleDiv"></div>
@@ -95,7 +129,9 @@ export default class Dashboard extends React.Component {
             </Link>
           </div>
         </div>
-    <div className="lowerSection">{tripCards} {console.log(tripCards)}</div>
+        <div className="lowerSection">
+          {this.state.searchUpdated && tripCards}
+        </div>
       </section>
     );
   }
