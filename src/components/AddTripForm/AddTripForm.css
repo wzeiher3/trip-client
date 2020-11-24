@@ -60,15 +60,12 @@
   margin-top: 101px;
 }
 
-@media all and (min-width: 460px) {
+@media all and (min-width: 600px) {
   .addTripForm {
     width: 600px;
   }
   .addTripForm > input {
     margin-bottom: 12px;
-  }
-  .TripCardDemo-wrapper {
-    width: 600px;
   }
 }
 
