@@ -1,7 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
-import TripApiService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
 import TripCards from '../TripCards/TripCards';
 import './Dashboard.css';
@@ -84,11 +82,10 @@ export default class Dashboard extends React.Component {
     } else {
       tripsToMap = this.context.trips;
     }
-    console.log(tripsToMap);
     let tripCards = tripsToMap.map((trip, index) => {
       return (
         <TripCards
-          key={index}
+          key={trip.id}
           id={trip.id}
           index={index}
           days={trip.days}
