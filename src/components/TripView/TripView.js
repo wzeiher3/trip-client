@@ -23,7 +23,6 @@ export default class Trip extends React.Component {
     // set trip_id variable
     const trip_id = match.params.trips_id;
     // get stops for the current trip
-<<<<<<< HEAD
     TripApiService.getTrip(trip_id)
       .then((res) => {
         this.setState({ trip: res, currTripID: res.id });
@@ -38,19 +37,6 @@ export default class Trip extends React.Component {
       .catch((error) => {
         console.error(error);
       });
-=======
-    TripApiService.getStops(trip_id).then((res) => {
-      if (res.length >= 1) {
-        this.setState({ stops: [...res], currTripID: trip_id });
-      } else {
-        this.setState({
-          stops: [{ user_id: 0, short_description: 'Add a Stop!' }],
-          currTripID: trip_id,
-        });
-      }
-      // set the state with stops, currTripID
-    });
->>>>>>> mark-dashboard-search
   }
 
   toggleAddStop = () => {
@@ -111,10 +97,6 @@ export default class Trip extends React.Component {
 
     TripApiService.postStop(stop)
       .then((res) => {
-<<<<<<< HEAD
-=======
-        let currentStops = this.state.stops;
->>>>>>> mark-dashboard-search
         this.setState({
           stops: [...this.state.stops, res],
           toggleAddStop: false,
@@ -162,7 +144,6 @@ export default class Trip extends React.Component {
     );
   };
 
-<<<<<<< HEAD
   renderStop = (stop, index) => {
     return (
       <>
@@ -185,21 +166,6 @@ export default class Trip extends React.Component {
               </div>
             )}
           </figcaption>
-=======
-  render() {
-    // get user id from context
-    // check id with verify auth
-    // console.log(this.context.trips[10].user_id)
-    let isTripCreator = false;
-    if (this.props.isLoaded === true) {
-      isTripCreator = this.context.verifyAuth(
-        this.context.trips[this.props.match.params.trips_id - 1].user_id
-      );
-    }
-    const stops = this.state.stops.map((stop, index) => {
-      return (
-        <div className="trip-stop" key={index}>
->>>>>>> mark-dashboard-search
           <div className="trip-header">
             <h2>{stop.stop_name}</h2>
             <span>
