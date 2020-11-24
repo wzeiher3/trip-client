@@ -11,20 +11,24 @@ export default class Dashboard extends React.Component {
       error: null,
       searchQuery: '',
       filteredTrips: [],
+      resultsFound: true,
     };
-  }
+  };
 
   static contextType = TripContext;
-  // state is taking two key changes to fully update
-  //
+
   setQuery = (e) => {
     let value = e.target.value;
-
     this.setState({
       filteredTrips: this.context.trips.filter((trip) => {
-        return trip.destination.toLowerCase().includes(value.toLowerCase());
+        return trip.destination.toLowerCase().includes(value.toLowerCase()) || trip.short_description.toLowerCase().includes(value.toLowerCase()) || trip.activities.toLowerCase().includes(value.toLowerCase());
       }),
-    });
+    }, () => {
+      // if else statement 
+      if(this.state.filteredTrips.length > 0) this.setState({resultsFound: true}) 
+        else {this.setState({resultsFound: false})}
+        }
+      )
   };
 
   render() {
@@ -68,7 +72,6 @@ export default class Dashboard extends React.Component {
               placeholder={'Search for a destination...'}
               name="tripSearchBar"
               onChange={(e) => {
-                  this.setState({ searchUpdated: false });
                   this.setQuery(e);
               }}
             ></input>
@@ -81,7 +84,7 @@ export default class Dashboard extends React.Component {
           </div>
         </div>
         <div className="lowerSection">
-          {tripCards}
+          {this.state.resultsFound ? tripCards : 'no results! search again!'}
         </div>
       </section>
     );
