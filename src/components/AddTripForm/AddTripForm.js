@@ -124,6 +124,43 @@ export default class AddTripForm extends React.Component {
                 />
               </div>
               <br />
+              <article className="TripCardDemo-wrapper">
+                <img
+                  onClick={this.handleScrollLeft}
+                  src={images.arrow_left}
+                  alt="left arrow"
+                />
+                <div className="TripCard TripCardDemo">
+                  <div>
+                    <div className="TripCard-topimage">
+                      <img
+                        src={images[this.state.images[this.state.imagesScroll]]}
+                        alt="city skyline"
+                      ></img>
+                    </div>
+                    <br />
+                    <div className="TripCard-middle-section">
+                      <div className="TripCard-title">
+                        <h2>{this.state.destination}</h2>
+                      </div>
+                      <div className="Activities">
+                        <span>{this.state.short_description}</span>
+                        <p>Activities: {this.state.activities}</p>
+                      </div>
+                    </div>
+                    <div className={`TripCard-bottom blue`}>
+                      <div className="TripCard-bottom-info">
+                        Days {this.state.days} | Rating <span>N/A</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <img
+                  onClick={this.handleScrollRight}
+                  src={images.arrow_right}
+                  alt="right arrow"
+                />
+              </article>
               <div className="button-wrapper">
                 <button className="myButton" type="submit">
                   Submit!
@@ -132,43 +169,7 @@ export default class AddTripForm extends React.Component {
             </form>
           </div>
         </section>
-        <section className="TripCardDemo-wrapper">
-          <img
-            onClick={this.handleScrollLeft}
-            src={images.arrow_left}
-            alt="left arrow"
-          />
-          <div className="TripCard TripCardDemo">
-            <div>
-              <div className="TripCard-topimage">
-                <img
-                  src={images[this.state.images[this.state.imagesScroll]]}
-                  alt="city skyline"
-                ></img>
-              </div>
-              <br />
-              <div className="TripCard-middle-section">
-                <div className="TripCard-title">
-                  <h2>{this.state.destination}</h2>
-                </div>
-                <div className="Activities">
-                  <span>{this.state.short_description}</span>
-                  <p>Activities: {this.state.activities}</p>
-                </div>
-              </div>
-              <div className={`TripCard-bottom blue`}>
-                <div className="TripCard-bottom-info">
-                  Days {this.state.days} | Rating <span>N/A</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <img
-            onClick={this.handleScrollRight}
-            src={images.arrow_right}
-            alt="right arrow"
-          />
-        </section>
+        
       </>
     );
   }
