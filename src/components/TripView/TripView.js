@@ -1,6 +1,7 @@
 import React from 'react';
 import TripApiService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
+import MapContainer from '../Map/Map'
 import { Link } from 'react-router-dom';
 import './TripView.css';
 
@@ -51,8 +52,8 @@ export default class Trip extends React.Component {
     let tripId = match.params.trips_id;
     let stop = {
       trip_id: tripId,
-      longitude: 'temp',
-      latitude: 'temp',
+      longitude: 0.00,
+      latitude: 0.00,
       city: city.value,
       state: state.value,
       stop_name: stop_name.value,
@@ -135,6 +136,7 @@ export default class Trip extends React.Component {
     });
     return (
       <div className="trip">
+        {/* <div id="Map"><MapContainer tripID={this.state.currTripID}/></div> */}
         <h2 className="trip-name">{this.state.trip[0].short_description}</h2>
         {stops}
 

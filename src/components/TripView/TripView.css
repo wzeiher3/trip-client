@@ -13,6 +13,10 @@
     align-items: center;
 }
 
+.Map{
+    margin: auto;
+}
+
 .trip-stop {
     margin-top: .4em;
     border-bottom: 3px solid var(--waysBlue);
