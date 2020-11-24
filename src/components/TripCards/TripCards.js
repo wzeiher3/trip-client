@@ -22,6 +22,16 @@ export default class TripCards extends Component {
     return false;
   }
 
+  componentDidUpdate() {
+    sequence = 0;
+    return false;
+  }
+
+  shouldComponentUpdate() {
+    sequence = 0;
+    return false;
+  }
+
   render() {
     let color = this.sequenceColorOnCard();
     return (

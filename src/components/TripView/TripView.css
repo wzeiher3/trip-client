@@ -14,18 +14,19 @@
   background-image: linear-gradient(rgb(255, 255, 255), rgb(250, 250, 250));
 }
 
-.trip > img {
+.trip > div > img {
   width: 40px;
 }
 
-.trip-stop {
+.trip-stop-wrapper {
   /* margin-top: 0.4em;
   border-bottom: 3px solid var(--waysBlue);
   border-top: 4px solid var(--waysPink);
   border-left: 4px solid var(--waysPink);
   border-right: 4px solid var(--waysBlue);
   border-radius: 20px; */
-  width: 70%;
+  counter-increment: index;
+  width: 98%;
 }
 
 .trip-name {
@@ -66,7 +67,7 @@
   cursor: pointer;
   padding: 0px 2px;
   display: inline-block;
-  margin: 18px 30px;
+  margin: 8px 0px;
   line-height: 1.6em;
   outline: none;
   position: relative;
@@ -75,7 +76,7 @@
   border-radius: 15px 15px 15px 15px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  counter-increment: index;
+  width: 98%;
 }
 
 .trip-div:before {
@@ -150,4 +151,13 @@
   position: absolute;
   bottom: -18px;
   width: 45px;
+}
+
+@media all and (min-width: 675px) {
+  .trip-stop-wrapper {
+    width: 675px;
+  }
+  .trip-div {
+    width: 675px;
+  }
 }

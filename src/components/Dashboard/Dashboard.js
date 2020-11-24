@@ -61,9 +61,6 @@ export default class Dashboard extends React.Component {
   // }
 
   render() {
-    console.log(this.state.searchQuery);
-    console.log(this.state);
-    console.log('Rendering...');
     // console.log(this.state.searchQuery);
     // let filteredTripCards = this.context.trips.filter((trip) => {
     //   if (this.state.searchQuery == null) return trip;
