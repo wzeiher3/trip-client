@@ -82,7 +82,7 @@ export default class AddTripForm extends React.Component {
               </label>
               <input
                 onChange={(e) => this.setState({ destination: e.target.value })}
-                placeholder={'New York, Lass Vegas, Germany...'}
+                placeholder={'New York, Las Vegas, Germany...'}
                 type="text"
                 name="destination"
               />
