@@ -64,9 +64,13 @@ const TripApiService = {
       headers: {
         Authorization: `bearer ${TokenService.getAuthToken()}`,
       },
-    }).then((res) =>
-      !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
-    );
+    }).then((res) => {
+      if (!res.ok) {
+        res.json().then((e) => Promise.reject(e));
+      } else {
+        return;
+      }
+    });
   },
 
   deleteStop(stop_id) {

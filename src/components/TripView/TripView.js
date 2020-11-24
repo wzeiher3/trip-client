@@ -2,7 +2,9 @@ import React from 'react';
 import TripApiService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
 import { Link } from 'react-router-dom';
+import TripViewNav from './TripViewNav/TripViewNav';
 import './TripView.css';
+
 import images from '../../assets/images/images';
 
 export default class Trip extends React.Component {
@@ -46,6 +48,15 @@ export default class Trip extends React.Component {
   toggleEditStop = (stop_id) => {
     this.setState({
       stopEditingID: stop_id,
+    });
+  };
+
+  handleDeleteTrip = () => {
+    TripApiService.deleteTrip(this.state.trip[0].id).then(() => {
+      this.context.setTrips(
+        this.context.trips.filter((trip) => trip.id !== this.state.trip[0].id)
+      );
+      this.props.history.push('/');
     });
   };
 
@@ -269,32 +280,37 @@ export default class Trip extends React.Component {
       return this.renderStop(stop, index);
     });
     return (
-      <div className="trip">
-        <h2 className="trip-name">{trip.destination}</h2>
-        <span>
-          Rating: {trip.rating}
-          {!trip.rating && <>N\A</>}
-        </span>
-        <p>{trip.short_description}</p>
-        <p>
-          Activities: {trip.activities} <br />
-          Days: {trip.days}
-        </p>
-        {stops}
-        {this.state.toggleAddStop && this.renderAddStopForm()}
-        {!this.state.toggleAddStop && this.isTripCreator() && (
-          <div className="addStopButton">
-            <div
-              className="myButton"
-              onClick={() => {
-                this.setState({ toggleAddStop: !this.state.toggleAddStop });
-              }}
-            >
-              Add a Stop!
-            </div>
-          </div>
+      <>
+        {this.isTripCreator() && (
+          <TripViewNav handleDeleteTrip={this.handleDeleteTrip} />
         )}
-      </div>
+        <div className="trip">
+          <h2 className="trip-name">{trip.destination}</h2>
+          <span>
+            Rating: {trip.rating}
+            {!trip.rating && <>N\A</>}
+          </span>
+          <p>{trip.short_description}</p>
+          <p>
+            Activities: {trip.activities} <br />
+            Days: {trip.days}
+          </p>
+          {stops}
+          {this.state.toggleAddStop && this.renderAddStopForm()}
+          {!this.state.toggleAddStop && this.isTripCreator() && (
+            <div className="addStopButton">
+              <div
+                className="myButton"
+                onClick={() => {
+                  this.setState({ toggleAddStop: !this.state.toggleAddStop });
+                }}
+              >
+                Add a Stop!
+              </div>
+            </div>
+          )}
+        </div>
+      </>
     );
   }
 }
