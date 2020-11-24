@@ -160,8 +160,15 @@
   width: 45px;
 }
 
-.EditStopForm > input {
+#EditStopForm > div > input,
+#EditStopForm > input {
   border: none;
+  font-size: 26px;
+  text-align: center;
+}
+
+.trip-category {
+  text-transform: capitalize;
 }
 
 @media all and (min-width: 675px) {

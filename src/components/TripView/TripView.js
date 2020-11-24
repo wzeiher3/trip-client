@@ -176,7 +176,9 @@ export default class Trip extends React.Component {
               {stop.city}, {stop.state}
             </span>
             <br />
-            <span>Category: {stop.category}</span>
+            <span className="trip-category">
+              Category: {stop.category.replace('_', ' ')}
+            </span>
           </div>
           <p>{stop.description}</p>
         </div>
@@ -204,6 +206,7 @@ export default class Trip extends React.Component {
               <input
                 defaultValue={stop.stop_name}
                 name="stop_name"
+                id="edit_stop_name"
                 aria-label="stop_name"
               />{' '}
               <br />
