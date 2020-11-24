@@ -68,8 +68,8 @@ export default class Trip extends React.Component {
     let tripId = match.params.trips_id;
     let stop = {
       trip_id: tripId,
-      longitude: 'temp',
-      latitude: 'temp',
+      longitude: 0.0,
+      latitude: 0.0,
       city: city.value,
       state: state.value,
       stop_name: stop_name.value,
@@ -97,8 +97,8 @@ export default class Trip extends React.Component {
     let tripId = match.params.trips_id;
     let stop = {
       trip_id: tripId,
-      longitude: 'temp',
-      latitude: 'temp',
+      longitude: 0.0,
+      latitude: 0.0,
       city: city.value,
       state: state.value,
       stop_name: stop_name.value,
