@@ -11,7 +11,7 @@ export default class Dashboard extends React.Component {
     super();
     this.state = {
       error: null,
-      searchQuery: "",
+      searchQuery: null,
       filteredTrips: [],
     };
   }
@@ -23,54 +23,58 @@ export default class Dashboard extends React.Component {
     let value = e.target.value
     if(e.keyCode === 13){
       console.log(value)
-      this.setState({searchQuery: value}, this.forceUpdate())
+      this.setState({searchQuery: value}, () => this.handleTripFilter())
     }
-
   }
 
-  // filterTrips = (value) => {  
-  //   // const nonFilteredTrips = this.context.trips
-  //   let query = value.toLowerCase()
-  //   const filterTrips = this.context.trips.filter(trip => {
-  //     return (
-  //     trip.destination.toLowerCase().includes(query) || trip.short_description.includes(query))
-  //     })
-  //   console.log('this is filtered trips', filterTrips, 'and this is search query', query)
-  //   this.setState({ filteredTrips: filterTrips }, this.forceUpdate())
-  // }
+  handleTripFilter = () => {  
+    // const nonFilteredTrips = this.context.trips
+    let query = this.state.searchQuery.toLowerCase()
+    let filterTrips = this.state.filteredTrips.filter(trip => {
+      if(this.state.searchQuery == null) return trip
+         else if (trip.destination.toLowerCase().includes(query.toLowerCase())) {
+           return trip
+         }
+      }) 
+    this.setState({ filteredTrips: filterTrips }, () => console.log('this is filtered trips', this.state.filteredTrips, 'and this is search query', query)
+    )
+  }
+
+
 
   componentDidMount() {
     TripApiService.getTrips()
       .then((res) => {
         this.context.setTrips(res);
-        // this.setState({filteredTrips: res})
+        this.setState({filteredTrips: res})
       })
       .catch((error) => this.setState({ error: error }));
     } 
 
   render() {
-    let tripCards = this.context.trips.filter((trip) => {
-      if(this.state.searchQuery == null) return trip
-      else if (trip.destination.toLowerCase().includes(this.state.searchQuery.toLowerCase())) {
-        return trip
-      }
-    }).map((trip, index) => {
-      return (
-        <TripCards
-          key={index}
-          id={trip.id}
-          index={index}
-          days={trip.days}
-          rating={trip.rating}
-          destination={trip.destination}
-          activities={trip.activities}
-          short_description={trip.short_description}
-          image={trip.img}
-        />
-      );
-    });
-  
-    console.log(tripCards)
+    console.log('state in render', this.state)
+    console.log('context', this.context.trips)
+    // let tripCards = this.context.trips.filter((trip) => {
+    //   if(this.state.searchQuery == null) return trip
+    //   else if (trip.destination.toLowerCase().includes(this.state.searchQuery.toLowerCase())) {
+    //     return trip
+    //   }
+    // }).map((trip, index) => {
+    //   return (
+    //     <TripCards
+    //       key={index}
+    //       id={trip.id}
+    //       index={index}
+    //       days={trip.days}
+    //       rating={trip.rating}
+    //       destination={trip.destination}
+    //       activities={trip.activities}
+    //       short_description={trip.short_description}
+    //       image={trip.img}
+    //     />
+    //   );
+    // });
+    // console.log('trip cards in render', tripCards)
     return (
       <section className="Dashboard">
         <div className="upperSection">
@@ -95,7 +99,21 @@ export default class Dashboard extends React.Component {
             </Link>
           </div>
         </div>
-    <div className="lowerSection">{tripCards} {console.log(tripCards)}</div>
+    <div className="lowerSection">{this.state.filteredTrips.map((trip, index) => {
+      return (
+        <TripCards
+          key={index}
+          id={trip.id}
+          index={index}
+          days={trip.days}
+          rating={trip.rating}
+          destination={trip.destination}
+          activities={trip.activities}
+          short_description={trip.short_description}
+          image={trip.img}
+        />
+      )
+    })}</div>
       </section>
     );
   }
