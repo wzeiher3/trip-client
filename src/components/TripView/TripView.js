@@ -146,8 +146,8 @@ export default class Trip extends React.Component {
 
   renderStop = (stop, index) => {
     return (
-      <>
-        <div className="trip-stop trip-div" key={index}>
+      <div className="trip-stop-wrapper" key={stop.id}>
+        <div className="trip-stop trip-div">
           <figcaption>
             {this.isTripCreator() && (
               <div className="tripView-button-wrapper">
@@ -176,56 +176,63 @@ export default class Trip extends React.Component {
           </div>
           <p>{stop.description}</p>
         </div>
+        <br />
         {index === this.state.stops.length - 1 ? null : index % 2 !== 0 ? (
           <img src={images.road_a} alt="road illustration"></img>
         ) : (
           <img src={images.road_b} alt="road illustration"></img>
         )}
-      </>
+      </div>
     );
   };
 
   renderEditStopForm = (stop, index) => {
     const id = stop.id;
     return (
-      <div className="trip-stop" key={index}>
-        <form action="#" onSubmit={(e) => this.handleSubmitEditStop(e, id)}>
-          <div className="trip-header">
-            <input
-              defaultValue={stop.stop_name}
-              name="stop_name"
-              aria-label="stop_name"
-            />{' '}
-            <br />
-            <input defaultValue={stop.city} name="city" aria-label="city" />
-            <br />
-            <input defaultValue={stop.state} name="state" aria-label="state" />
-          </div>
-          <input
-            defaultValue={stop.category}
-            name="category"
-            aria-label="category"
-          ></input>
-          <br />
-          <input
-            defaultValue={stop.description}
-            name="description"
-            aria-label="description"
-          />
-          {this.isTripCreator() && (
-            <div className="tripView-button-wrapper">
-              <button
-                className="tripViewButton"
-                onClick={() => this.toggleEditStop(0)}
-              >
-                Cancel
-              </button>
-              <button className="tripViewButton" type="submit">
-                Submit
-              </button>
+      <div className="trip-stop-wrapper" key={stop.id}>
+        <div className="trip-stop" key={index}>
+          <form action="#" onSubmit={(e) => this.handleSubmitEditStop(e, id)}>
+            <div className="trip-header">
+              <input
+                defaultValue={stop.stop_name}
+                name="stop_name"
+                aria-label="stop_name"
+              />{' '}
+              <br />
+              <input defaultValue={stop.city} name="city" aria-label="city" />
+              <br />
+              <input
+                defaultValue={stop.state}
+                name="state"
+                aria-label="state"
+              />
             </div>
-          )}
-        </form>
+            <input
+              defaultValue={stop.category}
+              name="category"
+              aria-label="category"
+            ></input>
+            <br />
+            <input
+              defaultValue={stop.description}
+              name="description"
+              aria-label="description"
+            />
+            {this.isTripCreator() && (
+              <div className="tripView-button-wrapper">
+                <button
+                  className="tripViewButton"
+                  onClick={() => this.toggleEditStop(0)}
+                >
+                  Cancel
+                </button>
+                <button className="tripViewButton" type="submit">
+                  Submit
+                </button>
+              </div>
+            )}
+          </form>
+        </div>
       </div>
     );
   };

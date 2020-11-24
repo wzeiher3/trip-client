@@ -32,6 +32,21 @@ export default class Dashboard extends React.Component {
   };
 
   render() {
+<<<<<<< HEAD
+=======
+    // console.log(this.state.searchQuery);
+    // let filteredTripCards = this.context.trips.filter((trip) => {
+    //   if (this.state.searchQuery == null) return trip;
+    //   else if (
+    //     trip.destination
+    //       .toLowerCase()
+    //       .includes(this.state.searchQuery.toLowerCase())
+    //   ) {
+    //     return trip;
+    //   }
+    //   return console.log('Nothing!');
+    // });
+>>>>>>> 2a26734b77e201f85bfefe19346b932c6cff0fc2
     let tripsToMap = [];
     if (this.state.filteredTrips.length > 0) {
       tripsToMap = this.state.filteredTrips;
