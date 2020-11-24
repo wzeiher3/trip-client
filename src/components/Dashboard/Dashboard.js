@@ -22,15 +22,13 @@ export default class Dashboard extends React.Component {
   //
   setQuery = (e) => {
     let value = e.target.value;
-    if (e.keyCode === 13) {
-      this.setState({
-        filteredTrips: this.context.trips.filter((trip) => {
-          return trip.destination.toLowerCase().includes(value.toLowerCase());
-        }),
-        searchUpdated: true,
-      });
-    }
-    return;
+
+    this.setState({
+      filteredTrips: this.context.trips.filter((trip) => {
+        return trip.destination.toLowerCase().includes(value.toLowerCase());
+      }),
+      searchUpdated: true,
+    });
   };
 
   // shouldComponentUpdate = () => {
@@ -117,8 +115,10 @@ export default class Dashboard extends React.Component {
               placeholder={'Search for a destination...'}
               name="tripSearchBar"
               onKeyDown={(e) => {
-                this.setState({ searchUpdated: false });
-                this.setQuery(e);
+                if (e.key === 'Enter') {
+                  this.setState({ searchUpdated: false });
+                  this.setQuery(e);
+                }
               }}
             ></input>
           </div>
