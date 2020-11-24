@@ -120,6 +120,7 @@ export default class AddTripForm extends React.Component {
                   id="days"
                   name="days"
                   max={99}
+                  min={1}
                 />
               </div>
               <br />

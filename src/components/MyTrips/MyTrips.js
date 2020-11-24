@@ -35,13 +35,17 @@ export default class MyTrips extends Component {
       );
     });
     return (
-      <section className="my-trips">
-        <div className="my-trips-header">
-          <h2>My Trips</h2>
-          <hr />
-        </div>
-        <div className="my-trip-cards">{tripCards}</div>
-      </section>
+      <>
+        <header>
+          <div className="my-trips-header">
+            <h1>My Trips</h1>
+            <hr />
+          </div>
+        </header>
+        <section className="my-trips">
+          <div className="my-trip-cards">{tripCards}</div>
+        </section>
+      </>
     );
   }
 }
