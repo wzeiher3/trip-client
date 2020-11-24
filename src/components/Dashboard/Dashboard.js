@@ -11,68 +11,27 @@ export default class Dashboard extends React.Component {
       error: null,
       searchQuery: '',
       filteredTrips: [],
-      searchUpdated: true,
+      resultsFound: true,
     };
-  }
-
-  static contextType = TripContext;
-  // state is taking two key changes to fully update
-  //
-  setQuery = (e) => {
-    let value = e.target.value;
-
-    this.setState({
-      filteredTrips: this.context.trips.filter((trip) => {
-        return trip.destination.toLowerCase().includes(value.toLowerCase());
-      }),
-      searchUpdated: true,
-    });
   };
 
-  // shouldComponentUpdate = () => {
-  //   if (this.state.searchUpdated === true) {
-  //     return true;
-  //     //   this.setState(
-  //     //     {
-  //     //       filteredTrips: this.context.trips.filter((trip) => {
-  //     //         return trip.destination
-  //     //           .toLowerCase()
-  //     //           .includes(this.state.searchQuery.toLowerCase());
-  //     //       }),
-  //     //       searchUpdated: false,
-  //     //     },
-  //     //     () => this.forceUpdate()
-  //     //   );
-  //     //   return false;
-  //     // }
-  //   }
-  //   return false;
-  // };
+  static contextType = TripContext;
 
-  // filterTrips = (value) => {
-  //   // const nonFilteredTrips = this.context.trips
-  //   let query = value.toLowerCase()
-  //   const filterTrips = this.context.trips.filter(trip => {
-  //     return (
-  //     trip.destination.toLowerCase().includes(query) || trip.short_description.includes(query))
-  //     })
-  //   console.log('this is filtered trips', filterTrips, 'and this is search query', query)
-  //   this.setState({ filteredTrips: filterTrips }, this.forceUpdate())
-  // }
+  setQuery = (e) => {
+    let value = e.target.value;
+    this.setState({
+      filteredTrips: this.context.trips.filter((trip) => {
+        return trip.destination.toLowerCase().includes(value.toLowerCase()) || trip.short_description.toLowerCase().includes(value.toLowerCase()) || trip.activities.toLowerCase().includes(value.toLowerCase());
+      }),
+    }, () => {
+      // if else statement to determine if search results are populated
+      if(this.state.filteredTrips.length > 0) this.setState({resultsFound: true}) 
+        else {this.setState({resultsFound: false})}
+        }
+      )
+  };
 
   render() {
-    // console.log(this.state.searchQuery);
-    // let filteredTripCards = this.context.trips.filter((trip) => {
-    //   if (this.state.searchQuery == null) return trip;
-    //   else if (
-    //     trip.destination
-    //       .toLowerCase()
-    //       .includes(this.state.searchQuery.toLowerCase())
-    //   ) {
-    //     return trip;
-    //   }
-    //   return console.log('Nothing!');
-    // });
     let tripsToMap = [];
     if (this.state.filteredTrips.length > 0) {
       tripsToMap = this.state.filteredTrips;
@@ -108,11 +67,8 @@ export default class Dashboard extends React.Component {
               type="text"
               placeholder={'Search for a destination...'}
               name="tripSearchBar"
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  this.setState({ searchUpdated: false });
+              onChange={(e) => {
                   this.setQuery(e);
-                }
               }}
             ></input>
           </div>
@@ -124,7 +80,7 @@ export default class Dashboard extends React.Component {
           </div>
         </div>
         <div className="lowerSection">
-          {this.state.searchUpdated && tripCards}
+          {this.state.resultsFound ? tripCards : 'no results! search again!'}
         </div>
       </section>
     );
