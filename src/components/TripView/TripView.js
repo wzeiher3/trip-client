@@ -2,7 +2,10 @@ import React from 'react';
 import TripApiService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
 import { Link } from 'react-router-dom';
+import TripViewNav from './TripViewNav/TripViewNav';
 import './TripView.css';
+
+import images from '../../assets/images/images';
 
 export default class Trip extends React.Component {
   static contextType = TripContext;
@@ -12,8 +15,8 @@ export default class Trip extends React.Component {
     trip: [{ user_id: 0, short_description: 'Add a Stop!' }],
     currTripID: 0,
     tripDescription: '',
-    formExpanded: false,
-    updated: false,
+    toggleAddStop: false,
+    stopEditingID: 0,
   };
 
   componentDidMount() {
@@ -38,8 +41,52 @@ export default class Trip extends React.Component {
       });
   }
 
-  updateState = () => {
-    this.setState({ formExpanded: !this.state.formExpanded });
+  toggleAddStop = () => {
+    this.setState({ toggleAddStop: !this.state.toggleAddStop });
+  };
+
+  toggleEditStop = (stop_id) => {
+    this.setState({
+      stopEditingID: stop_id,
+    });
+  };
+
+  handleDeleteTrip = () => {
+    TripApiService.deleteTrip(this.state.trip[0].id).then(() => {
+      this.context.setTrips(
+        this.context.trips.filter((trip) => trip.id !== this.state.trip[0].id)
+      );
+      this.props.history.push('/');
+    });
+  };
+
+  handleSubmitEditStop = (e, stop_id) => {
+    e.preventDefault();
+    this.setState({ error: null, stopEditingID: 0 });
+    const { stop_name, description, category, city, state } = e.target;
+    const { match } = this.props;
+    let tripId = match.params.trips_id;
+    let stop = {
+      trip_id: tripId,
+      longitude: 'temp',
+      latitude: 'temp',
+      city: city.value,
+      state: state.value,
+      stop_name: stop_name.value,
+      description: description.value,
+      category: category.value,
+    };
+
+    TripApiService.patchStop(stop, stop_id)
+      .then((res) => {
+        const stops = this.state.stops.filter((stop) => stop.id !== res.id);
+        this.setState({
+          stops: [...stops, res],
+        });
+      })
+      .catch((error) => {
+        this.setState({ error });
+      });
   };
 
   handleSubmitStop = (e) => {
@@ -47,7 +94,6 @@ export default class Trip extends React.Component {
     this.setState({ error: null });
     const { stop_name, description, category, city, state } = e.target;
     const { match } = this.props;
-    // set trip_id variable
     let tripId = match.params.trips_id;
     let stop = {
       trip_id: tripId,
@@ -64,7 +110,7 @@ export default class Trip extends React.Component {
       .then((res) => {
         this.setState({
           stops: [...this.state.stops, res],
-          formExpanded: false,
+          toggleAddStop: false,
         });
       })
       .catch((error) => {
@@ -78,7 +124,7 @@ export default class Trip extends React.Component {
     return isTripCreator;
   };
 
-  renderStopForm = () => {
+  renderAddStopForm = () => {
     return (
       <form onSubmit={this.handleSubmitStop}>
         <label htmlFor="stop_name">Input the name of your stop!</label>
@@ -92,13 +138,124 @@ export default class Trip extends React.Component {
         <label htmlFor="description">Input any notes about your stop</label>
         <input type="text" name="description" />
         <button
-          className="myButton"
+          className="tripViewButton"
+          type="button"
+          onClick={(e) => this.toggleAddStop(e)}
+        >
+          Cancel
+        </button>
+        <button
+          className="tripViewButton"
           type="submit"
           onClick={(e) => this.handleSubmitStop}
         >
           Submit!
         </button>
       </form>
+    );
+  };
+
+  renderStop = (stop, index) => {
+    return (
+      <div className="trip-stop-wrapper" key={stop.id}>
+        <div className="trip-stop trip-div">
+          <figcaption>
+            {this.isTripCreator() && (
+              <div className="tripView-button-wrapper">
+                <button
+                  className="tripViewButton"
+                  onClick={() => this.toggleEditStop(stop.id)}
+                >
+                  Edit Stop
+                </button>
+                <button
+                  className="tripViewButton"
+                  onClick={() => this.handleDeleteStop(stop.id)}
+                >
+                  Delete Stop
+                </button>
+              </div>
+            )}
+          </figcaption>
+          <div
+            className={
+              this.isTripCreator() ? 'trip-header-creator' : 'trip-header'
+            }
+          >
+            <h2>{stop.stop_name}</h2>
+            <span>
+              {stop.city}, {stop.state}
+            </span>
+            <br />
+            <span className="trip-category">
+              Category: {stop.category.replace('_', ' ')}
+            </span>
+          </div>
+          <p>{stop.description}</p>
+        </div>
+        <br />
+        {index === this.state.stops.length - 1 ? null : index % 2 !== 0 ? (
+          <img src={images.road_a} alt="road illustration"></img>
+        ) : (
+          <img src={images.road_b} alt="road illustration"></img>
+        )}
+      </div>
+    );
+  };
+
+  renderEditStopForm = (stop, index) => {
+    const id = stop.id;
+    return (
+      <div className="trip-stop-wrapper" key={stop.id}>
+        <div className="trip-stop  trip-div" key={index}>
+          <form
+            action="#"
+            id="EditStopForm"
+            onSubmit={(e) => this.handleSubmitEditStop(e, id)}
+          >
+            <div className="trip-header">
+              <input
+                defaultValue={stop.stop_name}
+                name="stop_name"
+                id="edit_stop_name"
+                aria-label="stop_name"
+              />{' '}
+              <br />
+              <input defaultValue={stop.city} name="city" aria-label="city" />
+              <br />
+              <input
+                defaultValue={stop.state}
+                name="state"
+                aria-label="state"
+              />
+            </div>
+            <input
+              defaultValue={stop.category}
+              name="category"
+              aria-label="category"
+            ></input>
+            <br />
+            <input
+              defaultValue={stop.description}
+              name="description"
+              aria-label="description"
+            />
+            {this.isTripCreator() && (
+              <div className="tripView-button-wrapper">
+                <button
+                  className="tripViewButton"
+                  onClick={() => this.toggleEditStop(0)}
+                >
+                  Cancel
+                </button>
+                <button className="tripViewButton" type="submit">
+                  Submit
+                </button>
+              </div>
+            )}
+          </form>
+        </div>
+      </div>
     );
   };
 
@@ -115,44 +272,45 @@ export default class Trip extends React.Component {
   };
 
   render() {
+    const trip = this.state.trip[0];
     const stops = this.state.stops.map((stop, index) => {
-      return (
-        <div className="trip-stop" key={index}>
-          <div className="trip-header">
-            <h2>{stop.stop_name}</h2>
-            <span>
-              {stop.city}, {stop.state}
-            </span>
-          </div>
-          <p>{stop.description}</p>
-          {this.isTripCreator() && (
-            <button onClick={() => this.handleDeleteStop(stop.id)}>
-              Delete Stop
-            </button>
-          )}
-        </div>
-      );
+      if (stop.id === this.state.stopEditingID) {
+        return this.renderEditStopForm(stop, index);
+      }
+      return this.renderStop(stop, index);
     });
     return (
-      <div className="trip">
-        <h2 className="trip-name">{this.state.trip[0].short_description}</h2>
-        {stops}
-
-        {this.state.formExpanded ? this.renderStopForm() : null}
-
+      <>
         {this.isTripCreator() && (
-          <div className="addStopButton">
-            <div
-              className="myButton"
-              onClick={() => {
-                this.setState({ formExpanded: !this.state.formExpanded });
-              }}
-            >
-              Add a Stop!
-            </div>
-          </div>
+          <TripViewNav handleDeleteTrip={this.handleDeleteTrip} />
         )}
-      </div>
+        <div className="trip">
+          <h2 className="trip-name">{trip.destination}</h2>
+          <span>
+            Rating: {trip.rating}
+            {!trip.rating && <>N\A</>}
+          </span>
+          <p>{trip.short_description}</p>
+          <p>
+            Activities: {trip.activities} <br />
+            Days: {trip.days}
+          </p>
+          {stops}
+          {this.state.toggleAddStop && this.renderAddStopForm()}
+          {!this.state.toggleAddStop && this.isTripCreator() && (
+            <div className="addStopButton">
+              <div
+                className="myButton"
+                onClick={() => {
+                  this.setState({ toggleAddStop: !this.state.toggleAddStop });
+                }}
+              >
+                Add a Stop!
+              </div>
+            </div>
+          )}
+        </div>
+      </>
     );
   }
 }

@@ -17,6 +17,16 @@ export default class TripCards extends Component {
     return colors[number];
   };
 
+  componentWillUnmount() {
+    sequence = 0;
+    return false;
+  }
+
+  componentDidUpdate() {
+    sequence = 0;
+    return false;
+  }
+
   shouldComponentUpdate() {
     sequence = 0;
     return false;

@@ -124,7 +124,7 @@ export default class AddTripForm extends React.Component {
                 />
               </div>
               <br />
-              <article className="TripCardDemo-wrapper">
+              <div className="TripCardDemo-wrapper">
                 <img
                   onClick={this.handleScrollLeft}
                   src={images.arrow_left}
@@ -160,7 +160,6 @@ export default class AddTripForm extends React.Component {
                   src={images.arrow_right}
                   alt="right arrow"
                 />
-              </article>
               <div className="button-wrapper">
                 <button className="myButton" type="submit">
                   Submit!
@@ -169,7 +168,6 @@ export default class AddTripForm extends React.Component {
             </form>
           </div>
         </section>
-        
       </>
     );
   }
