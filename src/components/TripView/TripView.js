@@ -166,7 +166,11 @@ export default class Trip extends React.Component {
               </div>
             )}
           </figcaption>
-          <div className="trip-header">
+          <div
+            className={
+              this.isTripCreator() ? 'trip-header-creator' : 'trip-header'
+            }
+          >
             <h2>{stop.stop_name}</h2>
             <span>
               {stop.city}, {stop.state}
@@ -190,8 +194,12 @@ export default class Trip extends React.Component {
     const id = stop.id;
     return (
       <div className="trip-stop-wrapper" key={stop.id}>
-        <div className="trip-stop" key={index}>
-          <form action="#" onSubmit={(e) => this.handleSubmitEditStop(e, id)}>
+        <div className="trip-stop  trip-div" key={index}>
+          <form
+            action="#"
+            id="EditStopForm"
+            onSubmit={(e) => this.handleSubmitEditStop(e, id)}
+          >
             <div className="trip-header">
               <input
                 defaultValue={stop.stop_name}

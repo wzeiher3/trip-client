@@ -58,7 +58,14 @@
 
 .trip-header > h2 {
   font-size: 40px;
-  margin-top: 2px;
+  margin-top: 18px;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.trip-header-creator > h2 {
+  font-size: 40px;
+  margin-top: 3px;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .trip-div {
@@ -72,7 +79,7 @@
   outline: none;
   position: relative;
   font-size: 1.3em;
-  border: 3px solid rgb(223, 223, 223);
+  border: 5px solid rgb(223, 223, 223);
   border-radius: 15px 15px 15px 15px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -82,8 +89,8 @@
 .trip-div:before {
   content: '';
   position: absolute;
-  left: -3px;
-  top: -3px;
+  left: -5px;
+  top: -5px;
   width: 0;
   height: 0;
   border-style: solid;
@@ -151,6 +158,10 @@
   position: absolute;
   bottom: -18px;
   width: 45px;
+}
+
+.EditStopForm > input {
+  border: none;
 }
 
 @media all and (min-width: 675px) {
