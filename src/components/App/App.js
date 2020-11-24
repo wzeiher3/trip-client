@@ -12,6 +12,7 @@ import AddTripForm from '../AddTripForm/AddTripForm';
 import TripView from '../TripView/TripView';
 import MyTrips from '../MyTrips/MyTrips';
 import TripApiService from '../../services/trip-service';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary'
 import './App.css';
 
 export default class App extends Component {
@@ -43,6 +44,7 @@ export default class App extends Component {
         <Header />
         <main>
           {hasError && <p>There was an error! Oh no!</p>}
+          <ErrorBoundary>
           <Switch>
             <PrivateRoute exact path={'/add-trip'} component={AddTripForm} />
             <PrivateRoute path={'/my-trips'} component={MyTrips} />
@@ -55,6 +57,7 @@ export default class App extends Component {
             <PublicOnlyRoute path={'/login'} component={LoginRoute} />
             <Route component={NotFoundRoute} />
           </Switch>
+            </ErrorBoundary>
         </main>
       </div>
     );
