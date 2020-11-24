@@ -24,7 +24,7 @@ export default class Dashboard extends React.Component {
         return trip.destination.toLowerCase().includes(value.toLowerCase()) || trip.short_description.toLowerCase().includes(value.toLowerCase()) || trip.activities.toLowerCase().includes(value.toLowerCase());
       }),
     }, () => {
-      // if else statement 
+      // if else statement to determine if search results are populated
       if(this.state.filteredTrips.length > 0) this.setState({resultsFound: true}) 
         else {this.setState({resultsFound: false})}
         }
@@ -32,10 +32,6 @@ export default class Dashboard extends React.Component {
   };
 
   render() {
-    console.log(this.state.searchQuery);
-    console.log(this.state);
-    console.log('Rendering...');
-
     let tripsToMap = [];
     if (this.state.filteredTrips.length > 0) {
       tripsToMap = this.state.filteredTrips;
