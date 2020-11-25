@@ -94,29 +94,32 @@ export default class Trip extends React.Component {
   };
 
   handleEditTrip = () => {
-    this.setState({toggleEditTrip: true}, console.log(this.state.toggleEditTrip))
-  }
+    this.setState(
+      { toggleEditTrip: true },
+      console.log(this.state.toggleEditTrip)
+    );
+  };
 
   handleSubmitEditedTrip = (e, id) => {
     e.preventDefault();
-    const { destination, short_description, activities, days} = e.target
+    const { destination, short_description, activities, days } = e.target;
 
     let trip = {
       short_description: short_description.value,
       destination: destination.value,
       activities: activities.value,
       days: days.value,
-    }
+    };
 
     TripApiService.patchTrip(trip, id)
       .then((res) => {
-        this.setState({trip: res})
+        this.setState({ trip: res });
       })
       .catch((error) => {
-        this.setState({error})
+        this.setState({ error });
       });
 
-      this.setState({toggleEditTrip: false})
+    this.setState({ toggleEditTrip: false });
   };
 
   handleSubmitEditStop = (e, stop_id) => {
@@ -199,11 +202,11 @@ export default class Trip extends React.Component {
         <h2>Add Stop</h2>
         <br />
         <label htmlFor="stop_name">Describe your stop with a name!</label>
-        <input type="text" name="stop_name" />
+        <input type="text" name="stop_name" required maxLength={40} />
         <label htmlFor="city">City</label>
-        <input type="text" name="city" />
+        <input type="text" name="city" required maxLength={40} />
         <label htmlFor="state">State or Country</label>
-        <input type="text" name="state" />
+        <input type="text" name="state" required maxLength={40} />
         <label htmlFor="category">What category of stop is this?</label>
         <br />
         <TripViewSelect
@@ -213,7 +216,7 @@ export default class Trip extends React.Component {
         />
         <br />
         <label htmlFor="description">Describe the experience to expect:</label>
-        <input type="text" name="description" />
+        <input type="text" name="description" required maxLength={400} />
         <button
           className="tripViewButton"
           type="button"
@@ -232,55 +235,59 @@ export default class Trip extends React.Component {
     );
   };
 
-
   renderEditTrip = (trip) => {
     return (
-    <div className="edit-trip">
-      <form
-      onSubmit={(e) => this.handleSubmitEditedTrip(e, trip.id)}>
-      <h2 className="trip-name">
-        <input
-        defaultValue={trip.destination}
-        name="destination" 
-        >
-      </input>
-      </h2>
-          <p><input 
-          defaultValue={trip.short_description} 
-          name="short_description"
-          required
-          ></input></p>
+      <div className="edit-trip">
+        <form onSubmit={(e) => this.handleSubmitEditedTrip(e, trip.id)}>
+          <h2 className="trip-name">
+            <input
+              defaultValue={trip.destination}
+              name="destination"
+              maxLength={14}
+            ></input>
+          </h2>
           <p>
-            Activities: 
-            <input 
-            defaultValue={trip.activities} 
-            name="activities"
-            required
-            >
-              </input><br />
-            Days: <input 
-            defaultValue={trip.days}
-            type="number"
-            min={0}
-            name="days"
-            required
+            <input
+              defaultValue={trip.short_description}
+              name="short_description"
+              maxLength={40}
+              required
+            ></input>
+          </p>
+          <p>
+            Activities:
+            <input
+              defaultValue={trip.activities}
+              name="activities"
+              maxLength={40}
+              required
+            ></input>
+            <br />
+            Days:{' '}
+            <input
+              defaultValue={trip.days}
+              type="number"
+              min={0}
+              name="days"
+              max={99}
+              required
             />
-            </p>
-            <div className="edit-trip-button-container">
+          </p>
+          <div className="edit-trip-button-container">
             <button
-                  className="tripViewButton"
-                  onClick={() => this.setState({toggleEditTrip: false})}
-                >
-                  Cancel
-                </button>
-                <button className="tripViewButton" type="submit">
-                  Submit
-                </button>
-              </div>
-      </form>
-    </div>
-    )  
-}
+              className="tripViewButton"
+              onClick={() => this.setState({ toggleEditTrip: false })}
+            >
+              Cancel
+            </button>
+            <button className="tripViewButton" type="submit">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    );
+  };
 
   renderStop = (stop, index) => {
     return (
@@ -346,14 +353,24 @@ export default class Trip extends React.Component {
                 name="stop_name"
                 id="edit_stop_name"
                 aria-label="stop_name"
+                maxLength={40}
+                required
               />{' '}
               <br />
-              <input defaultValue={stop.city} name="city" aria-label="city" />
+              <input
+                defaultValue={stop.city}
+                name="city"
+                aria-label="city"
+                maxLength={40}
+                required
+              />
               <br />
               <input
                 defaultValue={stop.state}
                 name="state"
                 aria-label="state"
+                maxLength={40}
+                required
               />
             </div>
             <TripViewEditSelect
@@ -365,6 +382,8 @@ export default class Trip extends React.Component {
               defaultValue={stop.description}
               name="description"
               aria-label="description"
+              maxLength={400}
+              required
             />
             {this.isTripCreator() && (
               <div className="tripView-button-wrapper">
@@ -415,7 +434,10 @@ export default class Trip extends React.Component {
     return (
       <>
         {this.isTripCreator() && (
-          <TripViewNav handleDeleteTrip={this.handleDeleteTrip} handleEditTrip={this.handleEditTrip}/>
+          <TripViewNav
+            handleDeleteTrip={this.handleDeleteTrip}
+            handleEditTrip={this.handleEditTrip}
+          />
         )}
         <div className="trip">
 

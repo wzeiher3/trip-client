@@ -117,6 +117,8 @@ export default class AddTripForm extends React.Component {
                 placeholder={'New York Shopping, Backpacking through Europe!'}
                 type="text"
                 name="short_description"
+                maxLength={40}
+                required
               />
               <br />
               <label htmlFor="activities">
@@ -127,6 +129,8 @@ export default class AddTripForm extends React.Component {
                 type="text"
                 name="activities"
                 placeholder={'Shopping, Sight-seeing, Gnoshing...'}
+                maxLength={40}
+                required
               />
               <br />
               <div className="trip-rating-days">
@@ -140,6 +144,8 @@ export default class AddTripForm extends React.Component {
                   id="days"
                   name="days"
                   max={99}
+                  min={1}
+                  required
                 />
               </div>
               <br />

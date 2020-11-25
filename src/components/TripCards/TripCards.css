@@ -30,6 +30,8 @@
   color: black;
   font-weight: bold;
   font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .TripCard-title > h2 {
@@ -49,6 +51,8 @@
   font-size: 17px;
   min-height: 18px;
   padding-left: 1px;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .Activities > span {
