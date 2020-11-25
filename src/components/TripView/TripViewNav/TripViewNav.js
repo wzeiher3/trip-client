@@ -6,7 +6,8 @@ class TripViewNav extends Component {
   render() {
     return (
       <section className="TripViewNav">
-        <button className="tripNav myButton">Edit Trip</button>
+        <button className="tripNav myButton"
+        onClick={() => this.props.handleEditTrip()}>Edit Trip</button>
         <button
           onClick={() => this.props.handleDeleteTrip()}
           className="tripNav myButton"
