@@ -16,7 +16,6 @@
 
 .trip-stop {
   word-wrap: break-word;
-  word-break: break-all;
 }
 
 .trip > div > img {
@@ -90,10 +89,9 @@
 .trip-div {
   color: black;
   background-color: white;
-  cursor: pointer;
   padding: 0px 2px;
   display: inline-block;
-  margin: 8px 0px;
+  margin: 12px 0px;
   line-height: 1.6em;
   outline: none;
   position: relative;
@@ -119,9 +117,10 @@
 }
 
 .trip-div:hover,
-.trip-div.hover {
+.trip-div:hover {
   border-color: rgb(230, 31, 130);
   background-color: rgb(255, 255, 255);
+  transform: scale(1.1);
 }
 
 .tripViewButton {
