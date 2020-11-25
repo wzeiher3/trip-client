@@ -1,6 +1,7 @@
 import React from 'react';
 import TripApiService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
+import MapContainer from '../Map/Map'
 import { Link } from 'react-router-dom';
 import TripViewNav from './TripViewNav/TripViewNav';
 import TripViewSelect from './TripViewSelect/TripViewSelect';
@@ -14,7 +15,7 @@ export default class Trip extends React.Component {
 
   state = {
     stops: [],
-    trip: [{ user_id: 0, short_description: 'Add a Stop!' }],
+    trip: [{ user_id: 0, short_description: 'Add a Stop!'}],
     currTripID: 0,
     tripDescription: '',
     toggleAddStop: false,
@@ -161,8 +162,8 @@ export default class Trip extends React.Component {
     let tripId = match.params.trips_id;
     let stop = {
       trip_id: tripId,
-      longitude: 0.0,
-      latitude: 0.0,
+      longitude: -32.77779,
+      latitude: 46.888888,
       city: city.value,
       state: state.value,
       stop_name: stop_name.value,
@@ -423,6 +424,13 @@ export default class Trip extends React.Component {
       }
       return this.renderStop(stop, index);
     });
+
+    const { match } = this.props;
+    // set trip_id variable
+    const trip_id = match.params.trips_id;
+
+    console.log("This Trip", this.state.trip[0])
+
     return (
       <>
         {this.isTripCreator() && (
@@ -432,22 +440,22 @@ export default class Trip extends React.Component {
           />
         )}
         <div className="trip">
-          {this.state.toggleEditTrip ? (
-            this.renderEditTrip(trip)
-          ) : (
-            <>
-              <h2 className="trip-name">{trip.destination}</h2>
-              <span>
-                Rating: {trip.rating}
-                {!trip.rating && <>N\A</>}
-              </span>
-              <p>{trip.short_description}</p>
-              <p>
-                Activities: {trip.activities} <br />
-                Days: {trip.days}
-              </p>
-            </>
-          )}
+
+        {/* <div id="Map"><MapContainer trip={this.state.trip[0]}/></div> */}
+        {this.state.toggleEditTrip ? this.renderEditTrip(trip) :
+         <>
+         <h2 className="trip-name">{trip.destination}</h2>
+          <span>
+            Rating: {trip.rating}
+            {!trip.rating && <>N\A</>}
+          </span>
+          <p>{trip.short_description}</p>
+          <p>
+            Activities: {trip.activities} <br />
+            Days: {trip.days}
+        </p>
+        </> 
+        }
           {stops}
           {this.state.toggleAddStop && this.renderAddStopForm()}
           {!this.state.toggleAddStop && this.isTripCreator() && (

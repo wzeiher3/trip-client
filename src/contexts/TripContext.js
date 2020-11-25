@@ -19,6 +19,7 @@ export class TripProvider extends React.Component {
   state = {
     trips: [],
     currTripId: null,
+    currPlace: {},
     stops: [],
   };
 
@@ -41,6 +42,12 @@ export class TripProvider extends React.Component {
       currTripId: id,
     });
   };
+
+  storeCurrPlace = (place) => {
+      this.setState({
+        currPlace: place
+      })
+  } 
 
   handleAddTrip = (trip) => {
     this.setState({
@@ -67,6 +74,7 @@ export class TripProvider extends React.Component {
       addTrip: this.handleAddTrip,
       addStop: this.addStop,
       stops: this.state.stops,
+      storeCurrPlace: this.storeCurrPlace,
       verifyAuth: this.verifyAuth,
     };
 

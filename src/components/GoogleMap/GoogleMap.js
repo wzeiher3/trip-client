@@ -19,7 +19,7 @@ export default class GoogleMap extends React.Component {
 
         // Load the Google Maps API
         const script = document.createElement("script");
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${config.API_KEY}&libraries=localContext&v=beta&callback=resolveGoogleMapsPromise`;
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${config.MAP_API_KEY}&libraries=localContext&v=beta&callback=resolveGoogleMapsPromise`;
         script.async = true;
         document.body.appendChild(script);
       });
