@@ -4,6 +4,8 @@ import TripContext from '../../contexts/TripContext';
 import { Link } from 'react-router-dom';
 import TripViewNav from './TripViewNav/TripViewNav';
 import TripViewSelect from './TripViewSelect/TripViewSelect';
+import TripViewEditSelect from './TripViewEditSelect.js/TripViewEditSelect';
+
 import './TripView.css';
 import images from '../../assets/images/images';
 
@@ -46,9 +48,10 @@ export default class Trip extends React.Component {
     this.setState({ toggleAddStop: !this.state.toggleAddStop });
   };
 
-  toggleEditStop = (stop_id) => {
+  toggleEditStop = (stop_id, stop_categories) => {
     this.setState({
       stopEditingID: stop_id,
+      selections: stop_categories.split(','),
     });
   };
 
@@ -82,9 +85,12 @@ export default class Trip extends React.Component {
     });
   };
 
-  handleSubmitEditStop = (e, stop_id) => {
+  handleSubmitEditStop = async (e, stop_id) => {
     e.preventDefault();
-    this.setState({ error: null, stopEditingID: 0 });
+    this.setState({
+      error: null,
+      stopEditingID: 0,
+    });
     const { stop_name, description, category, city, state } = e.target;
     const { match } = this.props;
     let tripId = match.params.trips_id;
@@ -96,7 +102,7 @@ export default class Trip extends React.Component {
       state: state.value,
       stop_name: stop_name.value,
       description: description.value,
-      category: category.value,
+      category: this.state.selections.join(', '),
     };
 
     TripApiService.patchStop(stop, stop_id)
@@ -125,11 +131,12 @@ export default class Trip extends React.Component {
       state: state.value,
       stop_name: stop_name.value,
       description: description.value,
-      category: this.state.selections,
+      category: this.state.selections.join(', '),
     };
 
     TripApiService.postStop(stop)
       .then((res) => {
+        console.log(res);
         this.setState({
           stops: [...this.state.stops, res],
           toggleAddStop: false,
@@ -200,7 +207,7 @@ export default class Trip extends React.Component {
               <div className="tripView-button-wrapper">
                 <button
                   className="tripViewButton"
-                  onClick={() => this.toggleEditStop(stop.id)}
+                  onClick={() => this.toggleEditStop(stop.id, stop.category)}
                 >
                   Edit Stop
                 </button>
@@ -265,12 +272,11 @@ export default class Trip extends React.Component {
                 aria-label="state"
               />
             </div>
-            <input
-              defaultValue={stop.category}
-              name="category"
-              aria-label="category"
-            ></input>
-            <br />
+            <TripViewEditSelect
+              handleSelect={this.handleSelect}
+              clearSelections={this.clearSelections}
+              selections={this.state.selections}
+            />
             <input
               defaultValue={stop.description}
               name="description"

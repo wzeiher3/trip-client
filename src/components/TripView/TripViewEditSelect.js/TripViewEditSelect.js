@@ -1,7 +1,7 @@
 import React from 'react';
-import './TripViewSelect.css';
+import './TripViewEditSelect.css';
 
-export default class TripViewSelect extends React.Component {
+export default class TripViewEditSelect extends React.Component {
   render() {
     return (
       <>
@@ -11,7 +11,7 @@ export default class TripViewSelect extends React.Component {
             if (e.key === 'Enter') this.props.handleSelect(e);
           }}
           name="category"
-          className="select-form"
+          className="select-edit"
           multiple
         >
           <option>Bakery</option>
@@ -60,7 +60,6 @@ export default class TripViewSelect extends React.Component {
             </span>
           ))}
         </div>
-        <br />
       </>
     );
   }
