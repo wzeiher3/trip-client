@@ -70,7 +70,7 @@
 
 .trip-div {
   color: black;
-  background-color: transparent;
+  background-color: white;
   cursor: pointer;
   padding: 0px 2px;
   display: inline-block;
@@ -195,7 +195,6 @@
   font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
   font-size: 44px;
   margin: 0;
-
   color: rgb(233, 159, 64);
   text-shadow: 2px 1px 2px rgb(0, 0, 0);
 }
