@@ -1,6 +1,20 @@
+.my-trips-header {
+    padding: 15px;
+    font-family: 'Archivo Black', Arial, Helvetica, sans-serif;
+    text-align: center;
+    width:100%;
+    margin: .5em 0 0 0;
+    color: white;
+    font-size: x-large;
+    text-shadow: 2px 2px #000;
+    background: rgb(247, 134, 243);
+    background: linear-gradient(90deg, #48a7f5 0, #40e9e1 100%);
+}
+
 .my-trips {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   margin-top: 3em;
   margin-left: 0;
   padding-left: 2em;
@@ -9,9 +23,64 @@
   border-radius: 20px;
 }
 
+.my-trip-info-group {
+  display: flex;
+  flex-direction: row;
+  padding: 25px;
+  margin: 1em 0 5.5em 0;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.my-trip-info {
+  box-shadow: inset 0px 1px 0px 0px #ffffff;
+  background: linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+  display: inline-block;
+  cursor: pointer;
+  color: #141414;
+  font-family: 'Archivo Black', Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 12px 26px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffffff;
+  width: 200px;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+}
+
+.my-trip-info:hover {
+  background: linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
+  background-color: #e9e9e9;
+}
+
+.dropdown {
+  color: #141414;
+  font-family: 'Archivo Black', Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  text-align: center;
+  align-items: center;
+  justify-content: space-around;
+  display: none;
+  position: absolute;
+
+}
+
+.my-trip-dropdown:hover .dropdown{
+  display: block;
+}
+
 .my-trip-cards {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: flex-start;
   padding: 1em;
 }
