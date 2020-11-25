@@ -49,10 +49,16 @@ export default class Trip extends React.Component {
   };
 
   toggleEditStop = (stop_id, stop_categories) => {
-    this.setState({
-      stopEditingID: stop_id,
-      selections: stop_categories.split(','),
-    });
+    if (stop_id !== 0) {
+      this.setState({
+        stopEditingID: stop_id,
+        selections: stop_categories.split(','),
+      });
+    } else {
+      this.setState({
+        stopEditingID: stop_id,
+      });
+    }
   };
 
   handleSelect = (e) => {
@@ -91,7 +97,7 @@ export default class Trip extends React.Component {
       error: null,
       stopEditingID: 0,
     });
-    const { stop_name, description, category, city, state } = e.target;
+    const { stop_name, description, city, state } = e.target;
     const { match } = this.props;
     let tripId = match.params.trips_id;
     let stop = {
