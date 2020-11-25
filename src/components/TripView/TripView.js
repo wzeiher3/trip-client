@@ -3,8 +3,10 @@ import TripApiService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
 import { Link } from 'react-router-dom';
 import TripViewNav from './TripViewNav/TripViewNav';
-import './TripView.css';
+import TripViewSelect from './TripViewSelect/TripViewSelect';
+import TripViewEditSelect from './TripViewEditSelect.js/TripViewEditSelect';
 
+import './TripView.css';
 import images from '../../assets/images/images';
 
 export default class Trip extends React.Component {
@@ -18,6 +20,7 @@ export default class Trip extends React.Component {
     toggleAddStop: false,
     stopEditingID: 0,
     toggleEditTrip: false,
+    selections: [],
   };
 
   componentDidMount() {
@@ -46,10 +49,32 @@ export default class Trip extends React.Component {
     this.setState({ toggleAddStop: !this.state.toggleAddStop });
   };
 
-  toggleEditStop = (stop_id) => {
+  toggleEditStop = (stop_id, stop_categories) => {
     this.setState({
       stopEditingID: stop_id,
+      selections: stop_categories.split(','),
     });
+  };
+
+  handleSelect = (e) => {
+    let selection = e.target;
+    selection = selection.value;
+    const findSelect = this.state.selections.includes(selection);
+    if (findSelect) {
+      this.setState({
+        selections: [
+          ...this.state.selections.filter((select) => {
+            return select !== selection;
+          }),
+        ],
+      });
+    } else {
+      this.setState({ selections: [...this.state.selections, selection] });
+    }
+  };
+
+  clearSelections = () => {
+    this.setState({ selections: [] });
   };
 
   handleDeleteTrip = () => {
@@ -89,7 +114,10 @@ export default class Trip extends React.Component {
 
   handleSubmitEditStop = (e, stop_id) => {
     e.preventDefault();
-    this.setState({ error: null, stopEditingID: 0 });
+    this.setState({
+      error: null,
+      stopEditingID: 0,
+    });
     const { stop_name, description, category, city, state } = e.target;
     const { match } = this.props;
     let tripId = match.params.trips_id;
@@ -101,7 +129,7 @@ export default class Trip extends React.Component {
       state: state.value,
       stop_name: stop_name.value,
       description: description.value,
-      category: category.value,
+      category: this.state.selections.join(', '),
     };
 
     TripApiService.patchStop(stop, stop_id)
@@ -119,7 +147,7 @@ export default class Trip extends React.Component {
   handleSubmitStop = (e) => {
     e.preventDefault();
     this.setState({ error: null });
-    const { stop_name, description, category, city, state } = e.target;
+    const { stop_name, description, city, state } = e.target;
     const { match } = this.props;
     let tripId = match.params.trips_id;
     let stop = {
@@ -130,11 +158,12 @@ export default class Trip extends React.Component {
       state: state.value,
       stop_name: stop_name.value,
       description: description.value,
-      category: category.value,
+      category: this.state.selections.join(', '),
     };
 
     TripApiService.postStop(stop)
       .then((res) => {
+        console.log(res);
         this.setState({
           stops: [...this.state.stops, res],
           toggleAddStop: false,
@@ -153,16 +182,30 @@ export default class Trip extends React.Component {
 
   renderAddStopForm = () => {
     return (
-      <form onSubmit={this.handleSubmitStop}>
-        <label htmlFor="stop_name">Input the name of your stop!</label>
+      <form
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') e.preventDefault();
+        }}
+        className="addStopForm"
+        onSubmit={this.handleSubmitStop}
+      >
+        <h2>Add Stop</h2>
+        <br />
+        <label htmlFor="stop_name">Describe your stop with a name!</label>
         <input type="text" name="stop_name" />
         <label htmlFor="city">City</label>
         <input type="text" name="city" />
-        <label htmlFor="state">State</label>
+        <label htmlFor="state">State or Country</label>
         <input type="text" name="state" />
-        <label htmlFor="category">What kind of stop is this?</label>
-        <input type="text" name="category" />
-        <label htmlFor="description">Input any notes about your stop</label>
+        <label htmlFor="category">What category of stop is this?</label>
+        <br />
+        <TripViewSelect
+          handleSelect={this.handleSelect}
+          clearSelections={this.clearSelections}
+          selections={this.state.selections}
+        />
+        <br />
+        <label htmlFor="description">Describe the experience to expect:</label>
         <input type="text" name="description" />
         <button
           className="tripViewButton"
@@ -241,7 +284,7 @@ export default class Trip extends React.Component {
               <div className="tripView-button-wrapper">
                 <button
                   className="tripViewButton"
-                  onClick={() => this.toggleEditStop(stop.id)}
+                  onClick={() => this.toggleEditStop(stop.id, stop.category)}
                 >
                   Edit Stop
                 </button>
@@ -306,12 +349,11 @@ export default class Trip extends React.Component {
                 aria-label="state"
               />
             </div>
-            <input
-              defaultValue={stop.category}
-              name="category"
-              aria-label="category"
-            ></input>
-            <br />
+            <TripViewEditSelect
+              handleSelect={this.handleSelect}
+              clearSelections={this.clearSelections}
+              selections={this.state.selections}
+            />
             <input
               defaultValue={stop.description}
               name="description"
