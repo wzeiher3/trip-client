@@ -1,9 +1,7 @@
-#map {
-    height: 100%;
-  }
+
   
   /* Optional: Makes the sample page fill the window. */
-  html,
+  /* html,
   body {
     height: 100%;
     margin: 0;
@@ -12,4 +10,4 @@
 
   .Map{
       margin-right: 100px;
-  }
+  } */
