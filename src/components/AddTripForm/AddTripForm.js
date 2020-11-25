@@ -34,6 +34,8 @@ export default class AddTripForm extends React.Component {
     e.preventDefault();
     this.setState({ error: null });
     const { short_description, destination, days, activities } = e.target;
+
+    console.log(this.state.place.coordinates.lat)
     let trip = {
       destination: this.state.place.place,
       short_description: short_description.value,
@@ -44,9 +46,11 @@ export default class AddTripForm extends React.Component {
       img: this.state.images[this.state.imagesScroll],
     };
     let currentTrips = this.context.trips;
+    console.log("Trip Addded", trip)
     TripService.postTrip(trip)
       .then((res) => {
         this.context.setTrips([res, ...currentTrips]);
+        console.log("Trip Added Checked", )
         this.props.history.push('/');
       })
       .catch((error) => {
@@ -78,7 +82,7 @@ export default class AddTripForm extends React.Component {
 
   render() {
 
-    console.log("add trip state", this.state)
+    console.log("add trip state", this.state.place)
     return (
       <>
         <section className="addTripSection">

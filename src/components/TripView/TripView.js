@@ -10,7 +10,7 @@ export default class Trip extends React.Component {
 
   state = {
     stops: [],
-    trip: [{ user_id: 0, short_description: 'Add a Stop!' }],
+    trip: [{ user_id: 0, short_description: 'Add a Stop!'}],
     currTripID: 0,
     tripDescription: '',
     formExpanded: false,
@@ -39,6 +39,14 @@ export default class Trip extends React.Component {
       });
   }
 
+  // componentWillMount(){
+  //   const { match } = this.props;
+  //   // set trip_id variable
+  //   const trip_id = match.params.trips_id;
+
+  //   const trip = TripApiService.getTrip(trip_id)
+  // }
+
   updateState = () => {
     this.setState({ formExpanded: !this.state.formExpanded });
   };
@@ -52,8 +60,8 @@ export default class Trip extends React.Component {
     let tripId = match.params.trips_id;
     let stop = {
       trip_id: tripId,
-      longitude: 0.00,
-      latitude: 0.00,
+      longitude: -32.77779,
+      latitude: 46.888888,
       city: city.value,
       state: state.value,
       stop_name: stop_name.value,
@@ -134,9 +142,16 @@ export default class Trip extends React.Component {
         </div>
       );
     });
+
+    const { match } = this.props;
+    // set trip_id variable
+    const trip_id = match.params.trips_id;
+
+    console.log("This Trip", this.state.trip[0])
+
     return (
       <div className="trip">
-        {/* <div id="Map"><MapContainer tripID={this.state.currTripID}/></div> */}
+        <div id="Map"><MapContainer trip={this.state.trip[0]}/></div>
         <h2 className="trip-name">{this.state.trip[0].short_description}</h2>
         {stops}
 

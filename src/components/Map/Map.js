@@ -3,7 +3,7 @@ import { GoogleComponent } from 'react-google-location';
 import { Map, GoogleApiWrapper, Marker} from 'google-maps-react';
 import TripApiService from "../../services/trip-service"
 import './Map.css'
-const API_KEY = 'AIzaSyAqwvGJ4-Cdmo1KHAY-a8_CQpzcNPVRqY0';
+import MAP_API_KEY from '../../config'
 
 export class MapContainer extends React.Component {
     constructor(props) {
@@ -15,9 +15,18 @@ export class MapContainer extends React.Component {
                 {latitude: 47.2052192687988, longitude: -121.988426208496},
                 {latitude: 47.6307081, longitude: -122.1434325},
                 {latitude: 47.3084488, longitude: -122.2140121},
-                {latitude: 47.5524695, longitude: -122.0425407}]
+                {latitude: 47.5524695, longitude: -122.0425407}], 
+
+        currTrip: {},
+        
       }
     }
+
+    componentWillMount(){
+      this.setState({
+          currTrip: this.props.trip
+      })
+  }
   
     displayMarkers = () => {
       return this.state.stores.map((store, index) => {
@@ -28,16 +37,32 @@ export class MapContainer extends React.Component {
        onClick={() => console.log("You clicked me!")} />
       })
     }
+
+    // setTrip = (trip) => {
+    //   this.setState({
+    //       currTrip: trip
+    //   })
+    // }
   
     render() {
+      // this.setTrip(this.props.trip)
+      // console.log(this.props.trip)
 
-      let currTrip = TripApiService.getTrip(this.props.tripID)
+      const {lat, long} = this.state.currTrip;
+      console.log(this.props.trip.lat, this.props.trip.long)
+
+      if(!this.props.trip.lat || !this.props.trip.long)
+          return (<p>loading...</p>)
+
+
+      console.log(MAP_API_KEY)
       return (
           <Map
+            key={long}
             google={this.props.google}
-            zoom={8}
+            zoom={10}
             style={mapStyles}
-            initialCenter={{ lat: currTrip.lat, lng: currTrip.long}}
+            initialCenter={{ lat: this.props.trip.lat, lng: this.props.trip.long}}
           >
             {/* {this.displayMarkers()} */}
           </Map>
@@ -46,9 +71,8 @@ export class MapContainer extends React.Component {
   }
 
   const mapStyles = {
-    width: '80%',
-    height: '80%',
-
+    width: '40%',
+    height: '40%',
   };
 
   export default GoogleApiWrapper({
