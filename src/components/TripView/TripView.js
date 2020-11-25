@@ -19,6 +19,7 @@ export default class Trip extends React.Component {
     tripDescription: '',
     toggleAddStop: false,
     stopEditingID: 0,
+    toggleEditTrip: false,
     selections: [],
   };
 
@@ -91,7 +92,33 @@ export default class Trip extends React.Component {
     });
   };
 
-  handleSubmitEditStop = async (e, stop_id) => {
+  handleEditTrip = () => {
+    this.setState({toggleEditTrip: true}, console.log(this.state.toggleEditTrip))
+  }
+
+  handleSubmitEditedTrip = (e, id) => {
+    e.preventDefault();
+    const { destination, short_description, activities, days} = e.target
+
+    let trip = {
+      short_description: short_description.value,
+      destination: destination.value,
+      activities: activities.value,
+      days: days.value,
+    }
+
+    TripApiService.patchTrip(trip, id)
+      .then((res) => {
+        this.setState({trip: res})
+      })
+      .catch((error) => {
+        this.setState({error})
+      });
+
+      this.setState({toggleEditTrip: false})
+  };
+
+  handleSubmitEditStop = (e, stop_id) => {
     e.preventDefault();
     this.setState({
       error: null,
@@ -203,6 +230,56 @@ export default class Trip extends React.Component {
       </form>
     );
   };
+
+
+  renderEditTrip = (trip) => {
+    return (
+    <div className="edit-trip">
+      <form
+      onSubmit={(e) => this.handleSubmitEditedTrip(e, trip.id)}>
+      <h2 className="trip-name">
+        <input
+        defaultValue={trip.destination}
+        name="destination" 
+        >
+      </input>
+      </h2>
+          <p><input 
+          defaultValue={trip.short_description} 
+          name="short_description"
+          required
+          ></input></p>
+          <p>
+            Activities: 
+            <input 
+            defaultValue={trip.activities} 
+            name="activities"
+            required
+            >
+              </input><br />
+            Days: <input 
+            defaultValue={trip.days}
+            type="number"
+            min={0}
+            name="days"
+            required
+            />
+            </p>
+            <div className="edit-trip-button-container">
+            <button
+                  className="tripViewButton"
+                  onClick={() => this.setState({toggleEditTrip: false})}
+                >
+                  Cancel
+                </button>
+                <button className="tripViewButton" type="submit">
+                  Submit
+                </button>
+              </div>
+      </form>
+    </div>
+    )  
+}
 
   renderStop = (stop, index) => {
     return (
@@ -330,10 +407,12 @@ export default class Trip extends React.Component {
     return (
       <>
         {this.isTripCreator() && (
-          <TripViewNav handleDeleteTrip={this.handleDeleteTrip} />
+          <TripViewNav handleDeleteTrip={this.handleDeleteTrip} handleEditTrip={this.handleEditTrip}/>
         )}
         <div className="trip">
-          <h2 className="trip-name">{trip.destination}</h2>
+        {this.state.toggleEditTrip ? this.renderEditTrip(trip) :
+         <>
+         <h2 className="trip-name">{trip.destination}</h2>
           <span>
             Rating: {trip.rating}
             {!trip.rating && <>N\A</>}
@@ -342,7 +421,9 @@ export default class Trip extends React.Component {
           <p>
             Activities: {trip.activities} <br />
             Days: {trip.days}
-          </p>
+        </p>
+        </> 
+        }
           {stops}
           {this.state.toggleAddStop && this.renderAddStopForm()}
           {!this.state.toggleAddStop && this.isTripCreator() && (
