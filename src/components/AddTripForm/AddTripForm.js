@@ -85,12 +85,14 @@ export default class AddTripForm extends React.Component {
                 placeholder={'New York, Lass Vegas, Germany...'}
                 type="text"
                 name="destination"
+                maxLength={100}
               />
               <br />
               <label htmlFor="short_description">
                 Type in a short description of your destination!
               </label>
               <input
+              maxLength={24}
                 onChange={(e) =>
                   this.setState({ short_description: e.target.value })
                 }
@@ -107,6 +109,7 @@ export default class AddTripForm extends React.Component {
                 type="text"
                 name="activities"
                 placeholder={'Shopping, Sight-seeing, Gnoshing...'}
+                maxLength={30}
               />
               <br />
               <div className="trip-rating-days">

@@ -14,6 +14,7 @@ import MyTrips from '../MyTrips/MyTrips';
 import TripApiService from '../../services/trip-service';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary'
 import './App.css';
+import LandingPage from '../LandingPage/LandingPage';
 
 export default class App extends Component {
   static contextType = TripContext;
@@ -46,9 +47,10 @@ export default class App extends Component {
           {hasError && <p>There was an error! Oh no!</p>}
           <ErrorBoundary>
           <Switch>
+            <Route exact path={'/'} component={LandingPage} />
             <PrivateRoute exact path={'/add-trip'} component={AddTripForm} />
             <PrivateRoute path={'/my-trips'} component={MyTrips} />
-            <Route exact path={'/'} component={DashboardRoute} />
+            <Route exact path={'/dashboard'} component={DashboardRoute} />
             <Route
               path={'/trips/:trips_id'}
               render={(props) => <TripView {...props} />}

@@ -424,7 +424,8 @@ export default class Trip extends React.Component {
         </p>
         </> 
         }
-          {stops}
+          {/* {stops} */}
+          {!stops.length ? 'No stops here, check back later or add some if you created this trip!' : stops}
           {this.state.toggleAddStop && this.renderAddStopForm()}
           {!this.state.toggleAddStop && this.isTripCreator() && (
             <div className="addStopButton">

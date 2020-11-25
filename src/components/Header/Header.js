@@ -39,7 +39,7 @@ class Header extends Component {
         <span>
           <img src={images.map} alt="small globe" />
           <h1>
-            <Link to="/">Ways!</Link>
+            <Link to="/dashboard">Ways!</Link>
           </h1>
         </span>
         {TokenService.hasAuthToken()
