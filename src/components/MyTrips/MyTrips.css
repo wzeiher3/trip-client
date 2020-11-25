@@ -13,7 +13,7 @@
 
 .my-trips {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
   margin-top: 3em;
   margin-left: 0;
