@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import './TripViewNav.css';
 
@@ -14,6 +15,9 @@ class TripViewNav extends Component {
         >
           Delete Trip
         </button>
+        <Link to="/my-trips">
+          <div className="myButton">My Trips</div>
+        </Link>
       </section>
     );
   }

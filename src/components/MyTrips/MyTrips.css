@@ -13,7 +13,7 @@
 
 .my-trips {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   margin-top: 3em;
   margin-left: 0;
@@ -25,11 +25,11 @@
 
 .my-trip-info-group {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   padding: 25px;
   margin: 1em 0 5.5em 0;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .my-trip-info {
@@ -107,6 +107,11 @@ ul {
     margin: 1em;
 }
 
-/* .TripCard {
-    margin: 1em;
-} */
+@media only screen and (min-width: 600px) {
+  .my-trip-info-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: space-around; */
+  }
+}

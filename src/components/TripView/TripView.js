@@ -444,12 +444,3 @@ export default class Trip extends React.Component {
   }
 }
 
-// category: "tourist_attraction"
-// city: "Orlando"
-// description: "The Walt Disney World Resort, also called Walt Disney World and Disney World, is an entertainment complex in Bay Lake and Lake Buena Vista, Florida, in the United States, near the cities of Orlando and Kissimmee."
-// id: 7
-// latitude: "28.3852"
-// longitude: "-81.5639"
-// state: "FL"
-// stop_name: "Disneyworld"
-// trip_id: 1
