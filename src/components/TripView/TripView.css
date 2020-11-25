@@ -14,6 +14,10 @@
   background-image: linear-gradient(rgb(255, 255, 255), rgb(250, 250, 250));
 }
 
+.trip-stop {
+  word-wrap: break-word;
+}
+
 .trip > div > img {
   width: 40px;
 }
@@ -70,11 +74,10 @@
 
 .trip-div {
   color: black;
-  background-color: transparent;
-  cursor: pointer;
+  background-color: white;
   padding: 0px 2px;
   display: inline-block;
-  margin: 8px 0px;
+  margin: 12px 0px;
   line-height: 1.6em;
   outline: none;
   position: relative;
@@ -100,9 +103,10 @@
 }
 
 .trip-div:hover,
-.trip-div.hover {
+.trip-div:hover {
   border-color: rgb(230, 31, 130);
   background-color: rgb(255, 255, 255);
+  transform: scale(1.1);
 }
 
 .tripViewButton {
@@ -195,7 +199,6 @@
   font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
   font-size: 44px;
   margin: 0;
-
   color: rgb(233, 159, 64);
   text-shadow: 2px 1px 2px rgb(0, 0, 0);
 }
