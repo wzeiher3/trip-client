@@ -61,10 +61,6 @@ export default class MyTrips extends Component {
               <div className="myButton">Add a Trip!</div>
             </Link>
           </div>
-          {/* <div className="my-trip-dropdown">
-            <button className="my-trip-info">Total trips</button>
-            <p className="dropdown"> {count}</p>
-          </div> */}
         </section>
         <section className="my-trips">
           <div className="my-trip-cards">{tripCards}</div>

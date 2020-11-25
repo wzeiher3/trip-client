@@ -82,7 +82,7 @@ export default class AddTripForm extends React.Component {
               </label>
               <input
                 onChange={(e) => this.setState({ destination: e.target.value })}
-                placeholder={'New York, Las Vegas, Germany...'}
+                placeholder={'New York, Lass Vegas, Germany...'}
                 type="text"
                 name="destination"
               />
@@ -120,7 +120,6 @@ export default class AddTripForm extends React.Component {
                   id="days"
                   name="days"
                   max={99}
-                  min={1}
                 />
               </div>
               <br />
@@ -160,16 +159,17 @@ export default class AddTripForm extends React.Component {
                   src={images.arrow_right}
                   alt="right arrow"
                 />
-                <div className="button-wrapper">
-                  <button className="myButton" type="submit">
-                    Submit!
-                  </button>
-                </div>
+              </div>
+              <br />
+              <div className="button-wrapper">
+                <button className="myButton" type="submit">
+                  Submit!
+                </button>
               </div>
             </form>
           </div>
         </section>
       </>
-    )
+    );
   }
 }
