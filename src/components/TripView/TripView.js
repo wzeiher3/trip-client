@@ -1,8 +1,6 @@
 import React from 'react';
 import TripApiService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
-import MapContainer from '../Map/Map'
-import { Link } from 'react-router-dom';
 import TripViewNav from './TripViewNav/TripViewNav';
 import TripViewSelect from './TripViewSelect/TripViewSelect';
 import TripViewEditSelect from './TripViewEditSelect.js/TripViewEditSelect';
@@ -15,13 +13,14 @@ export default class Trip extends React.Component {
 
   state = {
     stops: [],
-    trip: [{ user_id: 0, short_description: 'Add a Stop!'}],
+    trip: [{ user_id: 0, short_description: 'Add a Stop!' }],
     currTripID: 0,
     tripDescription: '',
     toggleAddStop: false,
     stopEditingID: 0,
     toggleEditTrip: false,
     selections: [],
+    error: null,
   };
 
   componentDidMount() {
@@ -65,7 +64,7 @@ export default class Trip extends React.Component {
 
   handleSelect = (e) => {
     let selection = e.target;
-    selection = selection.value;
+    selection = selection.innerHTML;
     const findSelect = this.state.selections.includes(selection);
     if (findSelect) {
       this.setState({
@@ -103,7 +102,6 @@ export default class Trip extends React.Component {
   handleSubmitEditedTrip = (e, id) => {
     e.preventDefault();
     const { destination, short_description, activities, days } = e.target;
-
     let trip = {
       short_description: short_description.value,
       destination: destination.value,
@@ -124,6 +122,10 @@ export default class Trip extends React.Component {
 
   handleSubmitEditStop = (e, stop_id) => {
     e.preventDefault();
+    if (this.state.selections.length === 0) {
+      this.setState({ error: 'Must select atleast 1 Category' });
+      return;
+    }
     this.setState({
       error: null,
       stopEditingID: 0,
@@ -156,6 +158,10 @@ export default class Trip extends React.Component {
 
   handleSubmitStop = (e) => {
     e.preventDefault();
+    if (this.state.selections.length === 0) {
+      this.setState({ error: 'Must select atleast 1 Category' });
+      return;
+    }
     this.setState({ error: null });
     const { stop_name, description, city, state } = e.target;
     const { match } = this.props;
@@ -207,6 +213,14 @@ export default class Trip extends React.Component {
         <input type="text" name="city" required maxLength={40} />
         <label htmlFor="state">State or Country</label>
         <input type="text" name="state" required maxLength={40} />
+        {this.state.error && (
+          <>
+            <br />
+            {this.state.error}
+            <br />
+            <br />
+          </>
+        )}
         <label htmlFor="category">What category of stop is this?</label>
         <br />
         <TripViewSelect
@@ -373,6 +387,14 @@ export default class Trip extends React.Component {
                 required
               />
             </div>
+            {this.state.error && (
+              <>
+                <br />
+                {this.state.error}
+                <br />
+                <br />
+              </>
+            )}
             <TripViewEditSelect
               handleSelect={this.handleSelect}
               clearSelections={this.clearSelections}
@@ -429,7 +451,7 @@ export default class Trip extends React.Component {
     // set trip_id variable
     const trip_id = match.params.trips_id;
 
-    console.log("This Trip", this.state.trip[0])
+    console.log('This Trip', this.state.trip[0]);
 
     return (
       <>
@@ -440,22 +462,23 @@ export default class Trip extends React.Component {
           />
         )}
         <div className="trip">
-
-        {/* <div id="Map"><MapContainer trip={this.state.trip[0]}/></div> */}
-        {this.state.toggleEditTrip ? this.renderEditTrip(trip) :
-         <>
-         <h2 className="trip-name">{trip.destination}</h2>
-          <span>
-            Rating: {trip.rating}
-            {!trip.rating && <>N\A</>}
-          </span>
-          <p>{trip.short_description}</p>
-          <p>
-            Activities: {trip.activities} <br />
-            Days: {trip.days}
-        </p>
-        </> 
-        }
+          {/* <div id="Map"><MapContainer trip={this.state.trip[0]}/></div> */}
+          {this.state.toggleEditTrip ? (
+            this.renderEditTrip(trip)
+          ) : (
+            <>
+              <h2 className="trip-name">{trip.destination}</h2>
+              <span>
+                Rating: {trip.rating}
+                {!trip.rating && <>N\A</>}
+              </span>
+              <p>{trip.short_description}</p>
+              <p>
+                Activities: {trip.activities} <br />
+                Days: {trip.days}
+              </p>
+            </>
+          )}
           {stops}
           {this.state.toggleAddStop && this.renderAddStopForm()}
           {!this.state.toggleAddStop && this.isTripCreator() && (

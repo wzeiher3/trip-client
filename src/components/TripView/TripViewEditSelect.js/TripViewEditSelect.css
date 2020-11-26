@@ -7,6 +7,7 @@
   padding: 1px;
   border: 3px rgb(206, 206, 206) solid;
   border-radius: 6px;
+  overflow-x: auto;
 }
 
 .select-box {
@@ -33,6 +34,7 @@
   .select-edit {
     width: 400px;
     margin: 16px 16px 0px 16px;
+    margin: auto;
   }
   .select-box {
     width: 70%;
