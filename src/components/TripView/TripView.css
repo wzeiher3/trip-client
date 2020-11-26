@@ -4,12 +4,12 @@
 } */
 
 .trip {
+  width: 100%;
   padding-top: 20px;
   border-radius: 1px;
   text-align: center;
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
-  align-items: center;
   color: #494949;
   background-image: linear-gradient(rgb(255, 255, 255), rgb(250, 250, 250));
 }
@@ -18,8 +18,13 @@
   word-wrap: break-word;
 }
 
-.trip > div > img {
-  width: 40px;
+.belowMap > div > img {
+  width: 70px;
+  margin-top: 8px;
+}
+
+.belowMap {
+  margin-top: 40px;
 }
 
 .trip-stop-wrapper {
@@ -33,19 +38,13 @@
   width: 98%;
 }
 
-#Map{
-    width: 80vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+#Map {
+  width: 100%;
+  height: 550px;
+  margin-top: 0px;
+  margin-bottom: 40px;
+  margin: auto;
 }
-
-
-.belowMap {
-  margin-top: 450px;
-
-}
-
 
 .trip-name {
   font-size: 52px;
@@ -239,9 +238,13 @@
 
 @media all and (min-width: 675px) {
   .trip-stop-wrapper {
-    width: 675px;
+    width: 100%;
   }
   .trip-div {
     width: 675px;
+    margin: auto;
+  }
+  #Map {
+    width: 800px;
   }
 }

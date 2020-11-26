@@ -463,9 +463,6 @@ export default class Trip extends React.Component {
           />
         )}
         <div className="trip">
-          <div id="Map">
-            <MapContainer trip={this.state.trip[0]} />
-          </div>
           {this.state.toggleEditTrip ? (
             this.renderEditTrip(trip)
           ) : (
@@ -482,7 +479,9 @@ export default class Trip extends React.Component {
               </p>
             </>
           )}
-
+          <div id="Map">
+            <MapContainer trip={this.state.trip[0]} />
+          </div>
           <div className="belowMap">
             {stops}
             {this.state.toggleAddStop && this.renderAddStopForm()}
