@@ -4,6 +4,7 @@ import TripContext from '../../contexts/TripContext';
 import TripViewNav from './TripViewNav/TripViewNav';
 import TripViewSelect from './TripViewSelect/TripViewSelect';
 import TripViewEditSelect from './TripViewEditSelect.js/TripViewEditSelect';
+import MapContainer from '../Map/Map';
 
 import './TripView.css';
 import images from '../../assets/images/images';
@@ -462,7 +463,9 @@ export default class Trip extends React.Component {
           />
         )}
         <div className="trip">
-          {/* <div id="Map"><MapContainer trip={this.state.trip[0]}/></div> */}
+          <div id="Map">
+            <MapContainer trip={this.state.trip[0]} />
+          </div>
           {this.state.toggleEditTrip ? (
             this.renderEditTrip(trip)
           ) : (
@@ -479,20 +482,23 @@ export default class Trip extends React.Component {
               </p>
             </>
           )}
-          {stops}
-          {this.state.toggleAddStop && this.renderAddStopForm()}
-          {!this.state.toggleAddStop && this.isTripCreator() && (
-            <div className="addStopButton">
-              <div
-                className="myButton"
-                onClick={() => {
-                  this.setState({ toggleAddStop: !this.state.toggleAddStop });
-                }}
-              >
-                Add a Stop!
+
+          <div className="belowMap">
+            {stops}
+            {this.state.toggleAddStop && this.renderAddStopForm()}
+            {!this.state.toggleAddStop && this.isTripCreator() && (
+              <div className="addStopButton">
+                <div
+                  className="myButton"
+                  onClick={() => {
+                    this.setState({ toggleAddStop: !this.state.toggleAddStop });
+                  }}
+                >
+                  Add a Stop!
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </>
     );
