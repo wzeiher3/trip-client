@@ -1,6 +1,6 @@
 .TripCard {
   height: 400px;
-  width: 250px;
+  width: 315px;
   border-radius: 6px;
   border: 2px rgb(104, 104, 104) solid;
   overflow: hidden;
@@ -19,7 +19,8 @@
 
 .TripCard-topimage {
   border-radius: 6px;
-  width: 250px;
+  width: 315px;
+  height: 165px;
 }
 
 .TripCard-middle-section {
@@ -42,7 +43,7 @@
 
 .TripCard-topimage > img {
   height: 165px;
-  width: 250px;
+  width: 315px;
 }
 
 .Activities {
@@ -59,7 +60,7 @@
 
 .TripCard-bottom {
   height: 80px;
-  width: 250px;
+  width: 315px;
   color: white;
   text-shadow: 2px 1px 1px rgb(36, 36, 36);
   font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
@@ -93,12 +94,14 @@
 
 .TripCard-bottom-info {
   padding-top: 25px;
-  width: 250px;
+  width: 315px;
 }
 
 @media all and (min-width: 800px) {
   .TripCard {
-    margin: 0;
+    margin-bottom: 0;
     margin-top: 40px;
+    margin-left: 25px;
+    margin-right: 25px;
   }
 }

@@ -5,6 +5,7 @@ import TripViewNav from './TripViewNav/TripViewNav';
 import TripViewSelect from './TripViewSelect/TripViewSelect';
 import TripViewEditSelect from './TripViewEditSelect.js/TripViewEditSelect';
 import MapContainer from '../Map/Map';
+import DirectionsLink from './DirectionsLink/DirectionsLink';
 
 import './TripView.css';
 import images from '../../assets/images/images';
@@ -307,47 +308,53 @@ export default class Trip extends React.Component {
   renderStop = (stop, index) => {
     return (
       <div className="trip-stop-wrapper" key={stop.id}>
-        <div className="trip-stop trip-div">
-          <figcaption>
-            {this.isTripCreator() && (
-              <div className="tripView-button-wrapper">
-                <button
-                  className="tripViewButton"
-                  onClick={() => this.toggleEditStop(stop.id, stop.category)}
-                >
-                  Edit Stop
-                </button>
-                <button
-                  className="tripViewButton"
-                  onClick={() => this.handleDeleteStop(stop.id)}
-                >
-                  Delete Stop
-                </button>
-              </div>
-            )}
-          </figcaption>
-          <div
-            className={
-              this.isTripCreator() ? 'trip-header-creator' : 'trip-header'
-            }
-          >
-            <h2>{stop.stop_name}</h2>
-            <span>
-              {stop.city}, {stop.state}
-            </span>
-            <br />
-            <span className="trip-category">
-              Category: {stop.category.replace('_', ' ')}
-            </span>
+        <a
+          rel="noopener noreferrer"
+          target="_blank"
+          href={`https://www.google.com/maps/search/?api=1&query=${stop.stop_name}+${stop.city}+${stop.state}`}
+        >
+          <div className="trip-stop trip-div">
+            <figcaption>
+              {this.isTripCreator() && (
+                <div className="tripView-button-wrapper">
+                  <button
+                    className="tripViewButton"
+                    onClick={() => this.toggleEditStop(stop.id, stop.category)}
+                  >
+                    Edit Stop
+                  </button>
+                  <button
+                    className="tripViewButton"
+                    onClick={() => this.handleDeleteStop(stop.id)}
+                  >
+                    Delete Stop
+                  </button>
+                </div>
+              )}
+            </figcaption>
+            <div
+              className={
+                this.isTripCreator() ? 'trip-header-creator' : 'trip-header'
+              }
+            >
+              <h2>{stop.stop_name}</h2>
+              <span>
+                {stop.city}, {stop.state}
+              </span>
+              <br />
+              <span className="trip-category">
+                Category: {stop.category.replace('_', ' ')}
+              </span>
+            </div>
+            <p>{stop.description}</p>
           </div>
-          <p>{stop.description}</p>
-        </div>
-        <br />
-        {index === this.state.stops.length - 1 ? null : index % 2 !== 0 ? (
-          <img src={images.road_a} alt="road illustration"></img>
-        ) : (
-          <img src={images.road_b} alt="road illustration"></img>
-        )}
+          <br />
+          {index === this.state.stops.length - 1 ? null : index % 2 !== 0 ? (
+            <img src={images.road_a} alt="road illustration"></img>
+          ) : (
+            <img src={images.road_b} alt="road illustration"></img>
+          )}
+        </a>
       </div>
     );
   };
@@ -447,7 +454,6 @@ export default class Trip extends React.Component {
       }
       return this.renderStop(stop, index);
     });
-
     const { match } = this.props;
     // set trip_id variable
     const trip_id = match.params.trips_id;
@@ -487,6 +493,7 @@ export default class Trip extends React.Component {
             {this.state.toggleAddStop && this.renderAddStopForm()}
             {!this.state.toggleAddStop && this.isTripCreator() && (
               <div className="addStopButton">
+                <br />
                 <div
                   className="myButton"
                   onClick={() => {
@@ -498,6 +505,7 @@ export default class Trip extends React.Component {
               </div>
             )}
           </div>
+          <DirectionsLink stops={this.state.stops} />
         </div>
       </>
     );
