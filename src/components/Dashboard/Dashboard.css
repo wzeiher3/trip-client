@@ -36,16 +36,15 @@
   box-shadow: 0px 1px 0px 0px #ffffff;
   border: 2px solid #65b1ef;
   background-color: #65b1ef;
-  border-radius: 6px;
   display: inline-block;
   cursor: pointer;
   color: #ffffff;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
   font-weight: 900;
-  padding: 8px;
+  padding: 4px;
   text-decoration: none;
-  width: 170px;
+  width: 155px;
   text-align: center;
 }
 

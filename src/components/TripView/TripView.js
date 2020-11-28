@@ -255,40 +255,38 @@ export default class Trip extends React.Component {
     return (
       <div className="edit-trip">
         <form onSubmit={(e) => this.handleSubmitEditedTrip(e, trip.id)}>
-          <h2 className="trip-name">
+          <div className="edit-trip-destination">
             <input
               defaultValue={trip.destination}
               name="destination"
               maxLength={14}
             ></input>
-          </h2>
-          <p>
-            <input
-              defaultValue={trip.short_description}
-              name="short_description"
-              maxLength={40}
-              required
-            ></input>
-          </p>
-          <p>
-            Activities:
-            <input
-              defaultValue={trip.activities}
-              name="activities"
-              maxLength={40}
-              required
-            ></input>
-            <br />
-            Days:{' '}
-            <input
-              defaultValue={trip.days}
-              type="number"
-              min={0}
-              name="days"
-              max={99}
-              required
-            />
-          </p>
+          </div>
+          <br />
+          <input
+            defaultValue={trip.short_description}
+            name="short_description"
+            maxLength={40}
+            required
+          ></input>
+          <br />
+
+          <input
+            defaultValue={trip.activities}
+            name="activities"
+            maxLength={40}
+            required
+          ></input>
+          <br />
+
+          <input
+            defaultValue={trip.days}
+            type="number"
+            min={0}
+            name="days"
+            max={99}
+            required
+          />
           <div className="edit-trip-button-container">
             <button
               className="tripViewButton"
@@ -308,30 +306,30 @@ export default class Trip extends React.Component {
   renderStop = (stop, index) => {
     return (
       <div className="trip-stop-wrapper" key={stop.id}>
-        <a
-          rel="noopener noreferrer"
-          target="_blank"
-          href={`https://www.google.com/maps/search/?api=1&query=${stop.stop_name}+${stop.city}+${stop.state}`}
-        >
-          <div className="trip-stop trip-div">
-            <figcaption>
-              {this.isTripCreator() && (
-                <div className="tripView-button-wrapper">
-                  <button
-                    className="tripViewButton"
-                    onClick={() => this.toggleEditStop(stop.id, stop.category)}
-                  >
-                    Edit Stop
-                  </button>
-                  <button
-                    className="tripViewButton"
-                    onClick={() => this.handleDeleteStop(stop.id)}
-                  >
-                    Delete Stop
-                  </button>
-                </div>
-              )}
-            </figcaption>
+        <div className="trip-stop trip-div">
+          <figcaption>
+            {this.isTripCreator() && (
+              <div className="tripView-button-wrapper">
+                <button
+                  className="tripViewButton"
+                  onClick={() => this.toggleEditStop(stop.id, stop.category)}
+                >
+                  Edit Stop
+                </button>
+                <button
+                  className="tripViewButton"
+                  onClick={() => this.handleDeleteStop(stop.id)}
+                >
+                  Delete Stop
+                </button>
+              </div>
+            )}
+          </figcaption>
+          <a
+            rel="noopener noreferrer"
+            target="_blank"
+            href={`https://www.google.com/maps/search/?api=1&query=${stop.stop_name}+${stop.city}+${stop.state}`}
+          >
             <div
               className={
                 this.isTripCreator() ? 'trip-header-creator' : 'trip-header'
@@ -346,15 +344,23 @@ export default class Trip extends React.Component {
                 Category: {stop.category.replace('_', ' ')}
               </span>
             </div>
-            <p>{stop.description}</p>
-          </div>
-          <br />
-          {index === this.state.stops.length - 1 ? null : index % 2 !== 0 ? (
-            <img src={images.road_a} alt="road illustration"></img>
-          ) : (
-            <img src={images.road_b} alt="road illustration"></img>
-          )}
-        </a>
+          </a>
+          <p>{stop.description}</p>
+        </div>
+        <br />
+        {index === this.state.stops.length - 1 ? null : index % 2 !== 0 ? (
+          <img
+            className="road-img"
+            src={images.road_a}
+            alt="road illustration"
+          ></img>
+        ) : (
+          <img
+            className="road-img"
+            src={images.road_b}
+            alt="road illustration"
+          ></img>
+        )}
       </div>
     );
   };
@@ -363,22 +369,23 @@ export default class Trip extends React.Component {
     const id = stop.id;
     return (
       <div className="trip-stop-wrapper" key={stop.id}>
-        <div className="trip-stop  trip-div" key={index}>
+        <div className="trip-stop edit-stop" key={index}>
           <form
             action="#"
             id="EditStopForm"
             onSubmit={(e) => this.handleSubmitEditStop(e, id)}
           >
             <div className="trip-header">
-              <input
-                defaultValue={stop.stop_name}
-                name="stop_name"
-                id="edit_stop_name"
-                aria-label="stop_name"
-                maxLength={40}
-                required
-              />{' '}
-              <br />
+              <div>
+                <input
+                  defaultValue={stop.stop_name}
+                  name="stop_name"
+                  id="edit_stop_name"
+                  aria-label="stop_name"
+                  maxLength={40}
+                  required
+                />{' '}
+              </div>
               <input
                 defaultValue={stop.city}
                 name="city"
@@ -430,6 +437,20 @@ export default class Trip extends React.Component {
             )}
           </form>
         </div>
+        <br />
+        {index === this.state.stops.length - 1 ? null : index % 2 !== 0 ? (
+          <img
+            className="road-img"
+            src={images.road_a}
+            alt="road illustration"
+          ></img>
+        ) : (
+          <img
+            className="road-img"
+            src={images.road_b}
+            alt="road illustration"
+          ></img>
+        )}
       </div>
     );
   };

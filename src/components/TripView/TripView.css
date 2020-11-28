@@ -18,7 +18,7 @@
   word-wrap: break-word;
 }
 
-.trip-stop-wrapper > a > img {
+.road-img {
   width: 70px;
   margin-top: 8px;
 }
@@ -35,6 +35,22 @@
   border-right: 4px solid var(--waysBlue);
   border-radius: 20px; */
   counter-increment: index;
+  width: 98%;
+}
+
+.edit-stop {
+  color: black;
+  background-color: white;
+  padding: 3px;
+  display: inline-block;
+  line-height: 1.6em;
+  outline: none;
+  position: relative;
+  font-size: 1.3em;
+  border: 5px solid #65b1ef;
+  border-radius: 15px 15px 15px 15px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
   width: 98%;
 }
 
@@ -55,6 +71,7 @@
   text-align: center;
   font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
   margin: 15px;
+  word-wrap: break-word;
 }
 
 .trip > p {
@@ -77,6 +94,13 @@
   font-size: 40px;
   margin-top: 18px;
   font-family: 'Ubuntu', sans-serif;
+}
+
+.trip-header > div > input {
+  font-size: 40px;
+  border: none;
+  text-align: center;
+  margin: 0;
 }
 
 .trip-header-creator > h2 {
@@ -216,12 +240,37 @@
   text-shadow: 2px 1px 2px rgb(0, 0, 0);
 }
 
+.edit-trip > form > input {
+  border: none;
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.edit-trip-destination > input {
+  font-size: 52px;
+  text-decoration: none;
+  color: #65b1ef;
+  text-shadow: 2px 1px 2px rgb(0, 0, 0);
+  font-weight: bold;
+  text-align: center;
+  font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
+  margin: 15px;
+  border: none;
+  width: 600px;
+}
+
 @media all and (min-width: 600px) {
   .addStopForm {
     width: 600px;
   }
+
   .addStopForm > input {
     margin-bottom: 12px;
+  }
+
+  .edit-trip > form > input {
+    width: 600px;
   }
 }
 
@@ -240,10 +289,13 @@
   .trip-stop-wrapper {
     width: 100%;
   }
-  .trip-div {
+
+  .trip-div,
+  .edit-stop {
     width: 675px;
     margin: auto;
   }
+
   #Map {
     width: 800px;
   }
