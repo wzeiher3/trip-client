@@ -5,7 +5,7 @@ export default class TripViewSelect extends React.Component {
   render() {
     return (
       <>
-        <select
+        <div
           onClick={(e) => this.props.handleSelect(e)}
           onKeyDown={(e) => {
             if (e.key === 'Enter') this.props.handleSelect(e);
@@ -14,33 +14,33 @@ export default class TripViewSelect extends React.Component {
           className="select-form"
           multiple
         >
-          <option>Bakery</option>
-          <option>Bank</option>
-          <option>Bar</option>
-          <option>Book Store</option>
-          <option>Bakery</option>
-          <option>Cafe</option>
-          <option>Clothing Store</option>
-          <option>Convenience Store</option>
-          <option>Department Store</option>
-          <option>Drugstore</option>
-          <option>Electronics Store</option>
-          <option>Hospital</option>
-          <option>Jewelry Store</option>
-          <option>Movie Theater</option>
-          <option>Night Club</option>
-          <option>Park</option>
-          <option>Pharmacy</option>
-          <option>Primary School</option>
-          <option>Restaurant</option>
-          <option>Secondary School</option>
-          <option>Shoe Store</option>
-          <option>Shopping Mall</option>
-          <option>Stadium</option>
-          <option>Supermarket</option>
-          <option>Tourist Attraction</option>
-          <option>University</option>
-        </select>
+          <div tabIndex={0}>Bakery</div>
+          <div tabIndex={0}>Bank</div>
+          <div tabIndex={0}>Bar</div>
+          <div tabIndex={0}>Book Store</div>
+          <div tabIndex={0}>Bakery</div>
+          <div tabIndex={0}>Cafe</div>
+          <div tabIndex={0}>Clothing Store</div>
+          <div tabIndex={0}>Convenience Store</div>
+          <div tabIndex={0}>Department Store</div>
+          <div tabIndex={0}>Drugstore</div>
+          <div tabIndex={0}>Electronics Store</div>
+          <div tabIndex={0}>Hospital</div>
+          <div tabIndex={0}>Jewelry Store</div>
+          <div tabIndex={0}>Movie Theater</div>
+          <div tabIndex={0}>Night Club</div>
+          <div tabIndex={0}>Park</div>
+          <div tabIndex={0}>Pharmacy</div>
+          <div tabIndex={0}>Primary School</div>
+          <div tabIndex={0}>Restaurant</div>
+          <div tabIndex={0}>Secondary School</div>
+          <div tabIndex={0}>Shoe Store</div>
+          <div tabIndex={0}>Shopping Mall</div>
+          <div tabIndex={0}>Stadium</div>
+          <div tabIndex={0}>Supermarket</div>
+          <div tabIndex={0}>Tourist Attraction</div>
+          <div tabIndex={0}>University</div>
+        </div>
         <br />
         <button
           type="button"

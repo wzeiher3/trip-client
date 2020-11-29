@@ -14,7 +14,7 @@ export default class AddTripForm extends React.Component {
     activities: 'Shopping',
     days: 2,
     destination: 'New York, NY',
-    place: {}, 
+    place: {},
     error: null,
     images: [
       'city',
@@ -35,7 +35,7 @@ export default class AddTripForm extends React.Component {
     this.setState({ error: null });
     const { short_description, destination, days, activities } = e.target;
 
-    console.log(this.state.place.coordinates.lat)
+    console.log(this.state.place.coordinates.lat);
     let trip = {
       destination: this.state.place.place,
       short_description: short_description.value,
@@ -46,11 +46,11 @@ export default class AddTripForm extends React.Component {
       img: this.state.images[this.state.imagesScroll],
     };
     let currentTrips = this.context.trips;
-    console.log("Trip Addded", trip)
+    console.log('Trip Addded', trip);
     TripService.postTrip(trip)
       .then((res) => {
         this.context.setTrips([res, ...currentTrips]);
-        console.log("Trip Added Checked", )
+        console.log('Trip Added Checked');
         this.props.history.push('/');
       })
       .catch((error) => {
@@ -59,10 +59,10 @@ export default class AddTripForm extends React.Component {
   };
 
   storePlace = (place) => {
-      this.setState({
-        place: place
-      })
-  }
+    this.setState({
+      place: place,
+    });
+  };
 
   handleScrollRight = () => {
     if (this.state.imagesScroll === this.state.images.length - 1) {
@@ -81,8 +81,7 @@ export default class AddTripForm extends React.Component {
   };
 
   render() {
-
-    console.log("add trip state", this.state.place)
+    console.log('add trip state', this.state.place);
     return (
       <>
         <section className="addTripSection">
@@ -102,10 +101,8 @@ export default class AddTripForm extends React.Component {
                 type="text"
                 name="destination"
               /> */}
-
-              <PlaceSearch 
-                  storePlace={this.storePlace}
-              />
+              <label>Destination:</label>
+              <PlaceSearch storePlace={this.storePlace} />
               <br />
               <label htmlFor="short_description">
                 Type in a short description of your destination!
