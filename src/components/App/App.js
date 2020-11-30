@@ -56,7 +56,7 @@ export default class App extends Component {
             <Switch>
               <PrivateRoute exact path={'/add-trip'} component={AddTripForm} />
               <PrivateRoute path={'/my-trips'} component={MyTrips} />
-              <Route exact path={'/'} component={DashboardRoute} />
+              <Route exact path={'/dashboard'} component={DashboardRoute} />
               <Route
                 path={'/trips/:trips_id'}
                 render={(props) => <TripView {...props} />}
@@ -65,6 +65,7 @@ export default class App extends Component {
                 path={'/register'}
                 component={RegistrationRoute}
               />
+              <PublicOnlyRoute exact path={'/'} component={LandingPage} />
               <PublicOnlyRoute path={'/login'} component={LoginRoute} />
               <Route component={NotFoundRoute} />
             </Switch>

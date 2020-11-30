@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './LandingPage.css'
 import Airplane from '../../assets/images/airplane.png'
-import Background from '../../assets/images/ways-landscape.jpg'
+import Background from '../../assets/images/ways-landscape-2.jpg'
 export default class LandingPage extends Component {
 
 
@@ -15,7 +15,7 @@ export default class LandingPage extends Component {
                     </div>
                 </div> */}
                 <div className="background-image">
-                    <img className="landing-page-background" src={Background} />
+                    <img className="landing-page-background" src={Background} alt=""/>
                 </div>
                 <div className="background">
                     <img src={Airplane} alt='airplane taking off' />
@@ -30,14 +30,6 @@ export default class LandingPage extends Component {
                     </div> */}
                     <div className="wrapper">
                         <div className="one">
-                            {/* <p>Here at Ways, our goal is assisting you in finding and planning the perfect getaway! From a simple night out to a journey across the world, Ways! is here.</p>
-                            <p>Looking for some interesting places to visit? Just search for your target destination or activity! Are you a local looking to tell others the best attractions in your area? Add a trip and share that information with the world!</p>
-                            <div className="linkToDashButton">
-                            <Link to="/dashboard">
-                            <div className="myButton">Continue to Ways!</div>
-                        </Link> */}
-                            {/* </div> */}
-                            {/* <p>one</p> */}
                             <i class="fas fa-plane-departure xl fa-2x"></i>
                             <hr />
                             <p>Our goal is getting your vacay off the ground!</p>
@@ -56,7 +48,7 @@ export default class LandingPage extends Component {
                     </div>
                     <div className="linkToDashButton">
                             <Link to="/dashboard">
-                            <div className="myButton">Continue to Ways!</div>
+                            <div className="myButton">Let's Go!</div>
                         </Link>
                     </div>
                 </section>

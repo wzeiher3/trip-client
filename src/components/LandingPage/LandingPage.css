@@ -1,10 +1,30 @@
-/* background photo creds: Photo by Bailey Zindel on Unsplash */
+/* background photo creds: Photo by Simon Berger on Unsplash
+*/
+
+@media (max-width: 280px) {
+    .ways-header {
+        padding-bottom: 20%;
+    }
+}
+
+@media (max-width: 900px) and (min-width: 700px) {
+    .ways-header {
+        padding-top: 20%;
+    }
+}
 
 @media (max-width: 600px) {
     .wrapper {
+        margin-top: 10em;
         display: flex !important;
         flex-direction: column !important;
         align-items: center;
+    }
+
+    .linkToDashButton {
+        background-color: cornflowerblue;
+        width: 100%;
+        padding: 10px;
     }
 }
 
@@ -12,6 +32,10 @@
 @media (max-width: 900px) {
     .background img {
         display: none;
+    }
+
+    .background-image {
+        height: 100%;
     }
 
     .ways-header {
@@ -92,6 +116,7 @@
     margin-top: 0;
     margin-right: 4em;
     color: #e61f82;
+    font-family: 'Archivo Black', Arial, Helvetica, sans-serif;
 }
 
 section.landing-page::before {
@@ -129,6 +154,10 @@ section.landing-page::before {
     background-color: #65b2ef;
 }
 
+.fas {
+    color: white;
+}
+
 .about-ways {
     display: flex;
     flex-direction: column;
@@ -139,12 +168,16 @@ section.landing-page::before {
 }
 
 .wrapper {
-    background-color: cornflowerblue;
+    background-color: #65b1ef;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     width: 100vw;
     font-size: 20px;
+}
+
+.linkToDashButton {
+    margin-top: 10px;
 }
 
 .circle-container {
