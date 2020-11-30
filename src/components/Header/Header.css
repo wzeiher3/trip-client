@@ -32,6 +32,12 @@ header > span > img {
   margin-left: 5px;
 }
 
+.loading-img-map {
+  margin-top: 200px;
+  width: 48px;
+  margin-left: 5px;
+}
+
 nav {
   padding: 10px;
   font-weight: bold;
