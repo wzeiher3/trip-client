@@ -22,7 +22,7 @@
     }
 
     .linkToDashButton {
-        background-color: cornflowerblue;
+        background-color: #cce8ff;
         width: 100%;
         padding: 10px;
     }
@@ -117,12 +117,13 @@
     margin-right: 4em;
     color: #e61f82;
     font-family: 'Archivo Black', Arial, Helvetica, sans-serif;
+    text-shadow: 2px 1px 2px rgb(0, 0, 0);
+    letter-spacing: -10px;
 }
 
 section.landing-page::before {
     content: '';
     margin-top: 10em;
-
 }
 
 .ways-info {
@@ -174,6 +175,18 @@ section.landing-page::before {
     justify-content: space-around;
     width: 100vw;
     font-size: 20px;
+    font-weight: 500;
+}
+
+.lets-go-btn {
+    box-shadow: none;
+    margin-top: 2.5em;
+    text-align: center;
+    width: 10em;
+}
+
+.wrapper hr {
+    border: 1px solid#c9e7ff;
 }
 
 .linkToDashButton {

@@ -20,7 +20,7 @@ export default class LandingPage extends Component {
                 <div className="background">
                     <img src={Airplane} alt='airplane taking off' />
                     <div className="ways-header">
-                        <p>Ways</p>
+                        <p>Ways!</p>
                     </div>
                 </div>
 
@@ -48,7 +48,7 @@ export default class LandingPage extends Component {
                     </div>
                     <div className="linkToDashButton">
                             <Link to="/dashboard">
-                            <div className="myButton">Let's Go!</div>
+                            <div className="myButton lets-go-btn">Let's Go!</div>
                         </Link>
                     </div>
                 </section>
