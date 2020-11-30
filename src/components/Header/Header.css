@@ -27,6 +27,11 @@ header > span > img {
   vertical-align: -34%;
 }
 
+.loading-img {
+  width: 48px;
+  margin-left: 5px;
+}
+
 nav {
   padding: 10px;
   font-weight: bold;
