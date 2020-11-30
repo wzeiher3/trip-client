@@ -98,7 +98,7 @@ export default class Trip extends React.Component {
       this.context.setTrips(
         this.context.trips.filter((trip) => trip.id !== this.state.trip[0].id)
       );
-      this.props.history.push('/');
+      this.props.history.push('/dashboard');
     });
   };
 
@@ -203,6 +203,7 @@ export default class Trip extends React.Component {
   isTripCreator = () => {
     let isTripCreator = false;
     isTripCreator = this.context.verifyAuth(this.state.trip[0].user_id);
+    console.log(isTripCreator);
     return isTripCreator;
   };
 
@@ -519,7 +520,14 @@ export default class Trip extends React.Component {
             <MapContainer trip={this.state.trip[0]} />
           </div>
           <div className="belowMap">
-            {stops.length ? stops : <h4>This user hasn't added any stops yet! If this is your trip, add some by clicking the Add Stop button!</h4>}
+            {stops.length ? (
+              stops
+            ) : (
+              <h4>
+                This user hasn't added any stops yet! If this is your trip, add
+                some by clicking the Add Stop button!
+              </h4>
+            )}
             {this.state.toggleAddStop && this.renderAddStopForm()}
             {!this.state.toggleAddStop && this.isTripCreator() && (
               <div className="addStopButton">
