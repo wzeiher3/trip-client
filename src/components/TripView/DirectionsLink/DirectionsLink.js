@@ -19,7 +19,7 @@ class DirectionsLink extends Component {
       return `${stop.stop_name}+${stop.city}+${stop.state}%7C`;
     });
     return (
-      <section className="generateLink">
+      <>
         <a
           rel="noopener noreferrer"
           target="_blank"
@@ -27,9 +27,9 @@ class DirectionsLink extends Component {
             ','
           )}`}
         >
-          Generate Directions with all Stops
+          <div className="myButton">Get Directions</div>
         </a>
-      </section>
+      </>
     );
   }
 }
