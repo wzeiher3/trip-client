@@ -50,7 +50,7 @@ export class MapContainer extends React.Component {
 
       const {lat, long} = this.state.currTrip;
       console.log(this.props.trip.lat, this.props.trip.long)
-
+      console.log(this.props.trip)
       if(!this.props.trip.lat || !this.props.trip.long)
           return (<p>loading...</p>)
 
