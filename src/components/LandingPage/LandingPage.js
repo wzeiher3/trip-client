@@ -30,18 +30,18 @@ export default class LandingPage extends Component {
                     </div> */}
                     <div className="wrapper">
                         <div className="one">
-                            <i class="fas fa-plane-departure xl fa-2x"></i>
+                            <i className="fas fa-plane-departure xl fa-2x"></i>
                             <hr />
                             <p>Our goal is getting your vacay off the ground!</p>
                         </div>
                         <div className="two what-to-do">
-                            <i class="fas fa-hotel fa-2x"></i>
+                            <i className="fas fa-hotel fa-2x"></i>
                             <hr />
                             <p>Find places to visit, or add places you know to help others!</p>
                         </div>
 
                         <div className="three call-to-action">
-                            <i class="fas fa-car fa-2x"></i>
+                            <i className="fas fa-car fa-2x"></i>
                             <hr />
                             <p>Plan out every stop, or take a trip another user added!</p>
                         </div>
