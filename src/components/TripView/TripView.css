@@ -247,19 +247,6 @@
   font-weight: bold;
 }
 
-.edit-trip-destination > input {
-  font-size: 52px;
-  text-decoration: none;
-  color: #65b1ef;
-  text-shadow: 2px 1px 2px rgb(0, 0, 0);
-  font-weight: bold;
-  text-align: center;
-  font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
-  margin: 15px;
-  border: none;
-  width: 600px;
-}
-
 @media all and (min-width: 600px) {
   .addStopForm {
     width: 600px;

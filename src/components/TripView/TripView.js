@@ -25,6 +25,14 @@ export default class Trip extends React.Component {
     error: null,
   };
 
+  flickrApi = (search) => {
+    return fetch(
+      `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=af793aee1df81687d35b01aa0902524d&text=${search}&safe_search=2&content_type=1&media=photos&per_page=1`
+    ).then((res) => {
+      console.log(res);
+    });
+  };
+
   componentDidMount() {
     // get trip ID
     const { match } = this.props;
@@ -111,10 +119,9 @@ export default class Trip extends React.Component {
 
   handleSubmitEditedTrip = (e, id) => {
     e.preventDefault();
-    const { destination, short_description, activities, days } = e.target;
+    const { short_description, activities, days } = e.target;
     let trip = {
       short_description: short_description.value,
-      destination: destination.value,
       activities: activities.value,
       days: days.value,
     };
@@ -203,7 +210,6 @@ export default class Trip extends React.Component {
   isTripCreator = () => {
     let isTripCreator = false;
     isTripCreator = this.context.verifyAuth(this.state.trip[0].user_id);
-    console.log(isTripCreator);
     return isTripCreator;
   };
 
@@ -264,13 +270,7 @@ export default class Trip extends React.Component {
     return (
       <div className="edit-trip">
         <form onSubmit={(e) => this.handleSubmitEditedTrip(e, trip.id)}>
-          <div className="edit-trip-destination">
-            <input
-              defaultValue={trip.destination}
-              name="destination"
-              maxLength={14}
-            ></input>
-          </div>
+          <h2 className="trip-name">{trip.destination}</h2>
           <br />
           <input
             defaultValue={trip.short_description}
@@ -313,6 +313,7 @@ export default class Trip extends React.Component {
   };
 
   renderStop = (stop, index) => {
+    this.flickrApi('newyork');
     return (
       <div className="trip-stop-wrapper" key={stop.id}>
         <div className="trip-stop trip-div">

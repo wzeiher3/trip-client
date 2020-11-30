@@ -34,7 +34,6 @@ export class TripProvider extends React.Component {
   };
 
   setLoading = (boolean) => {
-    console.log(boolean);
     this.setState({
       loading: boolean,
     });
@@ -65,7 +64,6 @@ export class TripProvider extends React.Component {
   };
 
   verifyAuth = (id) => {
-    console.log(id, this.context.user.id);
     return id === this.context.user.id;
   };
 
