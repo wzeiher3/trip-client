@@ -12,11 +12,10 @@ import AddTripForm from '../AddTripForm/AddTripForm';
 import TripView from '../TripView/TripView';
 import MyTrips from '../MyTrips/MyTrips';
 import TripApiService from '../../services/trip-service';
-import Map from '../Map/Map'
-import PlaceSearch from '../PlaceSearch/PlaceSearch'
-import ErrorBoundary from '../ErrorBoundary/ErrorBoundary'
+import Map from '../Map/Map';
+import PlaceSearch from '../PlaceSearch/PlaceSearch';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import './App.css';
-
 
 export default class App extends Component {
   static contextType = TripContext;
@@ -32,11 +31,15 @@ export default class App extends Component {
   }
 
   componentDidMount = () => {
+    this.context.setLoading(true);
     TripApiService.getTrips()
       .then((res) => {
         this.context.setTrips(res);
       })
-      .catch((error) => this.setState({ error: error }));
+      .catch((error) => this.setState({ error: error }))
+      .finally(() => {
+        this.context.setLoading(false);
+      });
   };
 
   render() {
@@ -44,27 +47,27 @@ export default class App extends Component {
 
     return (
       <div className="App">
-        <Header />
-      
-        
+        <Header loading={this.context.loading} />
+
         <main>
-        
-          
           {hasError && <p>There was an error! Oh no!</p>}
           <ErrorBoundary>
-          <Switch>
-            <PrivateRoute exact path={'/add-trip'} component={AddTripForm} />
-            <PrivateRoute path={'/my-trips'} component={MyTrips} />
-            <Route exact path={'/'} component={DashboardRoute} />
-            <Route
-              path={'/trips/:trips_id'}
-              render={(props) => <TripView {...props} />}
-            />
-            <PublicOnlyRoute path={'/register'} component={RegistrationRoute} />
-            <PublicOnlyRoute path={'/login'} component={LoginRoute} />
-            <Route component={NotFoundRoute} />
-          </Switch>
-            </ErrorBoundary>
+            <Switch>
+              <PrivateRoute exact path={'/add-trip'} component={AddTripForm} />
+              <PrivateRoute path={'/my-trips'} component={MyTrips} />
+              <Route exact path={'/'} component={DashboardRoute} />
+              <Route
+                path={'/trips/:trips_id'}
+                render={(props) => <TripView {...props} />}
+              />
+              <PublicOnlyRoute
+                path={'/register'}
+                component={RegistrationRoute}
+              />
+              <PublicOnlyRoute path={'/login'} component={LoginRoute} />
+              <Route component={NotFoundRoute} />
+            </Switch>
+          </ErrorBoundary>
         </main>
       </div>
     );
