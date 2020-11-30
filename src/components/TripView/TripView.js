@@ -495,6 +495,7 @@ export default class Trip extends React.Component {
           <TripViewNav
             handleDeleteTrip={this.handleDeleteTrip}
             handleEditTrip={this.handleEditTrip}
+            stops={this.state.stops}
           />
         )}
         <div className="trip">
@@ -534,10 +535,8 @@ export default class Trip extends React.Component {
               </div>
             )}
           </div>
-          <DirectionsLink stops={this.state.stops} />
         </div>
       </>
     );
   }
 }
-

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import DirectionsLink from '../DirectionsLink/DirectionsLink';
 
 import './TripViewNav.css';
 
@@ -18,10 +19,11 @@ class TripViewNav extends Component {
           className="myButton"
         >
           Delete Trip
-        </button>
+        </button>{' '}
         <Link to="/my-trips">
           <div className="myButton">My Trips</div>
-        </Link>
+        </Link>{' '}
+        <DirectionsLink stops={this.props.stops} />
       </section>
     );
   }
