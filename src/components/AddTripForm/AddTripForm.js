@@ -51,7 +51,7 @@ export default class AddTripForm extends React.Component {
       .then((res) => {
         this.context.setTrips([res, ...currentTrips]);
         console.log('Trip Added Checked');
-        this.props.history.push('/');
+        this.props.history.push('/my-trips');
       })
       .catch((error) => {
         this.setState({ error });

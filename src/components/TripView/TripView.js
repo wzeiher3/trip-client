@@ -519,7 +519,7 @@ export default class Trip extends React.Component {
             <MapContainer trip={this.state.trip[0]} />
           </div>
           <div className="belowMap">
-            {stops}
+            {stops.length ? stops : <h4>This user hasn't added any stops yet! If this is your trip, add some by clicking the Add Stop button!</h4>}
             {this.state.toggleAddStop && this.renderAddStopForm()}
             {!this.state.toggleAddStop && this.isTripCreator() && (
               <div className="addStopButton">
