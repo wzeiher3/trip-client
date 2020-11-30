@@ -4,18 +4,27 @@
 } */
 
 .trip {
+  width: 100%;
   padding-top: 20px;
   border-radius: 1px;
   text-align: center;
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
-  align-items: center;
   color: #494949;
   background-image: linear-gradient(rgb(255, 255, 255), rgb(250, 250, 250));
 }
 
-.trip > div > img {
-  width: 40px;
+.trip-stop {
+  word-wrap: break-word;
+}
+
+.road-img {
+  width: 70px;
+  margin-top: 8px;
+}
+
+.belowMap {
+  margin-top: 40px;
 }
 
 .trip-stop-wrapper {
@@ -29,6 +38,30 @@
   width: 98%;
 }
 
+.edit-stop {
+  color: black;
+  background-color: white;
+  padding: 3px;
+  display: inline-block;
+  line-height: 1.6em;
+  outline: none;
+  position: relative;
+  font-size: 1.3em;
+  border: 5px solid #65b1ef;
+  border-radius: 15px 15px 15px 15px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  width: 98%;
+}
+
+#Map {
+  width: 100%;
+  height: 550px;
+  margin-top: 0px;
+  margin-bottom: 40px;
+  margin: auto;
+}
+
 .trip-name {
   font-size: 52px;
   text-decoration: none;
@@ -38,6 +71,7 @@
   text-align: center;
   font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
   margin: 15px;
+  word-wrap: break-word;
 }
 
 .trip > p {
@@ -62,6 +96,13 @@
   font-family: 'Ubuntu', sans-serif;
 }
 
+.trip-header > div > input {
+  font-size: 40px;
+  border: none;
+  text-align: center;
+  margin: 0;
+}
+
 .trip-header-creator > h2 {
   font-size: 40px;
   margin-top: 3px;
@@ -70,11 +111,10 @@
 
 .trip-div {
   color: black;
-  background-color: transparent;
-  cursor: pointer;
+  background-color: white;
   padding: 0px 2px;
   display: inline-block;
-  margin: 8px 0px;
+  margin: 12px 0px;
   line-height: 1.6em;
   outline: none;
   position: relative;
@@ -100,9 +140,10 @@
 }
 
 .trip-div:hover,
-.trip-div.hover {
+.trip-div:hover {
   border-color: rgb(230, 31, 130);
   background-color: rgb(255, 255, 255);
+  transform: scale(1.1);
 }
 
 .tripViewButton {
@@ -195,17 +236,41 @@
   font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
   font-size: 44px;
   margin: 0;
-
   color: rgb(233, 159, 64);
   text-shadow: 2px 1px 2px rgb(0, 0, 0);
+}
+
+.edit-trip > form > input {
+  border: none;
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.edit-trip-destination > input {
+  font-size: 52px;
+  text-decoration: none;
+  color: #65b1ef;
+  text-shadow: 2px 1px 2px rgb(0, 0, 0);
+  font-weight: bold;
+  text-align: center;
+  font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
+  margin: 15px;
+  border: none;
+  width: 600px;
 }
 
 @media all and (min-width: 600px) {
   .addStopForm {
     width: 600px;
   }
+
   .addStopForm > input {
     margin-bottom: 12px;
+  }
+
+  .edit-trip > form > input {
+    width: 600px;
   }
 }
 
@@ -222,9 +287,16 @@
 
 @media all and (min-width: 675px) {
   .trip-stop-wrapper {
-    width: 675px;
+    width: 100%;
   }
-  .trip-div {
+
+  .trip-div,
+  .edit-stop {
     width: 675px;
+    margin: auto;
+  }
+
+  #Map {
+    width: 800px;
   }
 }

@@ -13,22 +13,33 @@ export default class Dashboard extends React.Component {
       filteredTrips: [],
       resultsFound: true,
     };
-  };
+  }
 
   static contextType = TripContext;
 
   setQuery = (e) => {
     let value = e.target.value;
-    this.setState({
-      filteredTrips: this.context.trips.filter((trip) => {
-        return trip.destination.toLowerCase().includes(value.toLowerCase()) || trip.short_description.toLowerCase().includes(value.toLowerCase()) || trip.activities.toLowerCase().includes(value.toLowerCase());
-      }),
-    }, () => {
-      // if else statement to determine if search results are populated
-      if(this.state.filteredTrips.length > 0) this.setState({resultsFound: true}) 
-        else {this.setState({resultsFound: false})}
+    this.setState(
+      {
+        filteredTrips: this.context.trips.filter((trip) => {
+          return (
+            trip.destination.toLowerCase().includes(value.toLowerCase()) ||
+            trip.short_description
+              .toLowerCase()
+              .includes(value.toLowerCase()) ||
+            trip.activities.toLowerCase().includes(value.toLowerCase())
+          );
+        }),
+      },
+      () => {
+        // if else statement to determine if search results are populated
+        if (this.state.filteredTrips.length > 0)
+          this.setState({ resultsFound: true });
+        else {
+          this.setState({ resultsFound: false });
         }
-      )
+      }
+    );
   };
 
   render() {
@@ -68,11 +79,10 @@ export default class Dashboard extends React.Component {
               placeholder={'Search for a destination...'}
               name="tripSearchBar"
               onChange={(e) => {
-                  this.setQuery(e);
+                this.setQuery(e);
               }}
             ></input>
           </div>
-          <div className="titleDiv"></div>
           <div className="myTripButton">
             <Link to="/my-trips">
               <div className="myButton">My Trips</div>

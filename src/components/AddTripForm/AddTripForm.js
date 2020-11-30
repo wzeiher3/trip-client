@@ -2,6 +2,7 @@ import React from 'react';
 import TripService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
 import images from '../../assets/images/images';
+import PlaceSearch from '../PlaceSearch/PlaceSearch';
 
 import './AddTripForm.css';
 
@@ -13,6 +14,7 @@ export default class AddTripForm extends React.Component {
     activities: 'Shopping',
     days: 2,
     destination: 'New York, NY',
+    place: {},
     error: null,
     images: [
       'city',
@@ -32,22 +34,34 @@ export default class AddTripForm extends React.Component {
     e.preventDefault();
     this.setState({ error: null });
     const { short_description, destination, days, activities } = e.target;
+
+    console.log(this.state.place.coordinates.lat);
     let trip = {
-      destination: destination.value,
+      destination: this.state.place.place,
       short_description: short_description.value,
+      long: this.state.place.coordinates.lng,
+      lat: this.state.place.coordinates.lat,
       days: days.value,
       activities: activities.value,
       img: this.state.images[this.state.imagesScroll],
     };
     let currentTrips = this.context.trips;
+    console.log('Trip Addded', trip);
     TripService.postTrip(trip)
       .then((res) => {
         this.context.setTrips([res, ...currentTrips]);
+        console.log('Trip Added Checked');
         this.props.history.push('/');
       })
       .catch((error) => {
         this.setState({ error });
       });
+  };
+
+  storePlace = (place) => {
+    this.setState({
+      place: place,
+    });
   };
 
   handleScrollRight = () => {
@@ -67,6 +81,7 @@ export default class AddTripForm extends React.Component {
   };
 
   render() {
+    console.log('add trip state', this.state.place);
     return (
       <>
         <section className="addTripSection">
@@ -77,16 +92,17 @@ export default class AddTripForm extends React.Component {
               action="#"
               onSubmit={this.handleSubmit}
             >
-              <label htmlFor="destination">
+              {/* <label htmlFor="destination">
                 Type in the name of your destination!
               </label>
               <input
                 onChange={(e) => this.setState({ destination: e.target.value })}
-                placeholder={'New York, Lass Vegas, Germany...'}
+                placeholder={'New York, Las Vegas, Germany...'}
                 type="text"
                 name="destination"
-                maxLength={100}
-              />
+              /> */}
+              <label>Destination:</label>
+              <PlaceSearch storePlace={this.storePlace} />
               <br />
               <label htmlFor="short_description">
                 Type in a short description of your destination!
@@ -99,6 +115,8 @@ export default class AddTripForm extends React.Component {
                 placeholder={'New York Shopping, Backpacking through Europe!'}
                 type="text"
                 name="short_description"
+                maxLength={40}
+                required
               />
               <br />
               <label htmlFor="activities">
@@ -109,7 +127,8 @@ export default class AddTripForm extends React.Component {
                 type="text"
                 name="activities"
                 placeholder={'Shopping, Sight-seeing, Gnoshing...'}
-                maxLength={30}
+                maxLength={40}
+                required
               />
               <br />
               <div className="trip-rating-days">
@@ -123,6 +142,8 @@ export default class AddTripForm extends React.Component {
                   id="days"
                   name="days"
                   max={99}
+                  min={1}
+                  required
                 />
               </div>
               <br />

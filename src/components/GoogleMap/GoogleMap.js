@@ -18,8 +18,8 @@ export default class GoogleMap extends React.Component {
         };
 
         // Load the Google Maps API
-        const script = document.createElement("script");
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${config.API_KEY}&libraries=localContext&v=beta&callback=resolveGoogleMapsPromise`;
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${config.MAP_API_KEY}&libraries=localContext&v=beta&callback=resolveGoogleMapsPromise`;
         script.async = true;
         document.body.appendChild(script);
       });
@@ -38,18 +38,19 @@ export default class GoogleMap extends React.Component {
     // Once the Google Maps API has finished loading, initialize the map
     let map;
     this.getGoogleMaps().then((google) => {
-      const uluru = {lat: -25.363, lng: 131.044};
-      const localContextMapView = new google.maps.localContext.LocalContextMapView({
-        element: document.getElementById("map"),
-        placeTypePreferences: ["restaurant", "tourist_attraction"],
-        maxPlaceCount: 12,
-      });
+      const uluru = { lat: -25.363, lng: 131.044 };
+      const localContextMapView = new google.maps.localContext.LocalContextMapView(
+        {
+          element: document.getElementById('map'),
+          placeTypePreferences: ['restaurant', 'tourist_attraction'],
+          maxPlaceCount: 12,
+        }
+      );
       map = localContextMapView.map;
       map.setOptions({
         center: { lat: 51.507307, lng: -0.08114 },
         zoom: 14,
       });
-    
     });
   }
 
@@ -57,8 +58,8 @@ export default class GoogleMap extends React.Component {
     return (
       <div onClick={(ev) => console.log(ev.target)}>
         <h1>Contact</h1>
-        <div id="map" style={{width: 800, height: 800}}></div>
+        <div id="map" style={{ width: 800, height: 800 }}></div>
       </div>
-    )
+    );
   }
 }

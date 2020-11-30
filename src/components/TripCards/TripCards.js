@@ -19,12 +19,10 @@ export default class TripCards extends Component {
 
   componentWillUnmount() {
     sequence = 0;
-    return false;
   }
 
   componentDidUpdate() {
     sequence = 0;
-    return false;
   }
 
   shouldComponentUpdate() {

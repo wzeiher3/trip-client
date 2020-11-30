@@ -1,10 +1,11 @@
 import React from 'react';
 import TripApiService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
-import { Link } from 'react-router-dom';
 import TripViewNav from './TripViewNav/TripViewNav';
 import TripViewSelect from './TripViewSelect/TripViewSelect';
 import TripViewEditSelect from './TripViewEditSelect.js/TripViewEditSelect';
+import MapContainer from '../Map/Map';
+import DirectionsLink from './DirectionsLink/DirectionsLink';
 
 import './TripView.css';
 import images from '../../assets/images/images';
@@ -21,6 +22,7 @@ export default class Trip extends React.Component {
     stopEditingID: 0,
     toggleEditTrip: false,
     selections: [],
+    error: null,
   };
 
   componentDidMount() {
@@ -29,19 +31,27 @@ export default class Trip extends React.Component {
     // set trip_id variable
     const trip_id = match.params.trips_id;
     // get stops for the current trip
+    this.context.setLoading(true);
     TripApiService.getTrip(trip_id)
       .then((res) => {
         this.setState({ trip: res, currTripID: res.id });
       })
       .catch((error) => {
         console.error(error);
+      })
+      .finally(() => {
+        this.context.setLoading(false);
       });
+    this.context.setLoading(true);
     TripApiService.getStops(trip_id)
       .then((res) => {
         this.setState({ stops: res });
       })
       .catch((error) => {
         console.error(error);
+      })
+      .finally(() => {
+        this.context.setLoading(false);
       });
   }
 
@@ -64,7 +74,7 @@ export default class Trip extends React.Component {
 
   handleSelect = (e) => {
     let selection = e.target;
-    selection = selection.value;
+    selection = selection.innerHTML;
     const findSelect = this.state.selections.includes(selection);
     if (findSelect) {
       this.setState({
@@ -93,33 +103,39 @@ export default class Trip extends React.Component {
   };
 
   handleEditTrip = () => {
-    this.setState({toggleEditTrip: true}, console.log(this.state.toggleEditTrip))
-  }
+    this.setState(
+      { toggleEditTrip: true },
+      console.log(this.state.toggleEditTrip)
+    );
+  };
 
   handleSubmitEditedTrip = (e, id) => {
     e.preventDefault();
-    const { destination, short_description, activities, days} = e.target
-
+    const { destination, short_description, activities, days } = e.target;
     let trip = {
       short_description: short_description.value,
       destination: destination.value,
       activities: activities.value,
       days: days.value,
-    }
+    };
 
     TripApiService.patchTrip(trip, id)
       .then((res) => {
-        this.setState({trip: res})
+        this.setState({ trip: res });
       })
       .catch((error) => {
-        this.setState({error})
+        this.setState({ error });
       });
 
-      this.setState({toggleEditTrip: false})
+    this.setState({ toggleEditTrip: false });
   };
 
   handleSubmitEditStop = (e, stop_id) => {
     e.preventDefault();
+    if (this.state.selections.length === 0) {
+      this.setState({ error: 'Must select atleast 1 Category' });
+      return;
+    }
     this.setState({
       error: null,
       stopEditingID: 0,
@@ -152,14 +168,18 @@ export default class Trip extends React.Component {
 
   handleSubmitStop = (e) => {
     e.preventDefault();
+    if (this.state.selections.length === 0) {
+      this.setState({ error: 'Must select atleast 1 Category' });
+      return;
+    }
     this.setState({ error: null });
     const { stop_name, description, city, state } = e.target;
     const { match } = this.props;
     let tripId = match.params.trips_id;
     let stop = {
       trip_id: tripId,
-      longitude: 0.0,
-      latitude: 0.0,
+      longitude: -32.77779,
+      latitude: 46.888888,
       city: city.value,
       state: state.value,
       stop_name: stop_name.value,
@@ -198,11 +218,19 @@ export default class Trip extends React.Component {
         <h2>Add Stop</h2>
         <br />
         <label htmlFor="stop_name">Describe your stop with a name!</label>
-        <input type="text" name="stop_name" />
+        <input type="text" name="stop_name" required maxLength={40} />
         <label htmlFor="city">City</label>
-        <input type="text" name="city" />
+        <input type="text" name="city" required maxLength={40} />
         <label htmlFor="state">State or Country</label>
-        <input type="text" name="state" />
+        <input type="text" name="state" required maxLength={40} />
+        {this.state.error && (
+          <>
+            <br />
+            {this.state.error}
+            <br />
+            <br />
+          </>
+        )}
         <label htmlFor="category">What category of stop is this?</label>
         <br />
         <TripViewSelect
@@ -212,7 +240,7 @@ export default class Trip extends React.Component {
         />
         <br />
         <label htmlFor="description">Describe the experience to expect:</label>
-        <input type="text" name="description" />
+        <input type="text" name="description" required maxLength={400} />
         <button
           className="tripViewButton"
           type="button"
@@ -231,55 +259,57 @@ export default class Trip extends React.Component {
     );
   };
 
-
   renderEditTrip = (trip) => {
     return (
-    <div className="edit-trip">
-      <form
-      onSubmit={(e) => this.handleSubmitEditedTrip(e, trip.id)}>
-      <h2 className="trip-name">
-        <input
-        defaultValue={trip.destination}
-        name="destination" 
-        >
-      </input>
-      </h2>
-          <p><input 
-          defaultValue={trip.short_description} 
-          name="short_description"
-          required
-          ></input></p>
-          <p>
-            Activities: 
-            <input 
-            defaultValue={trip.activities} 
-            name="activities"
+      <div className="edit-trip">
+        <form onSubmit={(e) => this.handleSubmitEditedTrip(e, trip.id)}>
+          <div className="edit-trip-destination">
+            <input
+              defaultValue={trip.destination}
+              name="destination"
+              maxLength={14}
+            ></input>
+          </div>
+          <br />
+          <input
+            defaultValue={trip.short_description}
+            name="short_description"
+            maxLength={40}
             required
-            >
-              </input><br />
-            Days: <input 
+          ></input>
+          <br />
+
+          <input
+            defaultValue={trip.activities}
+            name="activities"
+            maxLength={40}
+            required
+          ></input>
+          <br />
+
+          <input
             defaultValue={trip.days}
             type="number"
             min={0}
             name="days"
+            max={99}
             required
-            />
-            </p>
-            <div className="edit-trip-button-container">
+          />
+          <div className="edit-trip-button-container">
             <button
-                  className="tripViewButton"
-                  onClick={() => this.setState({toggleEditTrip: false})}
-                >
-                  Cancel
-                </button>
-                <button className="tripViewButton" type="submit">
-                  Submit
-                </button>
-              </div>
-      </form>
-    </div>
-    )  
-}
+              className="tripViewButton"
+              onClick={() => this.setState({ toggleEditTrip: false })}
+            >
+              Cancel
+            </button>
+            <button className="tripViewButton" type="submit">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    );
+  };
 
   renderStop = (stop, index) => {
     return (
@@ -303,27 +333,41 @@ export default class Trip extends React.Component {
               </div>
             )}
           </figcaption>
-          <div
-            className={
-              this.isTripCreator() ? 'trip-header-creator' : 'trip-header'
-            }
+          <a
+            rel="noopener noreferrer"
+            target="_blank"
+            href={`https://www.google.com/maps/search/?api=1&query=${stop.stop_name}+${stop.city}+${stop.state}`}
           >
-            <h2>{stop.stop_name}</h2>
-            <span>
-              {stop.city}, {stop.state}
-            </span>
-            <br />
-            <span className="trip-category">
-              Category: {stop.category.replace('_', ' ')}
-            </span>
-          </div>
+            <div
+              className={
+                this.isTripCreator() ? 'trip-header-creator' : 'trip-header'
+              }
+            >
+              <h2>{stop.stop_name}</h2>
+              <span>
+                {stop.city}, {stop.state}
+              </span>
+              <br />
+              <span className="trip-category">
+                Category: {stop.category.replace('_', ' ')}
+              </span>
+            </div>
+          </a>
           <p>{stop.description}</p>
         </div>
         <br />
         {index === this.state.stops.length - 1 ? null : index % 2 !== 0 ? (
-          <img src={images.road_a} alt="road illustration"></img>
+          <img
+            className="road-img"
+            src={images.road_a}
+            alt="road illustration"
+          ></img>
         ) : (
-          <img src={images.road_b} alt="road illustration"></img>
+          <img
+            className="road-img"
+            src={images.road_b}
+            alt="road illustration"
+          ></img>
         )}
       </div>
     );
@@ -333,28 +377,47 @@ export default class Trip extends React.Component {
     const id = stop.id;
     return (
       <div className="trip-stop-wrapper" key={stop.id}>
-        <div className="trip-stop  trip-div" key={index}>
+        <div className="trip-stop edit-stop" key={index}>
           <form
             action="#"
             id="EditStopForm"
             onSubmit={(e) => this.handleSubmitEditStop(e, id)}
           >
             <div className="trip-header">
+              <div>
+                <input
+                  defaultValue={stop.stop_name}
+                  name="stop_name"
+                  id="edit_stop_name"
+                  aria-label="stop_name"
+                  maxLength={40}
+                  required
+                />{' '}
+              </div>
               <input
-                defaultValue={stop.stop_name}
-                name="stop_name"
-                id="edit_stop_name"
-                aria-label="stop_name"
-              />{' '}
-              <br />
-              <input defaultValue={stop.city} name="city" aria-label="city" />
+                defaultValue={stop.city}
+                name="city"
+                aria-label="city"
+                maxLength={40}
+                required
+              />
               <br />
               <input
                 defaultValue={stop.state}
                 name="state"
                 aria-label="state"
+                maxLength={40}
+                required
               />
             </div>
+            {this.state.error && (
+              <>
+                <br />
+                {this.state.error}
+                <br />
+                <br />
+              </>
+            )}
             <TripViewEditSelect
               handleSelect={this.handleSelect}
               clearSelections={this.clearSelections}
@@ -364,6 +427,8 @@ export default class Trip extends React.Component {
               defaultValue={stop.description}
               name="description"
               aria-label="description"
+              maxLength={400}
+              required
             />
             {this.isTripCreator() && (
               <div className="tripView-button-wrapper">
@@ -380,6 +445,20 @@ export default class Trip extends React.Component {
             )}
           </form>
         </div>
+        <br />
+        {index === this.state.stops.length - 1 ? null : index % 2 !== 0 ? (
+          <img
+            className="road-img"
+            src={images.road_a}
+            alt="road illustration"
+          ></img>
+        ) : (
+          <img
+            className="road-img"
+            src={images.road_b}
+            alt="road illustration"
+          ></img>
+        )}
       </div>
     );
   };
@@ -404,53 +483,61 @@ export default class Trip extends React.Component {
       }
       return this.renderStop(stop, index);
     });
+    const { match } = this.props;
+    // set trip_id variable
+    const trip_id = match.params.trips_id;
+
+    console.log('This Trip', this.state.trip[0]);
+
     return (
       <>
         {this.isTripCreator() && (
-          <TripViewNav handleDeleteTrip={this.handleDeleteTrip} handleEditTrip={this.handleEditTrip}/>
+          <TripViewNav
+            handleDeleteTrip={this.handleDeleteTrip}
+            handleEditTrip={this.handleEditTrip}
+          />
         )}
         <div className="trip">
-        {this.state.toggleEditTrip ? this.renderEditTrip(trip) :
-         <>
-         <h2 className="trip-name">{trip.destination}</h2>
-          <span>
-            Rating: {trip.rating}
-            {!trip.rating && <>N\A</>}
-          </span>
-          <p>{trip.short_description}</p>
-          <p>
-            Activities: {trip.activities} <br />
-            Days: {trip.days}
-        </p>
-        </> 
-        }
-          {/* {stops} */}
-          {!stops.length ? 'No stops here, check back later or add some if you created this trip!' : stops}
-          {this.state.toggleAddStop && this.renderAddStopForm()}
-          {!this.state.toggleAddStop && this.isTripCreator() && (
-            <div className="addStopButton">
-              <div
-                className="myButton"
-                onClick={() => {
-                  this.setState({ toggleAddStop: !this.state.toggleAddStop });
-                }}
-              >
-                Add a Stop!
-              </div>
-            </div>
+          {this.state.toggleEditTrip ? (
+            this.renderEditTrip(trip)
+          ) : (
+            <>
+              <h2 className="trip-name">{trip.destination}</h2>
+              <span>
+                Rating: {trip.rating}
+                {!trip.rating && <>N\A</>}
+              </span>
+              <p>{trip.short_description}</p>
+              <p>
+                Activities: {trip.activities} <br />
+                Days: {trip.days}
+              </p>
+            </>
           )}
+          <div id="Map">
+            <MapContainer trip={this.state.trip[0]} />
+          </div>
+          <div className="belowMap">
+            {stops}
+            {this.state.toggleAddStop && this.renderAddStopForm()}
+            {!this.state.toggleAddStop && this.isTripCreator() && (
+              <div className="addStopButton">
+                <br />
+                <div
+                  className="myButton"
+                  onClick={() => {
+                    this.setState({ toggleAddStop: !this.state.toggleAddStop });
+                  }}
+                >
+                  Add a Stop!
+                </div>
+              </div>
+            )}
+          </div>
+          <DirectionsLink stops={this.state.stops} />
         </div>
       </>
     );
   }
 }
 
-// category: "tourist_attraction"
-// city: "Orlando"
-// description: "The Walt Disney World Resort, also called Walt Disney World and Disney World, is an entertainment complex in Bay Lake and Lake Buena Vista, Florida, in the United States, near the cities of Orlando and Kissimmee."
-// id: 7
-// latitude: "28.3852"
-// longitude: "-81.5639"
-// state: "FL"
-// stop_name: "Disneyworld"
-// trip_id: 1

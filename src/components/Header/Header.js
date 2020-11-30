@@ -41,6 +41,13 @@ class Header extends Component {
           <h1>
             <Link to="/dashboard">Ways!</Link>
           </h1>
+          {this.props.loading && (
+            <img
+              className="loading-img"
+              src={images.loading}
+              alt="loading icon"
+            />
+          )}
         </span>
         {TokenService.hasAuthToken()
           ? this.renderLogoutLink()
