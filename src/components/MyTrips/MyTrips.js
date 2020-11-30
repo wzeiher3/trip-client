@@ -26,19 +26,17 @@ export default class MyTrips extends Component {
 
   renderStates = () => {
     let stops = this.state.stops
-
-    let states = stops.map((stop, index) => (
-      <li key={index}>{stop.city, stop.state}</li>
+    return stops.map((stop, index) => (
+    <li key={index}>{stop.city}, {stop.state}</li>
     ))
 
-    return states.filter((a, b) => states.indexOf(a) === b)
+    // return states.filter((a, b) => states.indexOf(a) === b)
     // function removeDuplicates(array) {
     //   return array.filter((a, b) => array.indexOf(a) === b)
     // };
   }
 
   render() {
-    console.log('STATE', this.state)
     let jwt = TokenService.getAuthToken();
     const user = TokenService.parseJwt(jwt);
     
@@ -75,10 +73,10 @@ export default class MyTrips extends Component {
           <div className="my-trip-dropdown">
             <button className="my-trip-info">Trips Stats</button>
               <div className="dropdown">
-                <ul>States visited
+                <ul>City, States visited:
                   <li>{this.renderStates()}</li>
                 </ul>
-                <ul>Total trips
+                <ul>Total trips:
                   <li> {count}</li>
                 </ul>
               </div> 
