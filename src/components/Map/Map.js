@@ -2,7 +2,6 @@ import React from 'react';
 import { GoogleComponent } from 'react-google-location';
 import { Map, GoogleApiWrapper, Marker, Listing } from 'google-maps-react';
 import TripApiService from '../../services/trip-service';
-
 import './Map.css';
 import MAP_API_KEY from '../../config';
 import images from '../../assets/images/images';

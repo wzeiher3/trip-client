@@ -12,8 +12,10 @@ import check_in from './check_in.png';
 import road_a from './road_a.png';
 import road_b from './road_b.png';
 import loading from './loading.gif';
+import img_loading from './img-loading.gif';
 
 let images = {
+  img_loading,
   loading,
   road_a,
   road_b,

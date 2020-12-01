@@ -9,19 +9,19 @@ class TripViewNav extends Component {
     return (
       <section className="TripViewNav">
         <button
-          className="myButton"
+          className="myButton nav-buttons"
           onClick={() => this.props.handleEditTrip()}
         >
           Edit Trip
         </button>{' '}
         <button
           onClick={() => this.props.handleDeleteTrip()}
-          className="myButton"
+          className="myButton nav-buttons"
         >
           Delete Trip
         </button>{' '}
         <Link to="/my-trips">
-          <div className="myButton">My Trips</div>
+          <div className="myButton nav-buttons">My Trips</div>
         </Link>{' '}
         <DirectionsLink stops={this.props.stops} />
       </section>

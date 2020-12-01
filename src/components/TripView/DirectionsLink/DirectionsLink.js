@@ -27,7 +27,7 @@ class DirectionsLink extends Component {
             ','
           )}`}
         >
-          <div className="myButton">Get Directions</div>
+          <div className="myButton nav-buttons">Get Directions</div>
         </a>
       </>
     );

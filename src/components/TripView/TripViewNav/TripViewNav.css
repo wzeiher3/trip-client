@@ -3,3 +3,13 @@
   padding: 10px;
   text-align: center;
 }
+
+.nav-buttons {
+  margin-top: 3px;
+}
+
+@media all and (min-width: 650px) {
+  .nav-buttons {
+    margin-top: 0px;
+  }
+}
