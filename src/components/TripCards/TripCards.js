@@ -63,7 +63,8 @@ export default class TripCards extends Component {
             </div>
             <div className={`TripCard-bottom ${color}`}>
               <div className="TripCard-bottom-info">
-                Days {this.props.days} {'     '}|
+                Days {this.props.days}
+                <b>&nbsp;&nbsp;|</b>
                 {this.props.rating ? (
                   <span className="rating-span">
                     <img

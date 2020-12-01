@@ -592,17 +592,16 @@ export default class Trip extends React.Component {
 
     //console.log('This Trip', this.state.trip[0]);
 
-    this.userHasRated()
+    this.userHasRated();
 
     return (
       <>
-        {this.isTripCreator() && (
-          <TripViewNav
-            handleDeleteTrip={this.handleDeleteTrip}
-            handleEditTrip={this.handleEditTrip}
-            stops={this.state.stops}
-          />
-        )}
+        <TripViewNav
+          handleDeleteTrip={this.handleDeleteTrip}
+          handleEditTrip={this.handleEditTrip}
+          stops={this.state.stops}
+          user_id={this.state.trip[0].user_id}
+        />
         <div className="trip">
           {this.state.toggleEditTrip ? (
             this.renderEditTrip(trip)
@@ -649,7 +648,9 @@ export default class Trip extends React.Component {
               </p>
             </>
           )}
-          <div id="Map"><MapContainer trip={this.state.trip[0]} /></div>
+          <div id="Map">
+            <MapContainer trip={this.state.trip[0]} />
+          </div>
           <div className="belowMap">
             {stops.length ? (
               stops

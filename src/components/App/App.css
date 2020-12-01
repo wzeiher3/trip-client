@@ -3,6 +3,10 @@ a {
   color: black;
 }
 
+main {
+  padding-top: 63px;
+}
+
 input {
   width: 100%;
   box-sizing: border-box;
