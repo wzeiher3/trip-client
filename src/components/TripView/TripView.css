@@ -1,6 +1,6 @@
 .trip {
   width: 100%;
-  padding-top: 20px;
+  padding-top: 65px;
   border-radius: 1px;
   text-align: center;
   display: inline-flex;
@@ -73,7 +73,7 @@
   font-weight: bold;
   text-align: center;
   font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
-  margin: 15px;
+  margin: 0px;
   word-wrap: break-word;
 }
 
@@ -285,6 +285,28 @@
   margin-left: 35px;
 }
 
+.like-btn {
+  border: none;
+  background-color: white;
+}
+
+img.heart {
+  vertical-align: middle;
+  width: 4em;
+  transition: 0.5s ease-in-out;
+}
+
+@media all and (min-width: 800px) {
+  .trip-name {
+    width: 800px;
+    margin: auto;
+    padding: 0;
+  }
+  #Map {
+    width: 800px;
+  }
+}
+
 @media all and (min-width: 675px) {
   .addStopForm {
     width: 675px;
@@ -321,9 +343,6 @@
     margin: auto;
   }
 
-  #Map {
-    width: 800px;
-  }
   .trip-flex {
     width: 675px;
     flex-direction: row;
@@ -336,19 +355,4 @@
   .trip-left {
     width: 330px;
   }
-}
-
-.like-btn {
-  border: none;
-  background-color: white;
-}
-
-img.heart {
-  vertical-align: middle;
-  width: 4em;
-  transition: .5s ease-in-out;
-}
-
-span.rating-container {
-  
 }

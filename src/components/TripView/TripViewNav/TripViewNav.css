@@ -1,7 +1,10 @@
 .TripViewNav {
   background-color: rgb(245, 245, 245);
-  padding: 10px;
+  padding: 4px;
   text-align: center;
+  position: fixed;
+  width: 100%;
+  opacity: 0.99;
 }
 
 .nav-buttons {

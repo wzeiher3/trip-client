@@ -49,7 +49,6 @@ export default class App extends Component {
     return (
       <div className="App">
         <Header loading={this.context.loading} />
-
         <main>
           {hasError && <p>There was an error! Oh no!</p>}
           <ErrorBoundary>
