@@ -51,7 +51,6 @@ export default class TripCards extends Component {
                 ) : (
                   <h2>{this.props.destination}</h2>
                 )}
-                <br />
                 <span>{this.props.short_description}</span>
               </div>
 
@@ -64,9 +63,21 @@ export default class TripCards extends Component {
             </div>
             <div className={`TripCard-bottom ${color}`}>
               <div className="TripCard-bottom-info">
-                Days {this.props.days} {'     '}|<img className="card-heart" src={images.FilledHeart} alt='rating heart' />
+                Days {this.props.days} {'     '}|
+                <img
+                  className="card-heart"
+                  src={images.FilledHeart}
+                  alt="rating heart"
+                />
                 {this.props.rating ? (
-                  <span className="rating-span"><img src={images.FilledHeart} alt='filled hearts' className="card-heart" /> {this.props.rating}</span>
+                  <span className="rating-span">
+                    <img
+                      src={images.FilledHeart}
+                      alt="filled hearts"
+                      className="card-heart"
+                    />{' '}
+                    {this.props.rating}
+                  </span>
                 ) : (
                   <span className="rating-null">Unrated</span>
                 )}
