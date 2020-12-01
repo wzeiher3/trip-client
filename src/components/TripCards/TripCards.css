@@ -136,6 +136,7 @@ span.rating-span {
 .empty-heart {
   padding-top: 5px;
 }
+
 @media all and (min-width: 800px) {
   .TripCard {
     margin-bottom: 0;
@@ -143,4 +144,4 @@ span.rating-span {
     margin-left: 25px;
     margin-right: 25px;
   }
-
+}
