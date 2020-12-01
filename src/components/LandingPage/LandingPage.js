@@ -8,26 +8,21 @@ export default class LandingPage extends Component {
 
     render() {
         return (
-            <div className="landing-page-container">
-                {/* <div className="circle-container">
-                    <div className="circle">
-
-                    </div>
-                </div> */}
+            <div className='landing-page-container-1'>
                 <div className="background-image">
-                    <img className="landing-page-background" src={Background} alt=""/>
+                    <img className="landing-page-background" src={Background} alt="plane soaring through sky"/>
                 </div>
+            <div className="landing-page-container">
                 <div className="background">
-                    <img src={Airplane} alt='airplane taking off' />
                     <div className="ways-header">
                         <p>Ways!</p>
+                    </div>
+                    <div className="airplane-bg">
+                    <img src={Airplane} alt='airplane taking off' />
                     </div>
                 </div>
 
                 <section className="landing-page">
-                    {/* <div className="ways-info">
-                        <h2>Welcome!</h2>
-                    </div> */}
                     <div className="wrapper">
                         <div className="one">
                             <i className="fas fa-plane-departure xl fa-2x"></i>
@@ -52,6 +47,7 @@ export default class LandingPage extends Component {
                         </Link>
                     </div>
                 </section>
+            </div>
             </div>
         )
     }

@@ -1,7 +1,7 @@
 /* background photo creds: Photo by Simon Berger on Unsplash
 */
 
-@media (min-width: 260px) and (max-width: 350px) {
+/* @media (min-width: 260px) and (max-width: 350px) {
     .ways-header {
         padding-bottom: 40% !important;
         vertical-align: middle !important;
@@ -39,7 +39,7 @@
         width: 100%;
         margin-top: 0 !important;
         padding-bottom: 50px;
-        /* vertical-align: middle; */
+        vertical-align: middle; 
     }
 }
 
@@ -57,7 +57,7 @@
         position: relative !important;
        /* text-align: center; */
        /* padding-bottom: 500px; */
-       /* margin-left: 100%; */
+       /* margin-left: 100%;
        z-index: 1 !important;
        margin-right: 0 !important;
        font-size: 5em !important;
@@ -99,7 +99,84 @@
         position: absolute !important;
     }
       
+} */
+
+@media (max-width: 349px) {
+    .ways-header {
+        font-size: 19vw !important;
+        letter-spacing: -3px !important;
+    }
+
+    .wrapper {
+        background-color: #65b1ef;
+        display: flex;
+        flex-direction: column !important;
+        justify-content: space-around;
+        align-items: center;
+        /* align-items: center; */
+        width: 100vw;
+        font-size: 20px;
+        font-weight: 500;
+        padding-top: 20px;
+    }
+
+    .linkToDashButton {
+        display: flex !important;
+        flex-direction: column !important;
+        align-content: center !important;
+        justify-content: center !important;
+        background-color: #cce8ff;
+        width: 100%;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding-bottom: 50px;
+        vertical-align: middle; 
+    }
+
+    .landing-page-background {
+        margin: 0 !important;
+    }
 }
+
+@media (max-width: 449px) and (min-width: 350px) {
+    .ways-header {
+        font-size: 16vw !important;
+        letter-spacing: -2px !important;
+    }
+
+
+}
+
+@media (max-width: 600px) and (min-width: 450px) {
+    .ways-header {
+        font-size: 14vw !important;
+        letter-spacing: -3px !important;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .background img {
+        width: 80% !important;
+    }
+}
+
+
+@media (max-width: 920px) and (min-width: 600px) {
+    .background {
+        display: flex;
+        flex-direction: column;
+    }
+    .ways-header {
+        font-size: 12vw !important;
+        letter-spacing: -5px !important;
+    }
+    .background img {
+        width: 70% !important;
+    }
+}
+
 
 .wrapper div {
     padding: 10px;
@@ -113,7 +190,7 @@
     /* background-color: gray; */
     position: absolute;
     z-index: 1;
-    margin-top: 14em;
+    margin-top: 11em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -122,51 +199,70 @@
 .landing-page-container {
     display: flex;
     justify-content: center;
+    /* overflow-x: hidden; */
 }
 
 .ways-header {
     position: absolute;
     z-index: -1;
-    font-size: 10em;
-    margin-top: 0;
-    margin-right: 4em;
+    /* vertical-align: middle !important; */
+    font-size: 10vw;
+    /* margin-top: 0; */
+    /* margin-right: 70vw; */
+    /* max-height: 200px; */
+    /* margin-bottom: 100px; */
     color: #e61f82;
+    /* display: flex;
+    flex-direction: row; */
+    /* align-items: center; */
     font-family: 'Archivo Black', Arial, Helvetica, sans-serif;
     text-shadow: 2px 1px 2px rgb(0, 0, 0);
     letter-spacing: -10px;
+    height: auto;
+    /* min-width: 50em; */
+    width: auto;
+    /* margin: auto; */
 }
 
 section.landing-page::before {
     content: '';
-    margin-top: 10em;
-}
-
-.ways-info {
-    /* border: 2px solid #e61f82; */
-    background-color: #e61f82;
-    border-radius: 20px;
-    font-size: small;
-    padding: .5em;
-    max-width: 10em;
+    margin-top: 20%;
 }
 
 .background {
-    position: absolute;
-    margin-left: 2em;
-    width: 100%;
-    z-index: 1;
+    position: relative;
+    /* margin-left: 2em; */
+    width: 100vw;
+    z-index: 1000;
     display: flex;
     justify-content: center;
+    height: auto;
+    margin-right: 20%;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    /* float: center; */
+
 }
 
 .background img {
-    margin-left: 9em;
+    margin-bottom: 50px;
+    margin-top: 3vh;
+    margin-right: 90vw;
+    padding-right: 5vw;
+    /* margin-right: 400px; */
+    /* position: absolute; */
+    width: 60%;
+    height: auto;
+    position: absolute;
+    /* border: 2px solid red; */
 }
 
 .about-ways-container {
     margin: 1em 0 0 0;
     padding: 10px;
     width: 100vw;
+    position: relative;
     background-color: #65b2ef;
 }
 
@@ -188,6 +284,7 @@ section.landing-page::before {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    /* align-items: center; */
     width: 100vw;
     font-size: 20px;
     font-weight: 500;
@@ -196,7 +293,8 @@ section.landing-page::before {
 
 .lets-go-btn {
     box-shadow: none;
-    margin-top: 2.5em;
+    margin-top: 1em;
+    /* padding-bottom: 10%; */
     text-align: center;
     width: 10em;
 }
@@ -209,7 +307,7 @@ section.landing-page::before {
     margin-top: 10px;
 }
 
-.circle-container {
+/* .circle-container {
     width: 100vw;
     display: flex;
     justify-content: flex-end;
@@ -218,20 +316,22 @@ section.landing-page::before {
 .circle {
     width:250px; 
      height:250px;
-     /* border:1px solid #000;  */
+     border:1px solid #000;  
      border-radius: 0 0 0 240px;
     background: #65b2ef;
     z-index: 1;
     position: absolute;
-}
+} */
 
 .background-image {
+    position: absolute;
     opacity: 50%;
     width: 100vw;
     height: 100vh;
 }
 
 .landing-page-background {
+    position: absolute;
     width: 100%;
     height: 100vh;
     margin: 0;
@@ -241,7 +341,14 @@ section.landing-page::before {
 body {
   width: 100vw;
   height: auto;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   overflow-x: hidden; 
+}
+
+.landing-page-container-1 {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    width: 100vw;
 }

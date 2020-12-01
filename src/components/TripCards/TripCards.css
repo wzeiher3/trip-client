@@ -133,3 +133,7 @@ span.rating-span {
   align-items: center;
   padding-top: 3px;
 }
+
+.empty-heart {
+  padding-top: 5px;
+}

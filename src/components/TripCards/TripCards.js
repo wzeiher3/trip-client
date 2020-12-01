@@ -74,7 +74,7 @@ export default class TripCards extends Component {
                     {this.props.rating}
                   </span>
                 ) : (
-                  <span className="rating-null">Unrated</span>
+                  <span className="rating-null"><img src={images.EmptyHeart} alt='empty heart' className="card-heart empty-heart"/></span>
                 )}
               </div>
             </div>

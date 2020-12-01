@@ -611,7 +611,6 @@ export default class Trip extends React.Component {
               <span className="rating-container">
                 {!this.state.userHasRated ? (
                   <>
-                    <span className="trip-rating-digits">{trip.rating}</span>
                     <button
                       className="like-btn"
                       onClick={() => this.handleRating()}
@@ -622,15 +621,10 @@ export default class Trip extends React.Component {
                         src={images.EmptyHeart}
                       ></img>
                     </button>
+                    <span className="trip-rating-digits">{trip.rating}</span>
                   </>
                 ) : (
                   <>
-                    <span
-                      className="trip-rating-digits"
-                      style={{ verticalAlign: 'center' }}
-                    >
-                      {trip.rating}
-                    </span>
                     <button className="like-btn">
                       <img
                         alt="liked heart"
@@ -638,6 +632,12 @@ export default class Trip extends React.Component {
                         src={images.FilledHeart}
                       ></img>
                     </button>
+                    <span
+                      className="trip-rating-digits"
+                      style={{ verticalAlign: 'center' }}
+                    >
+                      {trip.rating}
+                    </span>
                   </>
                 )}
               </span>
