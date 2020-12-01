@@ -44,10 +44,17 @@ justify-content: center;
   font-size: 18px;
   font-weight: 900;
   padding: 4px;
-  margin: 5px;
   text-decoration: none;
   width: 155px;
   text-align: center;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin-right: 10px;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
 }
 
 ul {
@@ -55,8 +62,9 @@ list-style: none;
 }
 
 .my-trip-info:hover {
-background: linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
-background-color: #e9e9e9;
+  background-color: white;
+  color: #65b1ef;
+  border: 2px solid #65b1ef;
 }
 
 .dropdown {
@@ -68,7 +76,14 @@ text-align: center;
 align-items: center;
 justify-content: space-around;
 display: none;
-position: absolute;
+z-index: 1;
+padding: 100px;
+left: 0;
+width: 100%;
+height: auto; 
+overflow: auto; 
+background-color: rgb(152, 247, 250);
+background-color: rgba(152, 247, 250,0.4); 
 
 }
 
@@ -112,5 +127,10 @@ padding: 1em;
   flex-direction: row;
   align-items: center;
   /* justify-content: space-around; */
+}
+.dropdown {
+  width: 70%;
+  left: 10%;
+  position: absolute;
 }
 }

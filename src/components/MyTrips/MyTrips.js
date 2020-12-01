@@ -73,13 +73,15 @@ export default class MyTrips extends Component {
           <div className="my-trip-dropdown">
             <button className="my-trip-info">Trips Stats</button>
               <div className="dropdown">
-                <ul>City, States visited:
-                  <li>{this.renderStates()}</li>
-                </ul>
-                <ul>Total trips:
-                  <li> {count}</li>
-                </ul>
-              </div> 
+                <div className="modal-content">
+                  <ul>City, States visited:
+                    <li>{this.renderStates()}</li>
+                  </ul>
+                  <ul>Total trips:
+                    <li> {count}</li>
+                  </ul>
+                </div> 
+              </div>
           </div>
           <div className="addTripButton">
             <Link to="/add-trip">
