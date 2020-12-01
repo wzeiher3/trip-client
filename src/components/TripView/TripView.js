@@ -23,6 +23,7 @@ export default class Trip extends React.Component {
     toggleEditTrip: false,
     selections: [],
     error: null,
+    userHasRated: false,
   };
 
   componentDidMount() {
@@ -199,6 +200,52 @@ export default class Trip extends React.Component {
         this.setState({ error });
       });
   };
+
+  handleRating = () => {
+    const trip_id = this.props.match.params.trips_id
+    const user_id = this.context.returnUserID()
+    const rate = 1
+    const rating = {trip_id, user_id, rate}
+
+    console.log(rating)
+    TripApiService.postRating(rating)
+      .then((res) => {
+        console.log(res)
+        const { match } = this.props;
+    // set trip_id variable
+    const trip_id = match.params.trips_id;
+    // get stops for the current trip
+    this.context.setLoading(true);
+    TripApiService.getTrip(trip_id)
+      .then((res) => {
+        this.setState({ trip: res, currTripID: res.id });
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        this.context.setLoading(false);
+      });
+      })
+  }
+
+  userHasRated = () => {
+    const trip_id = this.props.match.params.trips_id
+    // const user_id = this.context.returnUserID()
+    // const rate = 1
+    // const rating = {trip_id}
+    const user_id = this.context.returnUserID()
+    // console.log(rating)
+    TripApiService.checkUserHasRated(trip_id)
+      .then((res) => {
+          for(let i=0; i < res.length; i++) {
+            if(res[i].user_id === user_id) {
+              this.setState({userHasRated: true})
+              return;
+            }
+          }
+        })
+      }
 
   isTripCreator = () => {
     let isTripCreator = false;
@@ -490,6 +537,8 @@ export default class Trip extends React.Component {
 
     console.log('This Trip', this.state.trip[0]);
 
+    console.log('user has rated: ', this.userHasRated())
+
     return (
       <>
         {this.isTripCreator() && (
@@ -504,11 +553,24 @@ export default class Trip extends React.Component {
             this.renderEditTrip(trip)
           ) : (
             <>
+            <span className='rating-container'>
+              {!this.state.userHasRated ? 
+              <>
+                <span className='trip-rating-digits'>{trip.rating}</span>
+                <button className="like-btn" onClick={() => 
+                  this.handleRating() 
+                  }>
+                  <img  alt="unliked heart" className="empty-heart heart" src={images.EmptyHeart}></img>
+                </button> 
+              </> : 
+              <>
+                <span className='trip-rating-digits' style={{verticalAlign: "center"}}>{trip.rating}</span>
+                  <button className="like-btn">
+                  <img  alt="liked heart" className="filled-heart heart" src={images.FilledHeart}></img>
+                 </button>
+                 </>}
+                </span>
               <h2 className="trip-name">{trip.destination}</h2>
-              <span>
-                Rating: {trip.rating}
-                {!trip.rating && <>N\A</>}
-              </span>
               <p>{trip.short_description}</p>
               <p>
                 Activities: {trip.activities} <br />
@@ -517,7 +579,7 @@ export default class Trip extends React.Component {
             </>
           )}
           <div id="Map">
-            <MapContainer trip={this.state.trip[0]} />
+            {/* <MapContainer trip={this.state.trip[0]} /> */}
           </div>
           <div className="belowMap">
             {stops.length ? (

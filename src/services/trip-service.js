@@ -2,6 +2,30 @@ import TokenService from './token-service';
 import config from '../config';
 
 const TripApiService = {
+  postRating(rating) {
+    return fetch(`${config.API_ENDPOINT}/rating`, {
+      method: 'POST',
+      headers: {
+        Authorization: `bearer ${TokenService.getAuthToken()}`,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(rating),
+    }).then((res) =>
+      !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+    );
+  },
+
+  checkUserHasRated(trip_id) {
+    return fetch(`${config.API_ENDPOINT}/rating/check/${trip_id}`, {
+      headers: {
+        Authorization: `bearer ${TokenService.getAuthToken()}`,
+        'content-type': 'application/json',
+      },
+    }).then((res) =>
+      !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+    );
+  },
+
   getTrips() {
     return fetch(`${config.API_ENDPOINT}/trips`, {
       headers: {

@@ -11,6 +11,7 @@ const TripContext = React.createContext({
   addStop: () => {},
   verifyAuth: () => {},
   setLoading: () => {},
+  returnUserID: () => {},
   loading: null,
 });
 
@@ -69,6 +70,10 @@ export class TripProvider extends React.Component {
     return id === this.context.user.id;
   };
 
+  returnUserID = () => {
+    return this.context.user.id
+  }
+
   render() {
     const value = {
       trips: this.state.trips,
@@ -82,6 +87,7 @@ export class TripProvider extends React.Component {
       verifyAuth: this.verifyAuth,
       loading: this.state.loading,
       setLoading: this.setLoading,
+      returnUserID: this.returnUserID,
     };
 
     return (

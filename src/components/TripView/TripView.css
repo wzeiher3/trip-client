@@ -300,3 +300,18 @@
     width: 800px;
   }
 }
+
+.like-btn {
+  border: none;
+  background-color: white;
+}
+
+img.heart {
+  vertical-align: middle;
+  width: 4em;
+  transition: .5s ease-in-out;
+}
+
+span.rating-container {
+  
+}

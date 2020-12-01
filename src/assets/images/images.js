@@ -12,6 +12,8 @@ import check_in from './check_in.png';
 import road_a from './road_a.png';
 import road_b from './road_b.png';
 import loading from './loading.gif';
+import FilledHeart from './filled-heart.png';
+import EmptyHeart from './empty-heart.png';
 
 let images = {
   loading,
@@ -28,6 +30,8 @@ let images = {
   countryside,
   restaurant,
   amusementpark,
+  FilledHeart,
+  EmptyHeart,
 };
 
 export default images;
