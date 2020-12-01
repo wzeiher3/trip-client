@@ -14,7 +14,7 @@ export default class AddTripForm extends React.Component {
     activities: 'Shopping',
     days: 2,
     destination: 'New York, NY',
-    place: {},
+    place: { coordinates: { lng: null, lat: null } },
     error: null,
     images: [
       'city',
@@ -32,7 +32,15 @@ export default class AddTripForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    console.log(this.state.place);
     this.setState({ error: null });
+    if (
+      !this.state.place.coordinates.lng ||
+      !this.state.place.coordinates.lat
+    ) {
+      this.setState({ error: 'Must select a real place from dropdown list.' });
+      return;
+    }
     const { short_description, destination, days, activities } = e.target;
     let trip = {
       destination: this.state.place.place,
@@ -56,7 +64,7 @@ export default class AddTripForm extends React.Component {
 
   storePlace = (place) => {
     this.setState({
-      place: place,
+      place,
     });
   };
 
@@ -82,6 +90,7 @@ export default class AddTripForm extends React.Component {
         <section className="addTripSection">
           <div>
             <h2>Plan your Perfect Trip</h2>
+            {this.state.error && <center>{this.state.error}</center>}
             <form
               className="addTripForm"
               action="#"
@@ -103,7 +112,7 @@ export default class AddTripForm extends React.Component {
                 Type in a short description of your destination!
               </label>
               <input
-              maxLength={24}
+                maxLength={24}
                 onChange={(e) =>
                   this.setState({ short_description: e.target.value })
                 }

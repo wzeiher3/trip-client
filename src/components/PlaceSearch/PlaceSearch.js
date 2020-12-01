@@ -5,7 +5,7 @@ const SEARCH_API_KEY = 'AIzaSyDKPDbk7DXoycomaamRr6fatOE3xqJ6HJg';
 
 export default class PlaceSearch extends React.Component {
   render() {
-    console.log(SEARCH_API_KEY);
+    //console.log(SEARCH_API_KEY);
     return (
       <div>
         <GoogleComponent

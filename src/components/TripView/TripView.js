@@ -27,14 +27,19 @@ export default class Trip extends React.Component {
   flickrApi = (stop_name, city) => {
     let search = `${stop_name.replace(/ /gi, '+')}+${city.replace(/ /gi, '+')}`;
     return fetch(
-      `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=990be55023cae3b4d7bb1191a6b0f144&text=${search}&format=json&nojsoncallback=1&sort=interestingness-desc&safe_search=1`
-    ).then((res) => {
-      if (!res.ok) {
-        return res.json().then((e) => Promise.reject(e));
-      } else {
-        return res.json();
-      }
-    });
+      `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=af793aee1df81687d35b01aa0902524d&text=${search}&format=json&nojsoncallback=1&sort=interestingness-desc&safe_search=1`
+    )
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((e) => Promise.reject(e));
+        } else {
+          return res.json();
+        }
+      })
+      .then((res) => {
+        console.log(res);
+        return res;
+      });
   };
 
   componentDidMount() {
@@ -116,8 +121,8 @@ export default class Trip extends React.Component {
 
   handleEditTrip = () => {
     this.setState(
-      { toggleEditTrip: true },
-      console.log(this.state.toggleEditTrip)
+      { toggleEditTrip: true }
+      //console.log(this.state.toggleEditTrip)
     );
   };
 
@@ -201,7 +206,7 @@ export default class Trip extends React.Component {
     };
     this.context.setLoading(true);
     const res = await this.flickrApi(stop_name.value, city.value);
-    console.log(res);
+    //console.log(res);
     const flikr = res.photos.photo[0];
     stop.img = `https://live.staticflickr.com/${flikr.server}/${flikr.id}_${flikr.secret}.jpg`;
     TripApiService.postStop(stop)
@@ -512,7 +517,7 @@ export default class Trip extends React.Component {
   };
 
   render() {
-    console.log(this.state);
+    //console.log(this.state);
     const trip = this.state.trip[0];
     const stops = this.state.stops.map((stop, index) => {
       if (stop.id === this.state.stopEditingID) {
