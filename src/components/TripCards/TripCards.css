@@ -24,7 +24,12 @@
 }
 
 .TripCard-middle-section {
-  height: 148px;
+  height: 151px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-around;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .TripCard-title {
@@ -55,8 +60,14 @@
   word-wrap: break-word;
 }
 
-.Activities > span {
+.Activities > p {
+  margin: 0;
+}
+
+.TripCard-title > span {
   color: rgb(70, 70, 70);
+  font-size: 17px;
+  font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
 }
 
 .TripCard-bottom {
@@ -96,6 +107,11 @@
 .TripCard-bottom-info {
   padding-top: 25px;
   width: 315px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
 }
 
 @media all and (min-width: 800px) {
@@ -105,4 +121,15 @@
     margin-left: 25px;
     margin-right: 25px;
   }
+}
+
+img.card-heart {
+  width: 2.4em;
+  margin-top: 3px;
+}
+
+span.rating-span {
+  display: flex;
+  align-items: center;
+  padding-top: 3px;
 }

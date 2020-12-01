@@ -43,6 +43,10 @@
   margin-bottom: 40px;
 }
 
+.demo-middle {
+  word-wrap: break-word;
+}
+
 .TripCardDemo-wrapper {
   display: flex;
   justify-content: center;
