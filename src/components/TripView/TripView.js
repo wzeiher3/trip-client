@@ -592,7 +592,7 @@ export default class Trip extends React.Component {
 
     //console.log('This Trip', this.state.trip[0]);
 
-    //console.log('user has rated: ', this.userHasRated())
+    this.userHasRated()
 
     return (
       <>
