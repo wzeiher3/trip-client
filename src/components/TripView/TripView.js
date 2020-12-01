@@ -236,9 +236,9 @@ export default class Trip extends React.Component {
     const rate = 1;
     const rating = { trip_id, user_id, rate };
 
-    console.log(rating);
+    // console.log(rating);
     TripApiService.postRating(rating).then((res) => {
-      console.log(res);
+      // console.log(res);
       const { match } = this.props;
       // set trip_id variable
       const trip_id = match.params.trips_id;
@@ -247,6 +247,10 @@ export default class Trip extends React.Component {
       TripApiService.getTrip(trip_id)
         .then((res) => {
           this.setState({ trip: res, currTripID: res.id });
+        })
+        .then(() => {
+          TripApiService.getTrips()
+            .then(res => this.context.setTrips(res))
         })
         .catch((error) => {
           console.error(error);
