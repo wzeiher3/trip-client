@@ -109,7 +109,10 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+<<<<<<< HEAD
   vertical-align: center;
+=======
+>>>>>>> origin/mark-trip-cards
 }
 
 @media all and (min-width: 800px) {
@@ -123,5 +126,18 @@
 
 img.card-heart {
   width: 2.4em;
+<<<<<<< HEAD
   margin-top: 3px;
 }
+=======
+  vertical-align: middle;
+  padding-top: 5px;
+}
+
+span.rating-span {
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+  padding: 0;
+}
+>>>>>>> origin/mark-trip-cards
