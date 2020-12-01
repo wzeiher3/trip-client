@@ -573,9 +573,7 @@ export default class Trip extends React.Component {
               </p>
             </>
           )}
-          <div id="Map">
-            <MapContainer trip={this.state.trip[0]} />
-          </div>
+          <div id="Map">{/* <MapContainer trip={this.state.trip[0]} /> */}</div>
           <div className="belowMap">
             {stops.length ? (
               stops
