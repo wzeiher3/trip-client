@@ -252,7 +252,7 @@
 }
 
 .trip-flex {
-  display: flex;
+  display: inline-flex;
   padding: 5px;
   flex-wrap: wrap;
   flex-direction: column;
