@@ -51,6 +51,7 @@ export default class AddTripForm extends React.Component {
       activities: activities.value,
       img: this.state.images[this.state.imagesScroll],
     };
+    console.log(trip)
     let currentTrips = this.context.trips;
     TripService.postTrip(trip)
       .then((res) => {
@@ -64,7 +65,7 @@ export default class AddTripForm extends React.Component {
 
   storePlace = (place) => {
     this.setState({
-      place,
+      place: place
     });
   };
 
@@ -85,7 +86,7 @@ export default class AddTripForm extends React.Component {
   };
 
   shortifyDestination = (dest) => {
-    dest = dest.slice(0, 37) + '...';
+    dest = dest.slice(0, 29) + '...';
     return dest;
   };
 
@@ -170,19 +171,19 @@ export default class AddTripForm extends React.Component {
                         alt="city skyline"
                       ></img>
                     </div>
-                    <br />
-                    <div className="TripCard-middle-section">
+                    <div className="TripCard-middle-section demo-middle">
                       <div className="TripCard-title">
-                        {this.state.place.place.length > 40 ? (
+                        {this.state.place.place.length > 32 ? (
                           <h2>
                             {this.shortifyDestination(this.state.place.place)}
                           </h2>
                         ) : (
                           <h2>{this.state.place.place}</h2>
                         )}
+
+                        <span>{this.state.short_description}</span>
                       </div>
                       <div className="Activities">
-                        <span>{this.state.short_description}</span>
                         <p>Activities: {this.state.activities}</p>
                       </div>
                     </div>
