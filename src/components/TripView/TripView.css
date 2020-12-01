@@ -249,9 +249,6 @@
   width: 300px;
   border-radius: 6px;
   padding-top: 5px;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .trip-flex {
