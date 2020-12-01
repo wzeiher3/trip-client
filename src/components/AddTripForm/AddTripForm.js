@@ -14,7 +14,7 @@ export default class AddTripForm extends React.Component {
     activities: 'Shopping',
     days: 2,
     destination: 'New York, NY',
-    place: { coordinates: { lng: null, lat: null } },
+    place: { place: 'New York', coordinates: { lng: null, lat: null } },
     error: null,
     images: [
       'city',
@@ -84,6 +84,11 @@ export default class AddTripForm extends React.Component {
     }
   };
 
+  shortifyDestination = (dest) => {
+    dest = dest.slice(0, 37) + '...';
+    return dest;
+  };
+
   render() {
     return (
       <>
@@ -119,7 +124,7 @@ export default class AddTripForm extends React.Component {
                 placeholder={'New York Shopping, Backpacking through Europe!'}
                 type="text"
                 name="short_description"
-                maxLength={40}
+                maxLength={30}
                 required
               />
               <br />
@@ -168,7 +173,13 @@ export default class AddTripForm extends React.Component {
                     <br />
                     <div className="TripCard-middle-section">
                       <div className="TripCard-title">
-                        <h2>{this.state.destination}</h2>
+                        {this.state.place.place.length > 40 ? (
+                          <h2>
+                            {this.shortifyDestination(this.state.place.place)}
+                          </h2>
+                        ) : (
+                          <h2>{this.state.place.place}</h2>
+                        )}
                       </div>
                       <div className="Activities">
                         <span>{this.state.short_description}</span>

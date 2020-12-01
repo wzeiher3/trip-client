@@ -30,6 +30,11 @@ export default class TripCards extends Component {
     return false;
   }
 
+  shortifyDestination = (dest) => {
+    dest = dest.slice(0, 37) + '...';
+    return dest;
+  };
+
   render() {
     let color = this.sequenceColorOnCard();
     return (
@@ -39,13 +44,18 @@ export default class TripCards extends Component {
             <div className="TripCard-topimage">
               <img src={images[this.props.image]} alt="city skyline"></img>
             </div>
-            <br />
             <div className="TripCard-middle-section">
               <div className="TripCard-title">
-                <h2>{this.props.destination}</h2>
+                {this.props.destination.length > 40 ? (
+                  <h2>{this.shortifyDestination(this.props.destination)}</h2>
+                ) : (
+                  <h2>{this.props.destination}</h2>
+                )}
               </div>
+
               <div className="Activities">
                 <span>{this.props.short_description}</span>
+                <br />
                 <p>Activities: {this.props.activities}</p>
               </div>
             </div>

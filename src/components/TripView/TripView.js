@@ -5,7 +5,6 @@ import TripViewNav from './TripViewNav/TripViewNav';
 import TripViewSelect from './TripViewSelect/TripViewSelect';
 import TripViewEditSelect from './TripViewEditSelect.js/TripViewEditSelect';
 import MapContainer from '../Map/Map';
-
 import './TripView.css';
 import images from '../../assets/images/images';
 
@@ -37,7 +36,6 @@ export default class Trip extends React.Component {
         }
       })
       .then((res) => {
-        console.log(res);
         return res;
       });
   };
@@ -146,6 +144,16 @@ export default class Trip extends React.Component {
     this.setState({ toggleEditTrip: false });
   };
 
+  generateFlikrLink = (res) => {
+    console.log(res);
+    if (res.photos.total === '0') {
+      return '';
+    }
+    const flikr = res.photos.photo[0];
+    const link = `https://live.staticflickr.com/${flikr.server}/${flikr.id}_${flikr.secret}.jpg`;
+    return link;
+  };
+
   handleSubmitEditStop = async (e, stop_id) => {
     e.preventDefault();
     if (this.state.selections.length === 0) {
@@ -170,8 +178,7 @@ export default class Trip extends React.Component {
       category: this.state.selections.join(', '),
     };
     const res = await this.flickrApi(stop_name.value, city.value);
-    const flikr = res.photos.photo[0];
-    stop.img = `https://live.staticflickr.com/${flikr.server}/${flikr.id}_${flikr.secret}.jpg`;
+    stop.img = this.generateFlikrLink(res);
     TripApiService.patchStop(stop, stop_id)
       .then((res) => {
         const stops = this.state.stops.filter((stop) => stop.id !== res.id);
@@ -206,9 +213,7 @@ export default class Trip extends React.Component {
     };
     this.context.setLoading(true);
     const res = await this.flickrApi(stop_name.value, city.value);
-    //console.log(res);
-    const flikr = res.photos.photo[0];
-    stop.img = `https://live.staticflickr.com/${flikr.server}/${flikr.id}_${flikr.secret}.jpg`;
+    stop.img = this.generateFlikrLink(res);
     TripApiService.postStop(stop)
       .then((res) => {
         this.setState({
@@ -232,7 +237,17 @@ export default class Trip extends React.Component {
 
   renderAddStopForm = () => {
     return (
-      <>
+      <div>
+        {this.context.loading && (
+          <div className="bufffer-img-wrapper ">
+            <img
+              className="buffer-img"
+              src={images.img_loading}
+              alt="a plane flying over hearts loading gif"
+            />
+            <div className="fade-out-screen"></div>
+          </div>
+        )}
         <img
           className="road-img"
           src={images.road_a}
@@ -288,7 +303,7 @@ export default class Trip extends React.Component {
             Submit!
           </button>
         </form>
-      </>
+      </div>
     );
   };
 
@@ -301,7 +316,7 @@ export default class Trip extends React.Component {
           <input
             defaultValue={trip.short_description}
             name="short_description"
-            maxLength={40}
+            maxLength={30}
             required
           ></input>
           <br />
@@ -338,6 +353,7 @@ export default class Trip extends React.Component {
   };
 
   renderStop(stop, index) {
+    if (!stop.img) stop.img = images.no_camera;
     return (
       <div className="trip-stop-wrapper" key={stop.id}>
         <div className="trip-stop trip-div">

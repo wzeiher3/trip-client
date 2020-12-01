@@ -1,8 +1,3 @@
-/* :root {
-  --waysPink: #dadada;
-  --waysBlue: #489ec0;
-} */
-
 .trip {
   width: 100%;
   padding-top: 20px;
@@ -16,6 +11,7 @@
 
 .trip-stop {
   word-wrap: break-word;
+  position: relative;
 }
 
 .trip-right {
@@ -39,15 +35,10 @@
 }
 
 .trip-stop-wrapper {
-  /* margin-top: 0.4em;
-  border-bottom: 3px solid var(--waysBlue);
-  border-top: 4px solid var(--waysPink);
-  border-left: 4px solid var(--waysPink);
-  border-right: 4px solid var(--waysBlue);
-  border-radius: 20px; */
   counter-increment: index;
   width: 98%;
   word-wrap: break-word;
+  position: relative;
 }
 
 .edit-stop {
@@ -187,14 +178,6 @@
   text-align: right;
 }
 
-/* .tripView-number {
-  text-align: right;
-  font-weight: bold;
-  font-size: 22px;
-  color: rgb(156, 156, 156);
-  font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
-} */
-
 .trip-div figcaption:before {
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
@@ -231,6 +214,7 @@
   margin-top: 6px;
   border: 4px solid rgb(238, 238, 238);
   border-radius: 6px;
+  position: relative;
 }
 
 .addStopForm > label {
@@ -279,6 +263,26 @@
   text-align: center;
   width: 98%;
   font-size: 18px;
+}
+
+.buffer-img-wrapper {
+  position: relative;
+}
+
+.fade-out-screen {
+  background-color: rgb(255, 255, 255);
+  z-index: 49;
+  width: 1200px;
+  height: 1200px;
+  position: absolute;
+  opacity: 0.7;
+}
+
+.buffer-img {
+  position: absolute;
+  z-index: 50;
+  transform: translate(-50%, -0%);
+  margin-left: 35px;
 }
 
 @media all and (min-width: 675px) {
