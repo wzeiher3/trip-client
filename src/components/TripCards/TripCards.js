@@ -61,9 +61,9 @@ export default class TripCards extends Component {
             </div>
             <div className={`TripCard-bottom ${color}`}>
               <div className="TripCard-bottom-info">
-                Days {this.props.days} |{' '}
+                Days {this.props.days} {'     '}|<img className="card-heart" src={images.FilledHeart} alt='rating heart' />
                 {this.props.rating ? (
-                  <span>Rating {this.props.rating}</span>
+                  <span>{this.props.rating}</span>
                 ) : (
                   <span className="rating-null">Unrated</span>
                 )}

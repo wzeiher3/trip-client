@@ -593,9 +593,7 @@ export default class Trip extends React.Component {
     const trip_id = match.params.trips_id;
 
     //console.log('This Trip', this.state.trip[0]);
-
-    console.log('user has rated: ', this.userHasRated())
-
+    this.userHasRated()
     return (
       <>
         {this.isTripCreator() && (
