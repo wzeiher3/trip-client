@@ -14,8 +14,12 @@ import road_b from './road_b.png';
 import loading from './loading.gif';
 import FilledHeart from './filled-heart.png';
 import EmptyHeart from './empty-heart.png';
+import img_loading from './img-loading.gif';
+import no_camera from './no-camera.png';
 
 let images = {
+  no_camera,
+  img_loading,
   loading,
   road_a,
   road_b,

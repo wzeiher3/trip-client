@@ -5,8 +5,6 @@ import TripViewNav from './TripViewNav/TripViewNav';
 import TripViewSelect from './TripViewSelect/TripViewSelect';
 import TripViewEditSelect from './TripViewEditSelect.js/TripViewEditSelect';
 import MapContainer from '../Map/Map';
-import DirectionsLink from './DirectionsLink/DirectionsLink';
-
 import './TripView.css';
 import images from '../../assets/images/images';
 
@@ -24,6 +22,23 @@ export default class Trip extends React.Component {
     selections: [],
     error: null,
     userHasRated: false,
+  };
+
+  flickrApi = (stop_name, city) => {
+    let search = `${stop_name.replace(/ /gi, '+')}+${city.replace(/ /gi, '+')}`;
+    return fetch(
+      `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=af793aee1df81687d35b01aa0902524d&text=${search}&format=json&nojsoncallback=1&sort=interestingness-desc&safe_search=1`
+    )
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((e) => Promise.reject(e));
+        } else {
+          return res.json();
+        }
+      })
+      .then((res) => {
+        return res;
+      });
   };
 
   componentDidMount() {
@@ -105,17 +120,16 @@ export default class Trip extends React.Component {
 
   handleEditTrip = () => {
     this.setState(
-      { toggleEditTrip: true },
-      console.log(this.state.toggleEditTrip)
+      { toggleEditTrip: true }
+      //console.log(this.state.toggleEditTrip)
     );
   };
 
   handleSubmitEditedTrip = (e, id) => {
     e.preventDefault();
-    const { destination, short_description, activities, days } = e.target;
+    const { short_description, activities, days } = e.target;
     let trip = {
       short_description: short_description.value,
-      destination: destination.value,
       activities: activities.value,
       days: days.value,
     };
@@ -131,7 +145,17 @@ export default class Trip extends React.Component {
     this.setState({ toggleEditTrip: false });
   };
 
-  handleSubmitEditStop = (e, stop_id) => {
+  generateFlikrLink = (res) => {
+    console.log(res);
+    if (res.photos.total === '0') {
+      return '';
+    }
+    const flikr = res.photos.photo[0];
+    const link = `https://live.staticflickr.com/${flikr.server}/${flikr.id}_${flikr.secret}.jpg`;
+    return link;
+  };
+
+  handleSubmitEditStop = async (e, stop_id) => {
     e.preventDefault();
     if (this.state.selections.length === 0) {
       this.setState({ error: 'Must select atleast 1 Category' });
@@ -154,7 +178,8 @@ export default class Trip extends React.Component {
       description: description.value,
       category: this.state.selections.join(', '),
     };
-
+    const res = await this.flickrApi(stop_name.value, city.value);
+    stop.img = this.generateFlikrLink(res);
     TripApiService.patchStop(stop, stop_id)
       .then((res) => {
         const stops = this.state.stops.filter((stop) => stop.id !== res.id);
@@ -167,7 +192,7 @@ export default class Trip extends React.Component {
       });
   };
 
-  handleSubmitStop = (e) => {
+  handleSubmitStop = async (e) => {
     e.preventDefault();
     if (this.state.selections.length === 0) {
       this.setState({ error: 'Must select atleast 1 Category' });
@@ -187,10 +212,11 @@ export default class Trip extends React.Component {
       description: description.value,
       category: this.state.selections.join(', '),
     };
-
+    this.context.setLoading(true);
+    const res = await this.flickrApi(stop_name.value, city.value);
+    stop.img = this.generateFlikrLink(res);
     TripApiService.postStop(stop)
       .then((res) => {
-        console.log(res);
         this.setState({
           stops: [...this.state.stops, res],
           toggleAddStop: false,
@@ -198,6 +224,9 @@ export default class Trip extends React.Component {
       })
       .catch((error) => {
         this.setState({ error });
+      })
+      .finally(() => {
+        this.context.setLoading(false);
       });
   };
 
@@ -250,60 +279,78 @@ export default class Trip extends React.Component {
   isTripCreator = () => {
     let isTripCreator = false;
     isTripCreator = this.context.verifyAuth(this.state.trip[0].user_id);
-    console.log(isTripCreator);
     return isTripCreator;
   };
 
   renderAddStopForm = () => {
     return (
-      <form
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') e.preventDefault();
-        }}
-        className="addStopForm"
-        onSubmit={this.handleSubmitStop}
-      >
-        <h2>Add Stop</h2>
-        <br />
-        <label htmlFor="stop_name">Describe your stop with a name!</label>
-        <input type="text" name="stop_name" required maxLength={40} />
-        <label htmlFor="city">City</label>
-        <input type="text" name="city" required maxLength={40} />
-        <label htmlFor="state">State or Country</label>
-        <input type="text" name="state" required maxLength={40} />
-        {this.state.error && (
-          <>
-            <br />
-            {this.state.error}
-            <br />
-            <br />
-          </>
+      <div>
+        {this.context.loading && (
+          <div className="bufffer-img-wrapper ">
+            <img
+              className="buffer-img"
+              src={images.img_loading}
+              alt="a plane flying over hearts loading gif"
+            />
+            <div className="fade-out-screen"></div>
+          </div>
         )}
-        <label htmlFor="category">What category of stop is this?</label>
-        <br />
-        <TripViewSelect
-          handleSelect={this.handleSelect}
-          clearSelections={this.clearSelections}
-          selections={this.state.selections}
-        />
-        <br />
-        <label htmlFor="description">Describe the experience to expect:</label>
-        <input type="text" name="description" required maxLength={400} />
-        <button
-          className="tripViewButton"
-          type="button"
-          onClick={(e) => this.toggleAddStop(e)}
+        <img
+          className="road-img"
+          src={images.road_a}
+          alt="road illustration"
+        ></img>
+        <form
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') e.preventDefault();
+          }}
+          className="addStopForm"
+          onSubmit={this.handleSubmitStop}
         >
-          Cancel
-        </button>
-        <button
-          className="tripViewButton"
-          type="submit"
-          onClick={(e) => this.handleSubmitStop}
-        >
-          Submit!
-        </button>
-      </form>
+          <h2>Add Stop</h2>
+          <br />
+          <label htmlFor="stop_name">Describe your stop with a name!</label>
+          <input type="text" name="stop_name" required maxLength={40} />
+          <label htmlFor="city">City</label>
+          <input type="text" name="city" required maxLength={40} />
+          <label htmlFor="state">State or Country</label>
+          <input type="text" name="state" required maxLength={40} />
+          {this.state.error && (
+            <>
+              <br />
+              {this.state.error}
+              <br />
+              <br />
+            </>
+          )}
+          <label htmlFor="category">What category of stop is this?</label>
+          <br />
+          <TripViewSelect
+            handleSelect={this.handleSelect}
+            clearSelections={this.clearSelections}
+            selections={this.state.selections}
+          />
+          <br />
+          <label htmlFor="description">
+            Describe the experience to expect:
+          </label>
+          <input type="text" name="description" required maxLength={400} />
+          <button
+            className="tripViewButton"
+            type="button"
+            onClick={(e) => this.toggleAddStop(e)}
+          >
+            Cancel
+          </button>
+          <button
+            className="tripViewButton"
+            type="submit"
+            onClick={(e) => this.handleSubmitStop}
+          >
+            Submit!
+          </button>
+        </form>
+      </div>
     );
   };
 
@@ -311,22 +358,15 @@ export default class Trip extends React.Component {
     return (
       <div className="edit-trip">
         <form onSubmit={(e) => this.handleSubmitEditedTrip(e, trip.id)}>
-          <div className="edit-trip-destination">
-            <input
-              defaultValue={trip.destination}
-              name="destination"
-              maxLength={14}
-            ></input>
-          </div>
+          <h2 className="trip-name">{trip.destination}</h2>
           <br />
           <input
             defaultValue={trip.short_description}
             name="short_description"
-            maxLength={40}
+            maxLength={30}
             required
           ></input>
           <br />
-
           <input
             defaultValue={trip.activities}
             name="activities"
@@ -359,7 +399,8 @@ export default class Trip extends React.Component {
     );
   };
 
-  renderStop = (stop, index) => {
+  renderStop(stop, index) {
+    if (!stop.img) stop.img = images.no_camera;
     return (
       <div className="trip-stop-wrapper" key={stop.id}>
         <div className="trip-stop trip-div">
@@ -381,27 +422,36 @@ export default class Trip extends React.Component {
               </div>
             )}
           </figcaption>
-          <a
-            rel="noopener noreferrer"
-            target="_blank"
-            href={`https://www.google.com/maps/search/?api=1&query=${stop.stop_name}+${stop.city}+${stop.state}`}
-          >
-            <div
-              className={
-                this.isTripCreator() ? 'trip-header-creator' : 'trip-header'
-              }
-            >
-              <h2>{stop.stop_name}</h2>
-              <span>
-                {stop.city}, {stop.state}
-              </span>
-              <br />
-              <span className="trip-category">
-                Category: {stop.category.replace('_', ' ')}
-              </span>
+          <div className="trip-flex">
+            <div className="trip-left">
+              <img className="flikr-img" src={stop.img} alt={stop.stop_name} />
             </div>
-          </a>
-          <p>{stop.description}</p>
+            <div className="trip-right">
+              <a
+                rel="noopener noreferrer"
+                target="_blank"
+                href={`https://www.google.com/maps/search/?api=1&query=${stop.stop_name}+${stop.city}+${stop.state}`}
+              >
+                <div
+                  className={
+                    this.isTripCreator() ? 'trip-header-creator' : 'trip-header'
+                  }
+                >
+                  <h2>{stop.stop_name}</h2>
+
+                  <span>
+                    {stop.city}, {stop.state}
+                  </span>
+                  <br />
+                  <span className="trip-category">
+                    <b>Category: </b>
+                    {stop.category.replace('_', ' ')}
+                  </span>
+                </div>
+              </a>
+            </div>
+            <div className="stop-description">{stop.description}</div>
+          </div>
         </div>
         <br />
         {index === this.state.stops.length - 1 ? null : index % 2 !== 0 ? (
@@ -419,13 +469,19 @@ export default class Trip extends React.Component {
         )}
       </div>
     );
-  };
+  }
 
   renderEditStopForm = (stop, index) => {
     const id = stop.id;
     return (
       <div className="trip-stop-wrapper" key={stop.id}>
         <div className="trip-stop edit-stop" key={index}>
+          {this.context.loading && (
+            <img
+              src={images.img_loading}
+              alt="plane flying over hearts loading gif"
+            />
+          )}
           <form
             action="#"
             id="EditStopForm"
@@ -524,6 +580,7 @@ export default class Trip extends React.Component {
   };
 
   render() {
+    //console.log(this.state);
     const trip = this.state.trip[0];
     const stops = this.state.stops.map((stop, index) => {
       if (stop.id === this.state.stopEditingID) {
@@ -535,7 +592,7 @@ export default class Trip extends React.Component {
     // set trip_id variable
     const trip_id = match.params.trips_id;
 
-    console.log('This Trip', this.state.trip[0]);
+    //console.log('This Trip', this.state.trip[0]);
 
     console.log('user has rated: ', this.userHasRated())
 

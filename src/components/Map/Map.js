@@ -1,10 +1,6 @@
 import React from 'react';
-import { GoogleComponent } from 'react-google-location';
 import { Map, GoogleApiWrapper, Marker, Listing } from 'google-maps-react';
-import TripApiService from '../../services/trip-service';
-
 import './Map.css';
-import MAP_API_KEY from '../../config';
 import images from '../../assets/images/images';
 
 export class MapContainer extends React.Component {
@@ -58,7 +54,7 @@ export class MapContainer extends React.Component {
     // console.log(this.props.trip)
 
     const { lat, long } = this.state.currTrip;
-    console.log(this.props.trip.lat, this.props.trip.long);
+    //console.log(this.props.trip.lat, this.props.trip.long);
 
     if (!this.props.trip.lat || !this.props.trip.long)
       return (
@@ -69,7 +65,7 @@ export class MapContainer extends React.Component {
         />
       );
 
-    console.log(MAP_API_KEY);
+    //console.log(MAP_API_KEY);
     return (
       <Map
         key={long}

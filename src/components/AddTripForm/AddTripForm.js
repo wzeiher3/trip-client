@@ -14,7 +14,7 @@ export default class AddTripForm extends React.Component {
     activities: 'Shopping',
     days: 2,
     destination: 'New York, NY',
-    place: {},
+    place: { place: 'New York', coordinates: { lng: null, lat: null } },
     error: null,
     images: [
       'city',
@@ -32,10 +32,16 @@ export default class AddTripForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    console.log(this.state.place);
     this.setState({ error: null });
+    if (
+      !this.state.place.coordinates.lng ||
+      !this.state.place.coordinates.lat
+    ) {
+      this.setState({ error: 'Must select a real place from dropdown list.' });
+      return;
+    }
     const { short_description, destination, days, activities } = e.target;
-
-    console.log(this.state.place.coordinates.lat);
     let trip = {
       destination: this.state.place.place,
       short_description: short_description.value,
@@ -46,11 +52,9 @@ export default class AddTripForm extends React.Component {
       img: this.state.images[this.state.imagesScroll],
     };
     let currentTrips = this.context.trips;
-    console.log('Trip Addded', trip);
     TripService.postTrip(trip)
       .then((res) => {
         this.context.setTrips([res, ...currentTrips]);
-        console.log('Trip Added Checked');
         this.props.history.push('/my-trips');
       })
       .catch((error) => {
@@ -60,7 +64,7 @@ export default class AddTripForm extends React.Component {
 
   storePlace = (place) => {
     this.setState({
-      place: place,
+      place,
     });
   };
 
@@ -80,13 +84,18 @@ export default class AddTripForm extends React.Component {
     }
   };
 
+  shortifyDestination = (dest) => {
+    dest = dest.slice(0, 37) + '...';
+    return dest;
+  };
+
   render() {
-    console.log('add trip state', this.state.place);
     return (
       <>
         <section className="addTripSection">
           <div>
             <h2>Plan your Perfect Trip</h2>
+            {this.state.error && <center>{this.state.error}</center>}
             <form
               className="addTripForm"
               action="#"
@@ -108,14 +117,14 @@ export default class AddTripForm extends React.Component {
                 Type in a short description of your destination!
               </label>
               <input
-              maxLength={24}
+                maxLength={24}
                 onChange={(e) =>
                   this.setState({ short_description: e.target.value })
                 }
                 placeholder={'New York Shopping, Backpacking through Europe!'}
                 type="text"
                 name="short_description"
-                maxLength={40}
+                maxLength={30}
                 required
               />
               <br />
@@ -164,7 +173,13 @@ export default class AddTripForm extends React.Component {
                     <br />
                     <div className="TripCard-middle-section">
                       <div className="TripCard-title">
-                        <h2>{this.state.destination}</h2>
+                        {this.state.place.place.length > 40 ? (
+                          <h2>
+                            {this.shortifyDestination(this.state.place.place)}
+                          </h2>
+                        ) : (
+                          <h2>{this.state.place.place}</h2>
+                        )}
                       </div>
                       <div className="Activities">
                         <span>{this.state.short_description}</span>

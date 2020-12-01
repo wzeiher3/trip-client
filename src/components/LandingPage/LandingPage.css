@@ -1,9 +1,17 @@
 /* background photo creds: Photo by Simon Berger on Unsplash
 */
 
-@media (max-width: 280px) {
+@media (min-width: 260px) and (max-width: 350px) {
     .ways-header {
-        padding-bottom: 20%;
+        padding-bottom: 40% !important;
+        vertical-align: middle !important;
+        text-align: center !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .ways-header {
+        padding-bottom: 30%;
     }
 }
 
@@ -19,12 +27,19 @@
         display: flex !important;
         flex-direction: column !important;
         align-items: center;
+        justify-content: center;
     }
 
     .linkToDashButton {
+        display: flex !important;
+        flex-direction: column !important;
+        align-content: center !important;
+        justify-content: center !important;
         background-color: #cce8ff;
         width: 100%;
-        padding: 10px;
+        margin-top: 0 !important;
+        padding-bottom: 50px;
+        /* vertical-align: middle; */
     }
 }
 
@@ -176,6 +191,7 @@ section.landing-page::before {
     width: 100vw;
     font-size: 20px;
     font-weight: 500;
+    padding-top: 20px;
 }
 
 .lets-go-btn {
