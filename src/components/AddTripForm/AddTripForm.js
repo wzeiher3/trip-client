@@ -32,7 +32,6 @@ export default class AddTripForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.place);
     this.setState({ error: null });
     if (
       !this.state.place.coordinates.lng ||
@@ -64,7 +63,7 @@ export default class AddTripForm extends React.Component {
 
   storePlace = (place) => {
     this.setState({
-      place,
+      place: place,
     });
   };
 
