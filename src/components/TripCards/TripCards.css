@@ -28,6 +28,8 @@
   display: inline-flex;
   flex-direction: column;
   justify-content: space-around;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .TripCard-title {
@@ -124,7 +126,6 @@
 img.card-heart {
   width: 2.4em;
   margin-top: 3px;
-  
 }
 
 span.rating-span {

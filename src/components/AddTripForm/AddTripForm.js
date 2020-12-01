@@ -85,8 +85,8 @@ export default class AddTripForm extends React.Component {
   };
 
   shortifyDestination = (dest) => {
-    dest = dest.slice(0, 29) + '...';
-    return dest;
+    dest = dest.split(',');
+    return dest[0];
   };
 
   render() {
@@ -183,7 +183,10 @@ export default class AddTripForm extends React.Component {
                         <span>{this.state.short_description}</span>
                       </div>
                       <div className="Activities">
-                        <p>Activities: {this.state.activities}</p>
+                        <p>
+                          Activities: <br />
+                          {this.state.activities}
+                        </p>
                       </div>
                     </div>
                     <div className={`TripCard-bottom blue`}>
