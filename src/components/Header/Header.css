@@ -43,6 +43,7 @@ nav {
   padding: 10px;
   font-weight: bold;
   color: #65b1ef;
+  text-align: right;
 }
 
 @media all and (min-width: 360px) {

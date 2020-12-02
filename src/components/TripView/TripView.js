@@ -250,11 +250,10 @@ export default class Trip extends React.Component {
           this.setState({ trip: res, currTripID: res.id });
         })
         .then(() => {
-          TripApiService.getTrips()
-            .then(res => this.context.setTrips(res))
+          TripApiService.getTrips().then((res) => this.context.setTrips(res));
         })
         .then(() => {
-          this.userHasRated()
+          this.userHasRated();
         })
         .catch((error) => {
           console.error(error);

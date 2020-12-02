@@ -7,6 +7,7 @@
   flex-direction: column;
   color: #494949;
   background-image: linear-gradient(rgb(255, 255, 255), rgb(250, 250, 250));
+  word-wrap: break-word;
 }
 
 .trip-stop {
@@ -294,6 +295,7 @@ img.heart {
   vertical-align: middle;
   width: 4em;
   transition: 0.5s ease-in-out;
+  cursor: pointer;
 }
 
 @media all and (min-width: 800px) {
