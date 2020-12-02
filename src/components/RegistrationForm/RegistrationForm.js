@@ -34,7 +34,9 @@ class RegistrationForm extends Component {
   };
 
   componentDidMount() {
-    this.firstInput.current.focus();
+    if(this.refs.firstInput){
+      this.firstInput.current.focus();
+    }
   }
 
   render() {
