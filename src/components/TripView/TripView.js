@@ -636,10 +636,7 @@ export default class Trip extends React.Component {
                             src={images.FilledHeart}
                           ></img>
                         </button>
-                        <span
-                          className="trip-rating-digits"
-                          style={{ verticalAlign: 'center' }}
-                        >
+                        <span className="trip-rating-digits">
                           {trip.rating}
                         </span>
                       </>
@@ -648,8 +645,8 @@ export default class Trip extends React.Component {
                   <h2 className="trip-name">{trip.destination}</h2>
                   <p>{trip.short_description}</p>
                   <p>
-                    Activities: {trip.activities} <br />
-                    Days: {trip.days}
+                    <span>Activities:</span> {trip.activities} <br />
+                    <span>Days:</span> {trip.days}
                   </p>
                 </>
               )}

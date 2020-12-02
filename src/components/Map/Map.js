@@ -83,14 +83,13 @@ export class MapContainer extends React.Component {
   }
 }
 
-const mapStyles = { height: '100%', position: 'relative', 'z-index': '0' };
+const mapStyles = { height: '100%', position: 'relative' };
 
 const containerStyle = {
   width: '100%',
   height: '400px',
   marginLeft: 0,
   position: 'relative',
-  'z-index': '0',
 };
 
 export default GoogleApiWrapper({
