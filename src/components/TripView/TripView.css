@@ -291,7 +291,6 @@ img.heart {
 
 #Map {
   flex: 1;
-  height: 450px;
   margin-top: 0px;
   margin-bottom: 40px;
   margin: auto;
@@ -305,10 +304,14 @@ img.heart {
 .tripView-upperSection {
   display: flex;
   justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 40px;
+  padding: 0px;
+}
+
+.tripView-upperSection {
+  flex-direction: column;
 }
 
 @media all and (min-width: 675px) {
@@ -322,6 +325,19 @@ img.heart {
 
   .edit-trip > form > input {
     width: 675px;
+  }
+
+  .tripView-upperSection {
+    flex-direction: row;
+    padding: 40px;
+    padding-right: 60px;
+    padding-left: 60px;
+  }
+}
+
+@media all and (max-width: 675px) {
+  #Map {
+    width: 100%;
   }
 }
 
