@@ -17,14 +17,16 @@ export class MapContainer extends React.Component {
         { latitude: 47.5524695, longitude: -122.0425407 },
       ],
 
-      currTrip: {},
+      currTrip: { lat: null },
     };
   }
 
-  componentWillMount() {
-    this.setState({
-      currTrip: this.props.trip,
-    });
+  componentDidUpdate() {
+    if (this.props.trip.user_id !== 0 && !this.state.currTrip === null) {
+      this.setState({
+        currTrip: this.props.trip,
+      });
+    }
   }
 
   displayMarkers = () => {
@@ -51,10 +53,10 @@ export class MapContainer extends React.Component {
 
   render() {
     // this.setTrip(this.props.trip)
-    // console.log(this.props.trip)
+    console.log(this.props.trip);
 
     const { lat, long } = this.state.currTrip;
-    //console.log(this.props.trip.lat, this.props.trip.long);
+    console.log(this.props.trip.lat, this.props.trip.long);
 
     if (!this.props.trip.lat || !this.props.trip.long)
       return (
@@ -81,13 +83,14 @@ export class MapContainer extends React.Component {
   }
 }
 
-const mapStyles = { height: '100%', position: 'relative' };
+const mapStyles = { height: '100%', position: 'relative', 'z-index': '0' };
 
 const containerStyle = {
   width: '100%',
-  height: '550px',
+  height: '400px',
   marginLeft: 0,
   position: 'relative',
+  'z-index': '0',
 };
 
 export default GoogleApiWrapper({
