@@ -46,6 +46,7 @@ export default class Trip extends React.Component {
     const { match } = this.props;
     // set trip_id variable
     const trip_id = match.params.trips_id;
+    this.userHasRated();
     // get stops for the current trip
     this.context.setLoading(true);
     TripApiService.getTrip(trip_id)
@@ -251,6 +252,9 @@ export default class Trip extends React.Component {
         .then(() => {
           TripApiService.getTrips()
             .then(res => this.context.setTrips(res))
+        })
+        .then(() => {
+          this.userHasRated()
         })
         .catch((error) => {
           console.error(error);
@@ -596,7 +600,7 @@ export default class Trip extends React.Component {
 
     //console.log('This Trip', this.state.trip[0]);
 
-    this.userHasRated();
+    // this.userHasRated();
 
     return (
       <>
