@@ -1,6 +1,5 @@
 .trip {
   width: 100%;
-  padding-top: 65px;
   border-radius: 1px;
   text-align: center;
   display: inline-flex;
@@ -56,14 +55,6 @@
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   width: 98%;
-}
-
-#Map {
-  width: 100%;
-  height: 550px;
-  margin-top: 0px;
-  margin-bottom: 40px;
-  margin: auto;
 }
 
 .trip-name {
@@ -298,15 +289,26 @@ img.heart {
   cursor: pointer;
 }
 
-@media all and (min-width: 800px) {
-  .trip-name {
-    width: 800px;
-    margin: auto;
-    padding: 0;
-  }
-  #Map {
-    width: 800px;
-  }
+#Map {
+  flex: 1;
+  height: 450px;
+  margin-top: 0px;
+  margin-bottom: 40px;
+  margin: auto;
+  border: 1px rgb(245, 245, 245) solid;
+}
+
+.trip-info {
+  flex: 1;
+}
+
+.tripView-upperSection {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding: 40px;
 }
 
 @media all and (min-width: 675px) {

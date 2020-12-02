@@ -69,6 +69,7 @@ export default class App extends Component {
               <Route component={NotFoundRoute} />
             </Switch>
           </ErrorBoundary>
+          {/* <Footer /> */}
         </main>
       </div>
     );

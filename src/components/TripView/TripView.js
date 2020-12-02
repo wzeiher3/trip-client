@@ -603,61 +603,68 @@ export default class Trip extends React.Component {
 
     return (
       <>
-        <TripViewNav
-          handleDeleteTrip={this.handleDeleteTrip}
-          handleEditTrip={this.handleEditTrip}
-          stops={this.state.stops}
-          user_id={this.state.trip[0].user_id}
-        />
         <div className="trip">
-          {this.state.toggleEditTrip ? (
-            this.renderEditTrip(trip)
-          ) : (
-            <>
-              <span className="rating-container">
-                {!this.state.userHasRated ? (
-                  <>
-                    <button
-                      className="like-btn"
-                      onClick={() => this.handleRating()}
-                    >
-                      <img
-                        alt="unliked heart"
-                        className="empty-heart heart"
-                        src={images.EmptyHeart}
-                      ></img>
-                    </button>
-                    <span className="trip-rating-digits">{trip.rating}</span>
-                  </>
-                ) : (
-                  <>
-                    <button className="like-btn">
-                      <img
-                        alt="liked heart"
-                        className="filled-heart heart"
-                        src={images.FilledHeart}
-                      ></img>
-                    </button>
-                    <span
-                      className="trip-rating-digits"
-                      style={{ verticalAlign: 'center' }}
-                    >
-                      {trip.rating}
-                    </span>
-                  </>
-                )}
-              </span>
-              <h2 className="trip-name">{trip.destination}</h2>
-              <p>{trip.short_description}</p>
-              <p>
-                Activities: {trip.activities} <br />
-                Days: {trip.days}
-              </p>
-            </>
-          )}
-          <div id="Map">
-            <MapContainer trip={this.state.trip[0]} />
+          <div className="tripView-upperSection">
+            <div className="trip-info">
+              {this.state.toggleEditTrip ? (
+                this.renderEditTrip(trip)
+              ) : (
+                <>
+                  <span className="rating-container">
+                    {!this.state.userHasRated ? (
+                      <>
+                        <button
+                          className="like-btn"
+                          onClick={() => this.handleRating()}
+                        >
+                          <img
+                            alt="unliked heart"
+                            className="empty-heart heart"
+                            src={images.EmptyHeart}
+                          ></img>
+                        </button>
+                        <span className="trip-rating-digits">
+                          {trip.rating}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <button className="like-btn">
+                          <img
+                            alt="liked heart"
+                            className="filled-heart heart"
+                            src={images.FilledHeart}
+                          ></img>
+                        </button>
+                        <span
+                          className="trip-rating-digits"
+                          style={{ verticalAlign: 'center' }}
+                        >
+                          {trip.rating}
+                        </span>
+                      </>
+                    )}
+                  </span>
+                  <h2 className="trip-name">{trip.destination}</h2>
+                  <p>{trip.short_description}</p>
+                  <p>
+                    Activities: {trip.activities} <br />
+                    Days: {trip.days}
+                  </p>
+                </>
+              )}
+            </div>
+
+            <div id="Map">
+              <MapContainer trip={this.state.trip[0]} />
+            </div>
           </div>
+          <TripViewNav
+            handleDeleteTrip={this.handleDeleteTrip}
+            handleEditTrip={this.handleEditTrip}
+            stops={this.state.stops}
+            user_id={this.state.trip[0].user_id}
+          />
           <div className="belowMap">
             {stops.length ? (
               stops
