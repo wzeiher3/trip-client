@@ -5,8 +5,12 @@ import TripViewNav from './TripViewNav/TripViewNav';
 import TripViewSelect from './TripViewSelect/TripViewSelect';
 import TripViewEditSelect from './TripViewEditSelect.js/TripViewEditSelect';
 import MapContainer from '../Map/Map';
+import Modal from 'react-modal';
 import './TripView.css';
 import images from '../../assets/images/images';
+
+ // do not change this
+ Modal.setAppElement('#root')
 
 export default class Trip extends React.Component {
   static contextType = TripContext;
@@ -22,6 +26,8 @@ export default class Trip extends React.Component {
     selections: [],
     error: null,
     userHasRated: false,
+    userHasLoggedIn: false,
+    isModalOpen: false,
   };
 
   flickrApi = (stop_name, city) => {
@@ -47,6 +53,7 @@ export default class Trip extends React.Component {
     // set trip_id variable
     const trip_id = match.params.trips_id;
     this.userHasRated();
+    this.checkUserRatingHasLoggedIn();
     // get stops for the current trip
     this.context.setLoading(true);
     TripApiService.getTrip(trip_id)
@@ -238,47 +245,77 @@ export default class Trip extends React.Component {
     const rating = { trip_id, user_id, rate };
 
     // console.log(rating);
-    TripApiService.postRating(rating).then((res) => {
-      // console.log(res);
-      const { match } = this.props;
-      // set trip_id variable
-      const trip_id = match.params.trips_id;
-      // get stops for the current trip
-      this.context.setLoading(true);
-      TripApiService.getTrip(trip_id)
-        .then((res) => {
-          this.setState({ trip: res, currTripID: res.id });
-        })
-        .then(() => {
-          TripApiService.getTrips().then((res) => this.context.setTrips(res));
-        })
-        .then(() => {
-          this.userHasRated();
-        })
-        .catch((error) => {
-          console.error(error);
-        })
-        .finally(() => {
-          this.context.setLoading(false);
-        });
-    });
+    if (user_id !== undefined) {
+      TripApiService.postRating(rating).then((res) => {
+        // console.log(res);
+        const { match } = this.props;
+        // set trip_id variable
+        const trip_id = match.params.trips_id;
+        // get stops for the current trip
+        this.context.setLoading(true);
+        TripApiService.getTrip(trip_id)
+          .then((res) => {
+            this.setState({ trip: res, currTripID: res.id });
+          })
+          .then(() => {
+            TripApiService.getTrips().then((res) => this.context.setTrips(res));
+          })
+          .then(() => {
+            this.userHasRated();
+          })
+          .catch((error) => {
+            console.error(error);
+          })
+          .finally(() => {
+            this.context.setLoading(false);
+          });
+      });
+    }
+  };
+
+  customModalStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)'
+    }
+  };
+
+  closeModal = () => {
+    this.setState({ isModalOpen: false })
+  }
+
+  openModal = () => {
+    this.setState({ isModalOpen: true })
+    console.log(this.state.isModalOpen)
+  }
+
+  checkUserRatingHasLoggedIn = () => {
+    const user_id = this.context.returnUserID()
+    if (user_id !== undefined) {
+      this.setState({ userHasLoggedIn: false });
+    } else {
+      this.setState({ userHasLoggedIn: true });
+    };
+    console.log(this.state.userHasLoggedIn)
   };
 
   userHasRated = () => {
     const trip_id = this.props.match.params.trips_id;
-    // const user_id = this.context.returnUserID()
-    // const rate = 1
-    // const rating = {trip_id}
     const user_id = this.context.returnUserID();
-    // console.log(rating)
-    TripApiService.checkUserHasRated(trip_id).then((res) => {
-      for (let i = 0; i < res.length; i++) {
-        if (res[i].user_id === user_id) {
-          this.setState({ userHasRated: true });
-          return;
+    if (user_id !== undefined) {
+      TripApiService.checkUserHasRated(trip_id).then((res) => {
+        for (let i = 0; i < res.length; i++) {
+          if (res[i].user_id === user_id) {
+            this.setState({ userHasRated: true });
+            return;
+          }
         }
-      }
-    });
+      });
+    }
   };
 
   isTripCreator = () => {
@@ -466,12 +503,12 @@ export default class Trip extends React.Component {
             alt="road illustration"
           ></img>
         ) : (
-          <img
-            className="road-img"
-            src={images.road_b}
-            alt="road illustration"
-          ></img>
-        )}
+            <img
+              className="road-img"
+              src={images.road_b}
+              alt="road illustration"
+            ></img>
+          )}
       </div>
     );
   }
@@ -562,12 +599,12 @@ export default class Trip extends React.Component {
             alt="road illustration"
           ></img>
         ) : (
-          <img
-            className="road-img"
-            src={images.road_b}
-            alt="road illustration"
-          ></img>
-        )}
+            <img
+              className="road-img"
+              src={images.road_b}
+              alt="road illustration"
+            ></img>
+          )}
       </div>
     );
   };
@@ -599,8 +636,6 @@ export default class Trip extends React.Component {
 
     //console.log('This Trip', this.state.trip[0]);
 
-    // this.userHasRated();
-
     return (
       <>
         <div className="trip">
@@ -609,50 +644,63 @@ export default class Trip extends React.Component {
               {this.state.toggleEditTrip ? (
                 this.renderEditTrip(trip)
               ) : (
-                <>
-                  <span className="rating-container">
-                    {!this.state.userHasRated ? (
-                      <>
-                        <button
-                          className="like-btn"
-                          onClick={() => this.handleRating()}
-                        >
-                          <img
-                            alt="unliked heart"
-                            className="empty-heart heart"
-                            src={images.EmptyHeart}
-                          ></img>
-                        </button>
-                        <span className="trip-rating-digits">
-                          {trip.rating}
-                        </span>
-                      </>
-                    ) : (
-                      <>
-                        <button className="like-btn">
-                          <img
-                            alt="liked heart"
-                            className="filled-heart heart"
-                            src={images.FilledHeart}
-                          ></img>
-                        </button>
-                        <span
-                          className="trip-rating-digits"
-                          style={{ verticalAlign: 'center' }}
-                        >
-                          {trip.rating}
-                        </span>
-                      </>
-                    )}
-                  </span>
-                  <h2 className="trip-name">{trip.destination}</h2>
-                  <p>{trip.short_description}</p>
-                  <p>
-                    Activities: {trip.activities} <br />
+                  <>
+                  {!this.context.loading ? 
+                    <span className="rating-container">
+                      {!this.state.userHasRated ? (
+                        <>
+                          <Modal
+                            isOpen={this.state.isModalOpen}
+                            style={this.customModalStyles}
+                            contentLabel="Log in!"
+                          >
+                            <button className="myButton" onClick={() => this.closeModal()}>Close</button>
+                            <h3>You must log in to rate a trip!</h3>
+                          </Modal>
+                          <button
+                            className="like-btn"
+                            onClick={() => {
+                              if (this.state.userHasLoggedIn) this.openModal()
+                              this.handleRating()
+                            }}
+                          >
+                            <img
+                              alt="unliked heart"
+                              className="empty-heart heart"
+                              src={images.EmptyHeart}
+                            ></img>
+                          </button>
+                          <span className="trip-rating-digits">
+                            {trip.rating}
+                          </span>
+                        </>
+                      ) : (
+                          <>
+                            <button className="like-btn">
+                              <img
+                                alt="liked heart"
+                                className="filled-heart heart"
+                                src={images.FilledHeart}
+                              ></img>
+                            </button>
+                            <span
+                              className="trip-rating-digits"
+                              style={{ verticalAlign: 'center' }}
+                            >
+                              {trip.rating}
+                            </span>
+                          </>
+                        )}
+                    </span>
+                    : null}
+                    <h2 className="trip-name">{trip.destination}</h2>
+                    <p>{trip.short_description}</p>
+                    <p>
+                      Activities: {trip.activities} <br />
                     Days: {trip.days}
-                  </p>
-                </>
-              )}
+                    </p>
+                  </>
+                )}
             </div>
 
             <div id="Map">
@@ -669,11 +717,11 @@ export default class Trip extends React.Component {
             {stops.length ? (
               stops
             ) : (
-              <h4>
-                This user hasn't added any stops yet! If this is your trip, add
-                some by clicking the Add Stop button!
-              </h4>
-            )}
+                <h4>
+                  This user hasn't added any stops yet! If this is your trip, add
+                  some by clicking the Add Stop button!
+                </h4>
+              )}
             {this.state.toggleAddStop && this.renderAddStopForm()}
             {!this.state.toggleAddStop && this.isTripCreator() && (
               <div className="addStopButton">
