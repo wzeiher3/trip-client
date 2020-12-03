@@ -39,6 +39,7 @@
   width: 98%;
   word-wrap: break-word;
   position: relative;
+  z-index: 1;
 }
 
 .edit-stop {
@@ -70,7 +71,7 @@
 }
 
 .trip-info > p {
-  color: rgb(151, 151, 151);
+  color: rgb(141, 141, 141);
   font-family: 'Ubuntu', sans-serif;
   font-size: 24px;
   font-weight: bold;
@@ -208,6 +209,7 @@
   border: 4px solid rgb(238, 238, 238);
   border-radius: 6px;
   position: relative;
+  margin-bottom: 50px;
 }
 
 .addStopForm > label {

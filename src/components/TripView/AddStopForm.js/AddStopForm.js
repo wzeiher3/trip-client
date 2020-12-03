@@ -92,11 +92,7 @@ class AddStopForm extends Component {
           >
             Cancel
           </button>
-          <button
-            className="tripViewButton"
-            type="submit"
-            onClick={(e) => this.props.handleSubmitStop(e)}
-          >
+          <button className="tripViewButton" type="submit">
             Submit!
           </button>
         </form>
