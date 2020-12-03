@@ -8,7 +8,7 @@ import MapContainer from '../Map/Map';
 import Modal from 'react-modal';
 import AddStopForm from './AddStopForm.js/AddStopForm';
 import Helpers from '../../helpers/helpers';
-import EditStopForm from './EditStopForm/EditStopForm'
+import EditStopForm from './EditStopForm/EditStopForm';
 import './TripView.css';
 import images from '../../assets/images/images';
 // do not change this
@@ -265,26 +265,26 @@ export default class Trip extends React.Component {
     const trip_id = this.props.match.params.trips_id;
     const user_id = this.context.returnUserID();
     this.context.setLoading(true);
-    if(user_id !== undefined) {
+    if (user_id !== undefined) {
       TripApiService.checkUserHasRated(trip_id)
-      .then((res) => {
-        for (let i = 0; i < res.length; i++) {
-          if (res[i].user_id === user_id) {
-            this.setState({ userHasRated: true });
-            this.context.setLoading(false);
-            return;
+        .then((res) => {
+          for (let i = 0; i < res.length; i++) {
+            if (res[i].user_id === user_id) {
+              this.setState({ userHasRated: true });
+              this.context.setLoading(false);
+              return;
+            }
           }
-        }
-      })
-      .catch((error) => {
-        this.setState({ error: error });
-      })
-      .finally(() => {
-        this.context.setLoading(false);
-      });
+        })
+        .catch((error) => {
+          this.setState({ error: error });
+        })
+        .finally(() => {
+          this.context.setLoading(false);
+        });
     }
   };
-  
+
   isTripCreator = () => {
     let isTripCreator = this.context.verifyAuth(this.state.trip[0].user_id);
     return isTripCreator;
@@ -335,106 +335,6 @@ export default class Trip extends React.Component {
     );
   };
 
-  // renderEditStopForm = (stop, index) => {
-  //   const id = stop.id;
-  //   return (
-  //     <div className="trip-stop-wrapper" key={stop.id}>
-  //       <div className="trip-stop edit-stop" key={index}>
-  //         {this.context.loading && (
-  //           <div className="bufffer-img-wrapper ">
-  //             <img
-  //               className="buffer-img"
-  //               src={images.img_loading}
-  //               alt="a plane flying over hearts loading gif"
-  //             />
-  //             <div className="fade-out-screen"></div>
-  //           </div>
-  //         )}
-  //         <form
-  //           action="#"
-  //           id="EditStopForm"
-  //           onSubmit={(e) => this.handleSubmitEditStop(e, id)}
-  //         >
-  //           <div className="trip-header">
-  //             <div>
-  //               <input
-  //                 defaultValue={stop.stop_name}
-  //                 name="stop_name"
-  //                 id="edit_stop_name"
-  //                 aria-label="stop_name"
-  //                 maxLength={40}
-  //                 required
-  //               />{' '}
-  //             </div>
-  //             <input
-  //               defaultValue={stop.city}
-  //               name="city"
-  //               aria-label="city"
-  //               maxLength={40}
-  //               required
-  //             />
-  //             <br />
-  //             <input
-  //               defaultValue={stop.state}
-  //               name="state"
-  //               aria-label="state"
-  //               maxLength={40}
-  //               required
-  //             />
-  //           </div>
-  //           {this.state.error && (
-  //             <>
-  //               <br />
-  //               {this.state.error}
-  //               <br />
-  //               <br />
-  //             </>
-  //           )}
-  //           <TripViewEditSelect
-  //             handleSelect={this.handleSelect}
-  //             clearSelections={this.clearSelections}
-  //             selections={this.state.selections}
-  //           />
-  //           <input
-  //             defaultValue={stop.description}
-  //             name="description"
-  //             aria-label="description"
-  //             maxLength={400}
-  //             required
-  //           />
-  //           {this.isTripCreator() && (
-  //             <div className="tripView-button-wrapper">
-  //               <button
-  //                 className="tripViewButton"
-  //                 onClick={() => this.toggleEditStop(0)}
-  //               >
-  //                 Cancel
-  //               </button>
-  //               <button className="tripViewButton" type="submit">
-  //                 Submit
-  //               </button>
-  //             </div>
-  //           )}
-  //         </form>
-  //       </div>
-  //       <br />
-  //       {index === this.state.stops.length - 1 ? null : index % 2 !== 0 ? (
-  //         <img
-  //           className="road-img"
-  //           src={images.road_a}
-  //           alt="road illustration"
-  //         ></img>
-  //       ) : (
-  //         <img
-  //           className="road-img"
-  //           src={images.road_b}
-  //           alt="road illustration"
-  //         ></img>
-  //       )}
-  //     </div>
-  //   );
-  // };
-
   handleDeleteStop = (stop_id) => {
     TripApiService.deleteStop(stop_id)
       .then(() => {
@@ -453,18 +353,18 @@ export default class Trip extends React.Component {
       if (!stop.img) stop.img = images.no_camera;
       if (stop.id === this.state.stopEditingID) {
         return (
-            <EditStopForm 
-                handleSelect={this.handleSelect}
-                clearSelections={this.clearSelections}
-                selections={this.state.selections}
-                handleSubmitEditStop={this.handleSubmitEditStop}
-                toggleEditStop={this.toggleEditStop}
-                isTripCreator={this.isTripCreator}
-                stop={stop}
-                index={index}
-                stops={this.state.stops}
-        />
-        )
+          <EditStopForm
+            handleSelect={this.handleSelect}
+            clearSelections={this.clearSelections}
+            selections={this.state.selections}
+            handleSubmitEditStop={this.handleSubmitEditStop}
+            toggleEditStop={this.toggleEditStop}
+            isTripCreator={this.isTripCreator}
+            stop={stop}
+            index={index}
+            stops={this.state.stops}
+          />
+        );
       }
       return (
         <RenderStop
@@ -550,12 +450,10 @@ export default class Trip extends React.Component {
                 </>
               )}
             </div>
-
             <div id="Map">
               <MapContainer trip={this.state.trip[0]} />
             </div>
           </div>
-
           <TripViewNav
             handleDeleteTrip={this.handleDeleteTrip}
             handleEditTrip={this.handleEditTrip}
@@ -585,6 +483,7 @@ export default class Trip extends React.Component {
               <div className="addStopButton">
                 <br />
                 <div
+                  style={{ marginBottom: '20px' }}
                   className="myButton"
                   onClick={() => {
                     this.setState({ toggleAddStop: !this.state.toggleAddStop });
