@@ -3,15 +3,15 @@ import TripApiService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
 import TripViewNav from './TripViewNav/TripViewNav';
 import TripViewEditSelect from './TripViewEditSelect.js/TripViewEditSelect';
-import RenderStop from './RenderStop/RenderStop'
+import RenderStop from './RenderStop/RenderStop';
 import MapContainer from '../Map/Map';
 import Modal from 'react-modal';
 import AddStopForm from './AddStopForm.js/AddStopForm';
 import Helpers from '../../helpers/helpers';
 import './TripView.css';
 import images from '../../assets/images/images';
- // do not change this
- Modal.setAppElement('#root')
+// do not change this
+Modal.setAppElement('#root');
 
 export default class Trip extends React.Component {
   static contextType = TripContext;
@@ -35,7 +35,6 @@ export default class Trip extends React.Component {
     const { match } = this.props;
     const trip_id = match.params.trips_id;
     this.userHasRated();
-    this.checkUserRatingHasLoggedIn();
     this.context.setLoading(true);
     TripApiService.getTrip(trip_id)
       .then((res) => {
@@ -227,21 +226,21 @@ export default class Trip extends React.Component {
     const rating = { trip_id, user_id, rate };
     if (user_id !== undefined) {
       TripApiService.postRating(rating)
-      .then(() => {
-        this.setState({
-          trip: [
-            {
-              ...this.state.trip[0],
-              rating: Number(this.state.trip[0].rating) + 1,
-            },
-          ],
-          userHasRated: true,
+        .then(() => {
+          this.setState({
+            trip: [
+              {
+                ...this.state.trip[0],
+                rating: Number(this.state.trip[0].rating) + 1,
+              },
+            ],
+            userHasRated: true,
+          });
+          this.context.setTripRating(trip_id);
+        })
+        .catch((error) => {
+          console.error(error);
         });
-        this.context.setTripRating(trip_id);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
     }
   };
 
@@ -252,25 +251,16 @@ export default class Trip extends React.Component {
       right: 'auto',
       bottom: 'auto',
       marginRight: '-50%',
-      transform: 'translate(-50%, -50%)'
-    }
+      transform: 'translate(-50%, -50%)',
+    },
   };
 
   closeModal = () => {
-    this.setState({ isModalOpen: false })
-  }
+    this.setState({ isModalOpen: false });
+  };
 
   openModal = () => {
-    this.setState({ isModalOpen: true })
-  }
-
-  checkUserRatingHasLoggedIn = () => {
-    const user_id = this.context.returnUserID()
-    if (user_id !== undefined) {
-      this.setState({ userHasLoggedIn: false });
-    } else {
-      this.setState({ userHasLoggedIn: true });
-    };
+    this.setState({ isModalOpen: true });
   };
 
   userHasRated = () => {
@@ -435,12 +425,12 @@ export default class Trip extends React.Component {
             alt="road illustration"
           ></img>
         ) : (
-            <img
-              className="road-img"
-              src={images.road_b}
-              alt="road illustration"
-            ></img>
-          )}
+          <img
+            className="road-img"
+            src={images.road_b}
+            alt="road illustration"
+          ></img>
+        )}
       </div>
     );
   };
@@ -464,14 +454,17 @@ export default class Trip extends React.Component {
       if (stop.id === this.state.stopEditingID) {
         return this.renderEditStopForm(stop, index);
       }
-      return <RenderStop 
-                stop={stop} 
-                index={index} 
-                toggleEditStop={this.toggleEditStop} 
-                isTripCreator={this.isTripCreator} 
-                handleDeleteStop={this.handleDeleteStop}
-                stateStops={this.state.stops}
-                />;
+      return (
+        <RenderStop
+          key={stop.id}
+          stop={stop}
+          index={index}
+          toggleEditStop={this.toggleEditStop}
+          isTripCreator={this.isTripCreator}
+          handleDeleteStop={this.handleDeleteStop}
+          stateStops={this.state.stops}
+        />
+      );
     });
     return (
       <>
@@ -481,8 +474,8 @@ export default class Trip extends React.Component {
               {this.state.toggleEditTrip ? (
                 this.renderEditTrip(trip)
               ) : (
-                  <>
-                  {!this.context.loading ? 
+                <>
+                  {!this.context.loading ? (
                     <span className="rating-container">
                       {!this.state.userHasRated ? (
                         <>
@@ -491,14 +484,20 @@ export default class Trip extends React.Component {
                             style={this.customModalStyles}
                             contentLabel="Log in!"
                           >
-                            <button className="myButton" onClick={() => this.closeModal()}>Close</button>
+                            <button
+                              className="myButton"
+                              onClick={() => this.closeModal()}
+                            >
+                              Close
+                            </button>
                             <h3>You must log in to rate a trip!</h3>
                           </Modal>
                           <button
                             className="like-btn"
                             onClick={() => {
-                              if (this.state.userHasLoggedIn) this.openModal()
-                              this.handleRating()
+                              if (!this.context.returnUserID())
+                                this.openModal();
+                              this.handleRating();
                             }}
                           >
                             <img
@@ -512,32 +511,32 @@ export default class Trip extends React.Component {
                           </span>
                         </>
                       ) : (
-                          <>
-                            <button className="like-btn">
-                              <img
-                                alt="liked heart"
-                                className="filled-heart heart"
-                                src={images.FilledHeart}
-                              ></img>
-                            </button>
-                            <span
-                              className="trip-rating-digits"
-                              style={{ verticalAlign: 'center' }}
-                            >
-                              {trip.rating}
-                            </span>
-                          </>
-                        )}
+                        <>
+                          <button className="like-btn">
+                            <img
+                              alt="liked heart"
+                              className="filled-heart heart"
+                              src={images.FilledHeart}
+                            ></img>
+                          </button>
+                          <span
+                            className="trip-rating-digits"
+                            style={{ verticalAlign: 'center' }}
+                          >
+                            {trip.rating}
+                          </span>
+                        </>
+                      )}
                     </span>
-                    : null}
-                    <h2 className="trip-name">{trip.destination}</h2>
-                    <p>{trip.short_description}</p>
-                    <p>
-                      Activities: {trip.activities} <br />
+                  ) : null}
+                  <h2 className="trip-name">{trip.destination}</h2>
+                  <p>{trip.short_description}</p>
+                  <p>
+                    Activities: {trip.activities} <br />
                     Days: {trip.days}
-                    </p>
-                  </>
-                )}
+                  </p>
+                </>
+              )}
             </div>
 
             <div id="Map">
