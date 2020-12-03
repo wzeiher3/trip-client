@@ -28,6 +28,7 @@ export default class AddTripForm extends React.Component {
       'amusementpark',
     ],
     imagesScroll: 0,
+    placesTouched: false,
   };
 
   static contextType = TripContext;
@@ -74,7 +75,15 @@ export default class AddTripForm extends React.Component {
       });
   };
 
+  resetPlace = () => {
+    this.context.setLoading(false);
+  };
+
   storePlace = (place) => {
+    console.log(
+      this.state.place.coordinates.lng,
+      this.state.place.coordinates.lat
+    );
     if (this.state.place.coordinates.lng || this.state.place.coordinates.lat) {
       this.context.setLoading(false);
     } else {
@@ -125,6 +134,7 @@ export default class AddTripForm extends React.Component {
                   <PlaceSearch
                     countryCode={this.state.countryCode}
                     storePlace={this.storePlace}
+                    resetPlace={this.resetPlace}
                   />
                 </div>
                 <div className="selectCountry">

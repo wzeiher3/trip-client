@@ -97,6 +97,24 @@
   width: 100%;
 }
 
+.style-list {
+  cursor: pointer;
+  list-style: none;
+  border-bottom: 1px solid #aaa;
+  height: 40px;
+  padding-left: 20px;
+  line-height: 40px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  width: 100%;
+  font-size: 14px;
+}
+
+.style-list:hover {
+  background-color: #f6f6f6;
+}
+
 @media all and (min-width: 600px) {
   .addTripForm {
     width: 600px;
@@ -122,6 +140,10 @@
 
   .location-box {
     width: 400px;
+  }
+
+  .style-list {
+    width: 398px;
   }
 }
 
