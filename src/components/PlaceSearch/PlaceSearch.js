@@ -1,11 +1,11 @@
 import React from 'react';
 import { GoogleComponent } from 'react-google-location';
-// import SEARCH_API_KEY from '../../config'
+
 const SEARCH_API_KEY = 'AIzaSyDKPDbk7DXoycomaamRr6fatOE3xqJ6HJg';
 
 export default class PlaceSearch extends React.Component {
   render() {
-    //console.log(SEARCH_API_KEY);
+
     return (
       <div>
         <GoogleComponent
