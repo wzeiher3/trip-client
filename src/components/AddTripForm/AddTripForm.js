@@ -111,7 +111,7 @@ export default class AddTripForm extends React.Component {
               <PlaceSearch storePlace={this.storePlace} />
               <br />
               <label htmlFor="short_description">
-                Type in a short description of your destination!
+                Type in a short description of your trip!
               </label>
               <input
                 maxLength={24}

@@ -42,12 +42,9 @@ export default class Trip extends React.Component {
   };
 
   componentDidMount() {
-    // get trip ID
     const { match } = this.props;
-    // set trip_id variable
     const trip_id = match.params.trips_id;
     this.userHasRated();
-    // get stops for the current trip
     this.context.setLoading(true);
     TripApiService.getTrip(trip_id)
       .then((res) => {
@@ -111,19 +108,24 @@ export default class Trip extends React.Component {
   };
 
   handleDeleteTrip = () => {
-    TripApiService.deleteTrip(this.state.trip[0].id).then(() => {
-      this.context.setTrips(
-        this.context.trips.filter((trip) => trip.id !== this.state.trip[0].id)
-      );
-      this.props.history.push('/dashboard');
-    });
+    this.context.setLoading(true);
+    TripApiService.deleteTrip(this.state.trip[0].id)
+      .then(() => {
+        this.context.setTrips(
+          this.context.trips.filter((trip) => trip.id !== this.state.trip[0].id)
+        );
+        this.props.history.push('/dashboard');
+      })
+      .catch((error) => {
+        this.setState({ error: error });
+      })
+      .finally(() => {
+        this.context.setLoading(false);
+      });
   };
 
   handleEditTrip = () => {
-    this.setState(
-      { toggleEditTrip: true }
-      //console.log(this.state.toggleEditTrip)
-    );
+    this.setState({ toggleEditTrip: true });
   };
 
   handleSubmitEditedTrip = (e, id) => {
@@ -134,20 +136,21 @@ export default class Trip extends React.Component {
       activities: activities.value,
       days: days.value,
     };
-
+    this.context.setLoading(true);
     TripApiService.patchTrip(trip, id)
       .then((res) => {
         this.setState({ trip: res });
       })
       .catch((error) => {
         this.setState({ error });
+      })
+      .finally(() => {
+        this.context.setLoading(false);
+        this.setState({ toggleEditTrip: false });
       });
-
-    this.setState({ toggleEditTrip: false });
   };
 
   generateFlikrLink = (res) => {
-    console.log(res);
     if (res.photos.total === '0') {
       return '';
     }
@@ -179,6 +182,7 @@ export default class Trip extends React.Component {
       description: description.value,
       category: this.state.selections.join(', '),
     };
+    this.context.setLoading(true);
     const res = await this.flickrApi(stop_name.value, city.value);
     stop.img = this.generateFlikrLink(res);
     TripApiService.patchStop(stop, stop_id)
@@ -190,6 +194,9 @@ export default class Trip extends React.Component {
       })
       .catch((error) => {
         this.setState({ error });
+      })
+      .finally(() => {
+        this.context.setLoading(false);
       });
   };
 
@@ -266,24 +273,28 @@ export default class Trip extends React.Component {
 
   userHasRated = () => {
     const trip_id = this.props.match.params.trips_id;
-    // const user_id = this.context.returnUserID()
-    // const rate = 1
-    // const rating = {trip_id}
     const user_id = this.context.returnUserID();
-    // console.log(rating)
-    TripApiService.checkUserHasRated(trip_id).then((res) => {
-      for (let i = 0; i < res.length; i++) {
-        if (res[i].user_id === user_id) {
-          this.setState({ userHasRated: true });
-          return;
+    this.context.setLoading(true);
+    TripApiService.checkUserHasRated(trip_id)
+      .then((res) => {
+        for (let i = 0; i < res.length; i++) {
+          if (res[i].user_id === user_id) {
+            this.setState({ userHasRated: true });
+            this.context.setLoading(false);
+            return;
+          }
         }
-      }
-    });
+      })
+      .catch((error) => {
+        this.setState({ error: error });
+      })
+      .finally(() => {
+        this.context.setLoading(false);
+      });
   };
 
   isTripCreator = () => {
-    let isTripCreator = false;
-    isTripCreator = this.context.verifyAuth(this.state.trip[0].user_id);
+    let isTripCreator = this.context.verifyAuth(this.state.trip[0].user_id);
     return isTripCreator;
   };
 
@@ -314,12 +325,32 @@ export default class Trip extends React.Component {
         >
           <h2>Add Stop</h2>
           <br />
-          <label htmlFor="stop_name">Describe your stop with a name!</label>
-          <input type="text" name="stop_name" required maxLength={40} />
-          <label htmlFor="city">City</label>
-          <input type="text" name="city" required maxLength={40} />
+          <label htmlFor="stop_name">
+            Name of the most significant place on this stop!
+          </label>
+          <input
+            placeholder="Grand Canyon, Ceasar's Casino, Time's Square"
+            type="text"
+            name="stop_name"
+            required
+            maxLength={40}
+          />
+          <label htmlFor="city">City or Area</label>
+          <input
+            placeholder="New York, Las Vegas"
+            type="text"
+            name="city"
+            required
+            maxLength={40}
+          />
           <label htmlFor="state">State or Country</label>
-          <input type="text" name="state" required maxLength={40} />
+          <input
+            placeholder="NY, NV, PA"
+            type="text"
+            name="state"
+            required
+            maxLength={40}
+          />
           {this.state.error && (
             <>
               <br />
@@ -337,9 +368,15 @@ export default class Trip extends React.Component {
           />
           <br />
           <label htmlFor="description">
-            Describe the experience to expect:
+            Describe the experience to expect here:
           </label>
-          <input type="text" name="description" required maxLength={400} />
+          <input
+            placeholder="A fun day shopping or the best hiking in the world!"
+            type="text"
+            name="description"
+            required
+            maxLength={400}
+          />
           <button
             className="tripViewButton"
             type="button"
@@ -482,10 +519,14 @@ export default class Trip extends React.Component {
       <div className="trip-stop-wrapper" key={stop.id}>
         <div className="trip-stop edit-stop" key={index}>
           {this.context.loading && (
-            <img
-              src={images.img_loading}
-              alt="plane flying over hearts loading gif"
-            />
+            <div className="bufffer-img-wrapper ">
+              <img
+                className="buffer-img"
+                src={images.img_loading}
+                alt="a plane flying over hearts loading gif"
+              />
+              <div className="fade-out-screen"></div>
+            </div>
           )}
           <form
             action="#"
@@ -585,7 +626,6 @@ export default class Trip extends React.Component {
   };
 
   render() {
-    //console.log(this.state);
     const trip = this.state.trip[0];
     const stops = this.state.stops.map((stop, index) => {
       if (stop.id === this.state.stopEditingID) {
@@ -593,14 +633,6 @@ export default class Trip extends React.Component {
       }
       return this.renderStop(stop, index);
     });
-    const { match } = this.props;
-    // set trip_id variable
-    const trip_id = match.params.trips_id;
-
-    //console.log('This Trip', this.state.trip[0]);
-
-    // this.userHasRated();
-
     return (
       <>
         <div className="trip">
