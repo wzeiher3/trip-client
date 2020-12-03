@@ -2,8 +2,8 @@
   padding: 15px;
   font-family: 'Archivo Black', Arial, Helvetica, sans-serif;
   text-align: center;
-  width:100%;
-  margin: .5em 0 0 0;
+  width: 100%;
+  margin: 0.5em 0 0 0;
   color: white;
   font-size: x-large;
   text-shadow: 2px 2px #000;
@@ -12,25 +12,26 @@
 }
 
 .my-trips {
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-justify-content: center;
-margin-top: 3em;
-margin-left: 0;
-padding-left: 2em;
-padding-right: 3em;
-border-top: 5px solid var(--waysBlue);
-border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 3em;
+  margin-left: 0;
+  padding-left: 2em;
+  padding-right: 3em;
+  border-top: 5px solid var(--waysBlue);
+  border-radius: 20px;
+  min-height: 65vh;
 }
 
 .my-trip-info-group {
-display: flex;
-flex-direction: column;
-padding: 25px;
-margin: 1em 0 5.5em 0;
-align-items: center;
-justify-content: center;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  margin: 1em 0 5.5em 0;
+  align-items: center;
+  justify-content: center;
 }
 
 .my-trip-info {
@@ -58,7 +59,7 @@ justify-content: center;
 }
 
 ul {
-list-style: none;
+  list-style: none;
 }
 
 .my-trip-info:hover {
@@ -68,35 +69,34 @@ list-style: none;
 }
 
 .dropdown {
-color: #141414;
-font-family: 'Archivo Black', Arial, Helvetica, sans-serif;
-font-size: 15px;
-font-weight: 300;
-text-align: center;
-align-items: center;
-justify-content: space-around;
-display: none;
-z-index: 1;
-padding: 100px;
-left: 0;
-width: 100%;
-height: auto; 
-overflow: auto; 
-background-color: rgb(152, 247, 250);
-background-color: rgba(152, 247, 250,0.4); 
-
+  color: #141414;
+  font-family: 'Archivo Black', Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  text-align: center;
+  align-items: center;
+  justify-content: space-around;
+  display: none;
+  z-index: 1;
+  padding: 100px;
+  left: 0;
+  width: 100%;
+  height: auto;
+  overflow: auto;
+  background-color: rgb(152, 247, 250);
+  background-color: rgba(152, 247, 250, 0.4);
 }
 
-.my-trip-dropdown:hover .dropdown{
-display: block;
+.my-trip-dropdown:hover .dropdown {
+  display: block;
 }
 
 .my-trip-cards {
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-align-items: flex-start;
-padding: 1em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  padding: 1em;
 }
 
 .edit-delete-trip-buttons {
@@ -109,11 +109,12 @@ padding: 1em;
   width: 7em !important;
 }
 
-.delete-btn, .edit-btn {
+.delete-btn,
+.edit-btn {
   width: 5em;
   font-size: 1em;
   text-align: center;
-  margin: .4em 0 0 0;
+  margin: 0.4em 0 0 0;
   padding: 0;
 }
 
@@ -122,15 +123,15 @@ padding: 1em;
 }
 
 @media only screen and (min-width: 600px) {
-.my-trip-info-group {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  /* justify-content: space-around; */
-}
-.dropdown {
-  width: 70%;
-  left: 10%;
-  position: absolute;
-}
+  .my-trip-info-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: space-around; */
+  }
+  .dropdown {
+    width: 70%;
+    left: 10%;
+    position: absolute;
+  }
 }

@@ -16,8 +16,10 @@ import FilledHeart from './filled-heart.png';
 import EmptyHeart from './empty-heart.png';
 import img_loading from './img-loading.gif';
 import no_camera from './no-camera.png';
+import Background from './ways-landscape-2.jpg';
 
 let images = {
+  Background,
   no_camera,
   img_loading,
   loading,

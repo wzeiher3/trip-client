@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import images from '../../assets/images/images';
 import './LandingPage.css';
 import Airplane from '../../assets/images/airplane.png';
-import Background from '../../assets/images/ways-landscape-2.jpg';
+
 export default class LandingPage extends Component {
   render() {
     return (
@@ -10,7 +11,7 @@ export default class LandingPage extends Component {
         <div className="background-image">
           <img
             className="landing-page-background"
-            src={Background}
+            src={images.Background}
             alt="plane soaring through sky"
           />
         </div>
