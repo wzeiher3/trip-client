@@ -2,14 +2,16 @@ import React from 'react';
 import TripApiService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
 import TripViewNav from './TripViewNav/TripViewNav';
-import TripViewSelect from './TripViewSelect/TripViewSelect';
 import TripViewEditSelect from './TripViewEditSelect.js/TripViewEditSelect';
-
+import RenderStop from './RenderStop/RenderStop';
 import MapContainer from '../Map/Map';
+import Modal from 'react-modal';
 import AddStopForm from './AddStopForm.js/AddStopForm';
 import Helpers from '../../helpers/helpers';
 import './TripView.css';
 import images from '../../assets/images/images';
+// do not change this
+Modal.setAppElement('#root');
 
 export default class Trip extends React.Component {
   static contextType = TripContext;
@@ -25,6 +27,8 @@ export default class Trip extends React.Component {
     selections: [],
     error: null,
     userHasRated: false,
+    userHasLoggedIn: false,
+    isModalOpen: false,
   };
 
   componentDidMount() {
@@ -220,22 +224,43 @@ export default class Trip extends React.Component {
     const user_id = this.context.returnUserID();
     const rate = 1;
     const rating = { trip_id, user_id, rate };
-    TripApiService.postRating(rating)
-      .then(() => {
-        this.setState({
-          trip: [
-            {
-              ...this.state.trip[0],
-              rating: Number(this.state.trip[0].rating) + 1,
-            },
-          ],
-          userHasRated: true,
+    if (user_id !== undefined) {
+      TripApiService.postRating(rating)
+        .then(() => {
+          this.setState({
+            trip: [
+              {
+                ...this.state.trip[0],
+                rating: Number(this.state.trip[0].rating) + 1,
+              },
+            ],
+            userHasRated: true,
+          });
+          this.context.setTripRating(trip_id);
+        })
+        .catch((error) => {
+          console.error(error);
         });
-        this.context.setTripRating(trip_id);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    }
+  };
+
+  customModalStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
+
+  closeModal = () => {
+    this.setState({ isModalOpen: false });
+  };
+
+  openModal = () => {
+    this.setState({ isModalOpen: true });
   };
 
   userHasRated = () => {
@@ -309,78 +334,6 @@ export default class Trip extends React.Component {
       </div>
     );
   };
-
-  renderStop(stop, index) {
-    if (!stop.img) stop.img = images.no_camera;
-    return (
-      <div className="trip-stop-wrapper" key={stop.id}>
-        <div className="trip-stop trip-div">
-          <figcaption>
-            {this.isTripCreator() && (
-              <div className="tripView-button-wrapper">
-                <button
-                  className="tripViewButton"
-                  onClick={() => this.toggleEditStop(stop.id, stop.category)}
-                >
-                  Edit Stop
-                </button>
-                <button
-                  className="tripViewButton"
-                  onClick={() => this.handleDeleteStop(stop.id)}
-                >
-                  Delete Stop
-                </button>
-              </div>
-            )}
-          </figcaption>
-          <div className="trip-flex">
-            <div className="trip-left">
-              <img className="flikr-img" src={stop.img} alt={stop.stop_name} />
-            </div>
-            <div className="trip-right">
-              <a
-                rel="noopener noreferrer"
-                target="_blank"
-                href={`https://www.google.com/maps/search/?api=1&query=${stop.stop_name}+${stop.city}+${stop.state}`}
-              >
-                <div
-                  className={
-                    this.isTripCreator() ? 'trip-header-creator' : 'trip-header'
-                  }
-                >
-                  <h2>{stop.stop_name}</h2>
-
-                  <span>
-                    {stop.city}, {stop.state}
-                  </span>
-                  <br />
-                  <span className="trip-category">
-                    <b>Category: </b>
-                    {stop.category.replace('_', ' ')}
-                  </span>
-                </div>
-              </a>
-            </div>
-            <div className="stop-description">{stop.description}</div>
-          </div>
-        </div>
-        <br />
-        {index === this.state.stops.length - 1 ? null : index % 2 !== 0 ? (
-          <img
-            className="road-img"
-            src={images.road_a}
-            alt="road illustration"
-          ></img>
-        ) : (
-          <img
-            className="road-img"
-            src={images.road_b}
-            alt="road illustration"
-          ></img>
-        )}
-      </div>
-    );
-  }
 
   renderEditStopForm = (stop, index) => {
     const id = stop.id;
@@ -497,10 +450,21 @@ export default class Trip extends React.Component {
   render() {
     const trip = this.state.trip[0];
     const stops = this.state.stops.map((stop, index) => {
+      if (!stop.img) stop.img = images.no_camera;
       if (stop.id === this.state.stopEditingID) {
         return this.renderEditStopForm(stop, index);
       }
-      return this.renderStop(stop, index);
+      return (
+        <RenderStop
+          key={stop.id}
+          stop={stop}
+          index={index}
+          toggleEditStop={this.toggleEditStop}
+          isTripCreator={this.isTripCreator}
+          handleDeleteStop={this.handleDeleteStop}
+          stateStops={this.state.stops}
+        />
+      );
     });
     return (
       <>
@@ -511,43 +475,65 @@ export default class Trip extends React.Component {
                 this.renderEditTrip(trip)
               ) : (
                 <>
-                  <span className="rating-container">
-                    {!this.state.userHasRated ? (
-                      <>
-                        <button
-                          className="like-btn"
-                          onClick={() => this.handleRating()}
-                        >
-                          <img
-                            alt="unliked heart"
-                            className="empty-heart heart"
-                            src={images.EmptyHeart}
-                          ></img>
-                        </button>
-                        <span className="trip-rating-digits">
-                          {trip.rating}
-                        </span>
-                      </>
-                    ) : (
-                      <>
-                        <button className="like-btn">
-                          <img
-                            alt="liked heart"
-                            className="filled-heart heart"
-                            src={images.FilledHeart}
-                          ></img>
-                        </button>
-                        <span className="trip-rating-digits">
-                          {trip.rating}
-                        </span>
-                      </>
-                    )}
-                  </span>
+                  {!this.context.loading ? (
+                    <span className="rating-container">
+                      {!this.state.userHasRated ? (
+                        <>
+                          <Modal
+                            isOpen={this.state.isModalOpen}
+                            style={this.customModalStyles}
+                            contentLabel="Log in!"
+                          >
+                            <button
+                              className="myButton"
+                              onClick={() => this.closeModal()}
+                            >
+                              Close
+                            </button>
+                            <h3>You must log in to rate a trip!</h3>
+                          </Modal>
+                          <button
+                            className="like-btn"
+                            onClick={() => {
+                              if (!this.context.returnUserID())
+                                this.openModal();
+                              this.handleRating();
+                            }}
+                          >
+                            <img
+                              alt="unliked heart"
+                              className="empty-heart heart"
+                              src={images.EmptyHeart}
+                            ></img>
+                          </button>
+                          <span className="trip-rating-digits">
+                            {trip.rating}
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          <button className="like-btn">
+                            <img
+                              alt="liked heart"
+                              className="filled-heart heart"
+                              src={images.FilledHeart}
+                            ></img>
+                          </button>
+                          <span
+                            className="trip-rating-digits"
+                            style={{ verticalAlign: 'center' }}
+                          >
+                            {trip.rating}
+                          </span>
+                        </>
+                      )}
+                    </span>
+                  ) : null}
                   <h2 className="trip-name">{trip.destination}</h2>
                   <p>{trip.short_description}</p>
                   <p>
-                    <span>Activities:</span> {trip.activities} <br />
-                    <span>Days:</span> {trip.days}
+                    Activities: {trip.activities} <br />
+                    Days: {trip.days}
                   </p>
                 </>
               )}
