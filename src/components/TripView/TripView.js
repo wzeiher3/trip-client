@@ -4,7 +4,10 @@ import TripContext from '../../contexts/TripContext';
 import TripViewNav from './TripViewNav/TripViewNav';
 import TripViewSelect from './TripViewSelect/TripViewSelect';
 import TripViewEditSelect from './TripViewEditSelect.js/TripViewEditSelect';
+
 import MapContainer from '../Map/Map';
+import AddStopForm from './AddStopForm.js/AddStopForm';
+import Helpers from '../../helpers/helpers';
 import './TripView.css';
 import images from '../../assets/images/images';
 
@@ -22,23 +25,6 @@ export default class Trip extends React.Component {
     selections: [],
     error: null,
     userHasRated: false,
-  };
-
-  flickrApi = (stop_name, city) => {
-    let search = `${stop_name.replace(/ /gi, '+')}+${city.replace(/ /gi, '+')}`;
-    return fetch(
-      `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=af793aee1df81687d35b01aa0902524d&text=${search}&format=json&nojsoncallback=1&sort=interestingness-desc&safe_search=1`
-    )
-      .then((res) => {
-        if (!res.ok) {
-          return res.json().then((e) => Promise.reject(e));
-        } else {
-          return res.json();
-        }
-      })
-      .then((res) => {
-        return res;
-      });
   };
 
   componentDidMount() {
@@ -150,15 +136,6 @@ export default class Trip extends React.Component {
       });
   };
 
-  generateFlikrLink = (res) => {
-    if (res.photos.total === '0') {
-      return '';
-    }
-    const flikr = res.photos.photo[0];
-    const link = `https://live.staticflickr.com/${flikr.server}/${flikr.id}_${flikr.secret}.jpg`;
-    return link;
-  };
-
   handleSubmitEditStop = async (e, stop_id) => {
     e.preventDefault();
     if (this.state.selections.length === 0) {
@@ -183,8 +160,8 @@ export default class Trip extends React.Component {
       category: this.state.selections.join(', '),
     };
     this.context.setLoading(true);
-    const res = await this.flickrApi(stop_name.value, city.value);
-    stop.img = this.generateFlikrLink(res);
+    const res = await Helpers.flickrApi(stop_name.value, city.value);
+    stop.img = Helpers.generateFlikrLink(res);
     TripApiService.patchStop(stop, stop_id)
       .then((res) => {
         const stops = this.state.stops.filter((stop) => stop.id !== res.id);
@@ -221,8 +198,8 @@ export default class Trip extends React.Component {
       category: this.state.selections.join(', '),
     };
     this.context.setLoading(true);
-    const res = await this.flickrApi(stop_name.value, city.value);
-    stop.img = this.generateFlikrLink(res);
+    const res = await Helpers.flickrApi(stop_name.value, city.value);
+    stop.img = Helpers.generateFlikrLink(res);
     TripApiService.postStop(stop)
       .then((res) => {
         this.setState({
@@ -243,7 +220,7 @@ export default class Trip extends React.Component {
     const user_id = this.context.returnUserID();
     const rate = 1;
     const rating = { trip_id, user_id, rate };
-    this.context.setLoading(true);
+
     TripApiService.postRating(rating)
       .then(() => {
         this.setState({
@@ -259,9 +236,6 @@ export default class Trip extends React.Component {
       })
       .catch((error) => {
         console.error(error);
-      })
-      .finally(() => {
-        this.context.setLoading(false);
       });
   };
 
@@ -630,60 +604,59 @@ export default class Trip extends React.Component {
     return (
       <>
         <div className="trip">
-          {!this.context.loading && (
-            <div className="tripView-upperSection">
-              <div className="trip-info">
-                {this.state.toggleEditTrip ? (
-                  this.renderEditTrip(trip)
-                ) : (
-                  <>
-                    <span className="rating-container">
-                      {!this.state.userHasRated ? (
-                        <>
-                          <button
-                            className="like-btn"
-                            onClick={() => this.handleRating()}
-                          >
-                            <img
-                              alt="unliked heart"
-                              className="empty-heart heart"
-                              src={images.EmptyHeart}
-                            ></img>
-                          </button>
-                          <span className="trip-rating-digits">
-                            {trip.rating}
-                          </span>
-                        </>
-                      ) : (
-                        <>
-                          <button className="like-btn">
-                            <img
-                              alt="liked heart"
-                              className="filled-heart heart"
-                              src={images.FilledHeart}
-                            ></img>
-                          </button>
-                          <span className="trip-rating-digits">
-                            {trip.rating}
-                          </span>
-                        </>
-                      )}
-                    </span>
-                    <h2 className="trip-name">{trip.destination}</h2>
-                    <p>{trip.short_description}</p>
-                    <p>
-                      <span>Activities:</span> {trip.activities} <br />
-                      <span>Days:</span> {trip.days}
-                    </p>
-                  </>
-                )}
-              </div>
-
-              <div id="Map">
-                <MapContainer trip={this.state.trip[0]} />
-              </div>
+          <div className="tripView-upperSection">
+            <div className="trip-info">
+              {this.state.toggleEditTrip ? (
+                this.renderEditTrip(trip)
+              ) : (
+                <>
+                  <span className="rating-container">
+                    {!this.state.userHasRated ? (
+                      <>
+                        <button
+                          className="like-btn"
+                          onClick={() => this.handleRating()}
+                        >
+                          <img
+                            alt="unliked heart"
+                            className="empty-heart heart"
+                            src={images.EmptyHeart}
+                          ></img>
+                        </button>
+                        <span className="trip-rating-digits">
+                          {trip.rating}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <button className="like-btn">
+                          <img
+                            alt="liked heart"
+                            className="filled-heart heart"
+                            src={images.FilledHeart}
+                          ></img>
+                        </button>
+                        <span className="trip-rating-digits">
+                          {trip.rating}
+                        </span>
+                      </>
+                    )}
+                  </span>
+                  <h2 className="trip-name">{trip.destination}</h2>
+                  <p>{trip.short_description}</p>
+                  <p>
+                    <span>Activities:</span> {trip.activities} <br />
+                    <span>Days:</span> {trip.days}
+                  </p>
+                </>
+              )}
             </div>
-          )}
+
+            <div id="Map">
+              <MapContainer trip={this.state.trip[0]} />
+            </div>
+          </div>
+
           <TripViewNav
             handleDeleteTrip={this.handleDeleteTrip}
             handleEditTrip={this.handleEditTrip}
@@ -699,7 +672,16 @@ export default class Trip extends React.Component {
                 some by clicking the Add Stop button!
               </h4>
             )}
-            {this.state.toggleAddStop && this.renderAddStopForm()}
+            {this.state.toggleAddStop && (
+              <AddStopForm
+                handleSubmitStop={this.handleSubmitStop}
+                handleSelect={this.handleSelect}
+                clearSelections={this.clearSelections}
+                selections={this.state.selections}
+                error={this.state.error}
+                toggleAddStop={this.toggleAddStop}
+              />
+            )}
             {!this.state.toggleAddStop && this.isTripCreator() && (
               <div className="addStopButton">
                 <br />
