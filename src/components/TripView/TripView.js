@@ -622,7 +622,6 @@ export default class Trip extends React.Component {
   };
 
   render() {
-    //console.log(this.state);
     const trip = this.state.trip[0];
     const stops = this.state.stops.map((stop, index) => {
       if (stop.id === this.state.stopEditingID) {
@@ -630,11 +629,6 @@ export default class Trip extends React.Component {
       }
       return this.renderStop(stop, index);
     });
-    const { match } = this.props;
-    // set trip_id variable
-    const trip_id = match.params.trips_id;
-
-    //console.log('This Trip', this.state.trip[0]);
 
     return (
       <>
