@@ -220,7 +220,6 @@ export default class Trip extends React.Component {
     const user_id = this.context.returnUserID();
     const rate = 1;
     const rating = { trip_id, user_id, rate };
-
     TripApiService.postRating(rating)
       .then(() => {
         this.setState({
@@ -264,104 +263,6 @@ export default class Trip extends React.Component {
   isTripCreator = () => {
     let isTripCreator = this.context.verifyAuth(this.state.trip[0].user_id);
     return isTripCreator;
-  };
-
-  renderAddStopForm = () => {
-    return (
-      <div>
-        {this.context.loading && (
-          <div className="bufffer-img-wrapper ">
-            <img
-              className="buffer-img"
-              src={images.img_loading}
-              alt="a plane flying over hearts loading gif"
-            />
-            <div className="fade-out-screen"></div>
-          </div>
-        )}
-        <img
-          className="road-img"
-          src={images.road_a}
-          alt="road illustration"
-        ></img>
-        <form
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') e.preventDefault();
-          }}
-          className="addStopForm"
-          onSubmit={this.handleSubmitStop}
-        >
-          <h2>Add Stop</h2>
-          <br />
-          <label htmlFor="stop_name">
-            Name of the most significant place on this stop!
-          </label>
-          <input
-            placeholder="Grand Canyon, Ceasar's Casino, Time's Square"
-            type="text"
-            name="stop_name"
-            required
-            maxLength={40}
-          />
-          <label htmlFor="city">City or Area</label>
-          <input
-            placeholder="New York, Las Vegas"
-            type="text"
-            name="city"
-            required
-            maxLength={40}
-          />
-          <label htmlFor="state">State or Country</label>
-          <input
-            placeholder="NY, NV, PA"
-            type="text"
-            name="state"
-            required
-            maxLength={40}
-          />
-          {this.state.error && (
-            <>
-              <br />
-              {this.state.error}
-              <br />
-              <br />
-            </>
-          )}
-          <label htmlFor="category">What category of stop is this?</label>
-          <br />
-          <TripViewSelect
-            handleSelect={this.handleSelect}
-            clearSelections={this.clearSelections}
-            selections={this.state.selections}
-          />
-          <br />
-          <label htmlFor="description">
-            Describe the experience to expect here:
-          </label>
-          <input
-            placeholder="A fun day shopping or the best hiking in the world!"
-            type="text"
-            name="description"
-            required
-            maxLength={400}
-          />
-          <button
-            className="tripViewButton"
-            type="button"
-            onClick={(e) => this.toggleAddStop(e)}
-          >
-            Cancel
-          </button>
-          <button
-            className="tripViewButton"
-            type="submit"
-            onClick={(e) => this.handleSubmitStop}
-          >
-            Submit!
-          </button>
-        </form>
-      </div>
-    );
   };
 
   renderEditTrip = (trip) => {
