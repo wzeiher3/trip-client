@@ -130,7 +130,6 @@ export default class Trip extends React.Component {
       .then((res) => {
         let rating = this.state.trip[0].rating;
         res[0].rating = rating;
-        console.log(res);
         this.setState({ trip: res });
       })
       .catch((error) => {

@@ -75,7 +75,7 @@ export default class MyTrips extends Component {
               <div className="dropdown">
                 <div className="modal-content">
                   <ul>City, States visited:
-                    <li>{this.renderStates()}</li>
+                    {this.renderStates()}
                   </ul>
                   <ul>Total trips:
                     <li> {count}</li>
