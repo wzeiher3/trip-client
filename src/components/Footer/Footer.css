@@ -9,8 +9,32 @@ footer {
   background-color: rgb(245, 245, 245);
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   z-index: 2;
+  height: 78px;
+  /* margin-top: 40px; */
+}
+
+.footer-credit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 260px;
+}
+
+.footer-spacer {
+  text-align: center;
+  width: 260px;
+  font-size: 14px;
+  color: grey;
+}
+
+footer > div > ul > li > a {
+  color: rgb(75, 75, 75);
+}
+
+footer > div > ul > li > a:hover {
+  color: rgb(161, 161, 161);
 }
 
 body {
@@ -21,14 +45,25 @@ footer ul {
   list-style: none;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  align-content: center;
-  align-items: center;
+  justify-content: flex-start;
   margin-left: 0;
   padding-left: 0;
   padding-right: 18px;
   font-weight: bold;
-  color: rgb(20, 20, 20);
+  font-size: 14px;
+  width: 140px;
+  flex-wrap: wrap;
+}
+
+.ways-footer {
+  font-weight: bold;
+  color: rgb(230, 31, 130);
+}
+
+.devs-footer {
+  color: rgb(65, 65, 65);
+  font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
+  font-size: 18px;
 }
 
 main {
@@ -44,9 +79,9 @@ footer li:nth-child(3) {
 }
 
 footer hr {
-  height: 18px;
-  border: 1px solid rgb(0, 0, 0);
-  margin: 0;
+  height: 38px;
+  border: 1px solid rgb(128, 128, 128);
+  margin-left: 10px;
 }
 
 div.trip {
