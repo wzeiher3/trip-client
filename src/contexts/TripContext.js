@@ -12,6 +12,7 @@ const TripContext = React.createContext({
   verifyAuth: () => {},
   setLoading: () => {},
   returnUserID: () => {},
+  setTripRating: () => {},
   loading: null,
 });
 
@@ -32,6 +33,18 @@ export class TripProvider extends React.Component {
     this.setState({
       trips: res,
     });
+  };
+
+  setTripRating = (trip_id) => {
+    const index = this.state.trips.findIndex((trip) => {
+      return trip.id === Number(trip_id);
+    });
+    let trips = [...this.state.trips];
+    trips[index] = {
+      ...trips[index],
+      rating: Number(trips[index].rating) + 1,
+    };
+    this.setState({ trips });
   };
 
   setLoading = (boolean) => {
@@ -69,8 +82,8 @@ export class TripProvider extends React.Component {
   };
 
   returnUserID = () => {
-    return this.context.user.id
-  }
+    return this.context.user.id;
+  };
 
   render() {
     const value = {
@@ -86,6 +99,7 @@ export class TripProvider extends React.Component {
       loading: this.state.loading,
       setLoading: this.setLoading,
       returnUserID: this.returnUserID,
+      setTripRating: this.setTripRating,
     };
 
     return (

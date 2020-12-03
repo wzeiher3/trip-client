@@ -53,10 +53,10 @@ export class MapContainer extends React.Component {
 
   render() {
     // this.setTrip(this.props.trip)
-    console.log(this.props.trip);
+    //console.log(this.props.trip);
 
     const { lat, long } = this.state.currTrip;
-    console.log(this.props.trip.lat, this.props.trip.long);
+    //console.log(this.props.trip.lat, this.props.trip.long);
 
     if (!this.props.trip.lat || !this.props.trip.long)
       return (
@@ -83,14 +83,13 @@ export class MapContainer extends React.Component {
   }
 }
 
-const mapStyles = { height: '100%', position: 'relative', 'z-index': '0' };
+const mapStyles = { height: '100%', position: 'relative' };
 
 const containerStyle = {
   width: '100%',
   height: '400px',
   marginLeft: 0,
   position: 'relative',
-  'z-index': '0',
 };
 
 export default GoogleApiWrapper({
