@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import TripViewEditSelect from '../TripViewEditSelect.js';
+import TripViewEditSelect from '../TripViewEditSelect.js/TripViewEditSelect';
 import TripContext from '../../../contexts/TripContext';
 import images from '../../../assets/images/images';
 
 class EditStopForm extends Component {
   static contextType = TripContext;
 
+  state={error: null}
+
   render() {
 
 
-    
+    const id = this.props.stop.id;
     return (
-      <div className="trip-stop-wrapper" key={stop.id}>
-        <div className="trip-stop edit-stop" key={index}>
+      <div className="trip-stop-wrapper" key={this.props.stop.id}>
+        <div className="trip-stop edit-stop" key={this.props.index}>
           {this.context.loading && (
             <div className="bufffer-img-wrapper ">
               <img
@@ -26,12 +28,12 @@ class EditStopForm extends Component {
           <form
             action="#"
             id="EditStopForm"
-            onSubmit={(e) => this.handleSubmitEditStop(e, id)}
+            onSubmit={(e) => this.props.handleSubmitEditStop(e, id)}
           >
             <div className="trip-header">
               <div>
                 <input
-                  defaultValue={stop.stop_name}
+                  defaultValue={this.props.stop.stop_name}
                   name="stop_name"
                   id="edit_stop_name"
                   aria-label="stop_name"
@@ -40,7 +42,7 @@ class EditStopForm extends Component {
                 />{' '}
               </div>
               <input
-                defaultValue={stop.city}
+                defaultValue={this.props.stop.city}
                 name="city"
                 aria-label="city"
                 maxLength={40}
@@ -48,7 +50,7 @@ class EditStopForm extends Component {
               />
               <br />
               <input
-                defaultValue={stop.state}
+                defaultValue={this.props.stop.state}
                 name="state"
                 aria-label="state"
                 maxLength={40}
@@ -64,22 +66,22 @@ class EditStopForm extends Component {
               </>
             )}
             <TripViewEditSelect
-              handleSelect={this.handleSelect}
-              clearSelections={this.clearSelections}
-              selections={this.state.selections}
+              handleSelect={this.props.handleSelect}
+              clearSelections={this.props.clearSelections}
+              selections={this.props.selections}
             />
             <input
-              defaultValue={stop.description}
+              defaultValue={this.props.stop.description}
               name="description"
               aria-label="description"
               maxLength={400}
               required
             />
-            {this.isTripCreator() && (
+            {this.props.isTripCreator() && (
               <div className="tripView-button-wrapper">
                 <button
                   className="tripViewButton"
-                  onClick={() => this.toggleEditStop(0)}
+                  onClick={() => this.props.toggleEditStop(0)}
                 >
                   Cancel
                 </button>
@@ -91,7 +93,7 @@ class EditStopForm extends Component {
           </form>
         </div>
         <br />
-        {index === this.state.stops.length - 1 ? null : index % 2 !== 0 ? (
+        {this.props.index === this.props.stops.length - 1 ? null : this.props.index % 2 !== 0 ? (
           <img
             className="road-img"
             src={images.road_a}
