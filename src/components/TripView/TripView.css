@@ -70,7 +70,7 @@
 }
 
 .trip-info > p {
-  color: rgb(209, 209, 209);
+  color: rgb(175, 175, 175);
   font-family: 'Ubuntu', sans-serif;
   font-size: 24px;
   font-weight: bold;
@@ -78,7 +78,7 @@
 
 .trip-info > p > span {
   font-size: 28px;
-  color: #a5a5a5;
+  color: #7e7e7e;
   text-align: center;
   font-family: Helvetica, sans-serif;
   font-weight: bold;
