@@ -129,6 +129,9 @@ export default class Trip extends React.Component {
     this.context.setLoading(true);
     TripApiService.patchTrip(trip, id)
       .then((res) => {
+        let rating = this.state.trip[0].rating;
+        res[0].rating = rating;
+        console.log(res);
         this.setState({ trip: res });
       })
       .catch((error) => {
