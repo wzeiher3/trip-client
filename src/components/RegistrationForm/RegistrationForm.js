@@ -79,7 +79,7 @@ class RegistrationForm extends Component {
               required
             />
           </div>
-          <footer>
+          <div>
             <div className="button-wrapper">
               <Link to="/login">Already have an account?</Link>
               <br />
@@ -88,7 +88,7 @@ class RegistrationForm extends Component {
                 Sign up
               </Button>{' '}
             </div>
-          </footer>
+          </div>
         </form>
       </div>
     );

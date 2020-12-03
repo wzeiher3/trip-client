@@ -63,6 +63,10 @@
   top: 1px;
 }
 
+div.lowerSection {
+  min-height: 80vh;
+}
+
 @media all and (min-width: 800px) {
   .lowerSection {
     display: flex;
