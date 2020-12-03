@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="footer-spacer"></div>
       <div className="footer-spacer">© 2020. All rights reserved.</div>
       <div className="footer-credit">
-        <div className="devs-sections">
+        <div className="devs-section">
           <span className="devs-footer">The Devs</span>
           <br />
           <span className="ways-footer">&nbsp;&nbsp;Ways App</span>
