@@ -27,7 +27,6 @@ export default class Trip extends React.Component {
     selections: [],
     error: null,
     userHasRated: false,
-    userHasLoggedIn: false,
     isModalOpen: false,
   };
 
@@ -258,12 +257,8 @@ export default class Trip extends React.Component {
     },
   };
 
-  closeModal = () => {
-    this.setState({ isModalOpen: false });
-  };
-
-  openModal = () => {
-    this.setState({ isModalOpen: true });
+  toggleModal = (boolean) => {
+    this.setState({ isModalOpen: boolean });
   };
 
   userHasRated = () => {
@@ -489,7 +484,7 @@ export default class Trip extends React.Component {
                           >
                             <button
                               className="myButton"
-                              onClick={() => this.closeModal()}
+                              onClick={() => this.toggleModal(false)}
                             >
                               Close
                             </button>
@@ -499,7 +494,7 @@ export default class Trip extends React.Component {
                             className="like-btn"
                             onClick={() => {
                               if (!this.context.returnUserID())
-                                this.openModal();
+                                this.toggleModal(true);
                               this.handleRating();
                             }}
                           >
@@ -535,8 +530,8 @@ export default class Trip extends React.Component {
                   <h2 className="trip-name">{trip.destination}</h2>
                   <p>{trip.short_description}</p>
                   <p>
-                    Activities: {trip.activities} <br />
-                    Days: {trip.days}
+                    <span>Activities:</span> {trip.activities} <br />
+                    <span>Days:</span> {trip.days}
                   </p>
                 </>
               )}

@@ -28,8 +28,8 @@
   display: inline-flex;
   flex-direction: column;
   justify-content: space-around;
-  word-wrap: break-word;
   word-break: break-all;
+  word-wrap: break-word;
 }
 
 .TripCard-title {
