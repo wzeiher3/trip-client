@@ -80,10 +80,6 @@ export default class AddTripForm extends React.Component {
   };
 
   storePlace = (place) => {
-    console.log(
-      this.state.place.coordinates.lng,
-      this.state.place.coordinates.lat
-    );
     if (this.state.place.coordinates.lng || this.state.place.coordinates.lat) {
       this.context.setLoading(false);
     } else {

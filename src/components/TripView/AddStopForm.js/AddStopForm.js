@@ -88,14 +88,14 @@ class AddStopForm extends Component {
           <button
             className="tripViewButton"
             type="button"
-            onClick={(e) => this.toggleAddStop(e)}
+            onClick={(e) => this.props.toggleAddStop(e)}
           >
             Cancel
           </button>
           <button
             className="tripViewButton"
             type="submit"
-            onClick={(e) => this.handleSubmitStop}
+            onClick={(e) => this.props.handleSubmitStop(e)}
           >
             Submit!
           </button>
