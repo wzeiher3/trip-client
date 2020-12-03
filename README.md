@@ -34,6 +34,8 @@ https://ways-client.vercel.app/
 - server can be found
 https://github.com/Mf-ff99/ways-API.git 
 
+-Deploeyed via Heroku
+https://ways-database-api.herokuapp.com/
 
 
 ## About the Devs
