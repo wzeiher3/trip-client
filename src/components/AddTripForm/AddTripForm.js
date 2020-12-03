@@ -40,7 +40,7 @@ export default class AddTripForm extends React.Component {
       this.setState({ error: 'Must select a real place from dropdown list.' });
       return;
     }
-    const { short_description, destination, days, activities } = e.target;
+    const { short_description, days, activities } = e.target;
     let trip = {
       destination: this.state.place.place,
       short_description: short_description.value,
@@ -50,7 +50,6 @@ export default class AddTripForm extends React.Component {
       activities: activities.value,
       img: this.state.images[this.state.imagesScroll],
     };
-    console.log(trip);
     let currentTrips = this.context.trips;
     TripService.postTrip(trip)
       .then((res) => {

@@ -243,32 +243,26 @@ export default class Trip extends React.Component {
     const user_id = this.context.returnUserID();
     const rate = 1;
     const rating = { trip_id, user_id, rate };
-
-    // console.log(rating);
-    TripApiService.postRating(rating).then((res) => {
-      // console.log(res);
-      const { match } = this.props;
-      // set trip_id variable
-      const trip_id = match.params.trips_id;
-      // get stops for the current trip
-      this.context.setLoading(true);
-      TripApiService.getTrip(trip_id)
-        .then((res) => {
-          this.setState({ trip: res, currTripID: res.id });
-        })
-        .then(() => {
-          TripApiService.getTrips().then((res) => this.context.setTrips(res));
-        })
-        .then(() => {
-          this.userHasRated();
-        })
-        .catch((error) => {
-          console.error(error);
-        })
-        .finally(() => {
-          this.context.setLoading(false);
+    this.context.setLoading(true);
+    TripApiService.postRating(rating)
+      .then(() => {
+        this.setState({
+          trip: [
+            {
+              ...this.state.trip[0],
+              rating: Number(this.state.trip[0].rating) + 1,
+            },
+          ],
+          userHasRated: true,
         });
-    });
+        this.context.setTripRating(trip_id);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        this.context.setLoading(false);
+      });
   };
 
   userHasRated = () => {
@@ -636,58 +630,60 @@ export default class Trip extends React.Component {
     return (
       <>
         <div className="trip">
-          <div className="tripView-upperSection">
-            <div className="trip-info">
-              {this.state.toggleEditTrip ? (
-                this.renderEditTrip(trip)
-              ) : (
-                <>
-                  <span className="rating-container">
-                    {!this.state.userHasRated ? (
-                      <>
-                        <button
-                          className="like-btn"
-                          onClick={() => this.handleRating()}
-                        >
-                          <img
-                            alt="unliked heart"
-                            className="empty-heart heart"
-                            src={images.EmptyHeart}
-                          ></img>
-                        </button>
-                        <span className="trip-rating-digits">
-                          {trip.rating}
-                        </span>
-                      </>
-                    ) : (
-                      <>
-                        <button className="like-btn">
-                          <img
-                            alt="liked heart"
-                            className="filled-heart heart"
-                            src={images.FilledHeart}
-                          ></img>
-                        </button>
-                        <span className="trip-rating-digits">
-                          {trip.rating}
-                        </span>
-                      </>
-                    )}
-                  </span>
-                  <h2 className="trip-name">{trip.destination}</h2>
-                  <p>{trip.short_description}</p>
-                  <p>
-                    <span>Activities:</span> {trip.activities} <br />
-                    <span>Days:</span> {trip.days}
-                  </p>
-                </>
-              )}
-            </div>
+          {!this.context.loading && (
+            <div className="tripView-upperSection">
+              <div className="trip-info">
+                {this.state.toggleEditTrip ? (
+                  this.renderEditTrip(trip)
+                ) : (
+                  <>
+                    <span className="rating-container">
+                      {!this.state.userHasRated ? (
+                        <>
+                          <button
+                            className="like-btn"
+                            onClick={() => this.handleRating()}
+                          >
+                            <img
+                              alt="unliked heart"
+                              className="empty-heart heart"
+                              src={images.EmptyHeart}
+                            ></img>
+                          </button>
+                          <span className="trip-rating-digits">
+                            {trip.rating}
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          <button className="like-btn">
+                            <img
+                              alt="liked heart"
+                              className="filled-heart heart"
+                              src={images.FilledHeart}
+                            ></img>
+                          </button>
+                          <span className="trip-rating-digits">
+                            {trip.rating}
+                          </span>
+                        </>
+                      )}
+                    </span>
+                    <h2 className="trip-name">{trip.destination}</h2>
+                    <p>{trip.short_description}</p>
+                    <p>
+                      <span>Activities:</span> {trip.activities} <br />
+                      <span>Days:</span> {trip.days}
+                    </p>
+                  </>
+                )}
+              </div>
 
-            <div id="Map">
-              <MapContainer trip={this.state.trip[0]} />
+              <div id="Map">
+                <MapContainer trip={this.state.trip[0]} />
+              </div>
             </div>
-          </div>
+          )}
           <TripViewNav
             handleDeleteTrip={this.handleDeleteTrip}
             handleEditTrip={this.handleEditTrip}

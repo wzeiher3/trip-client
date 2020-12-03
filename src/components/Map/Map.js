@@ -53,10 +53,10 @@ export class MapContainer extends React.Component {
 
   render() {
     // this.setTrip(this.props.trip)
-    console.log(this.props.trip);
+    //console.log(this.props.trip);
 
     const { lat, long } = this.state.currTrip;
-    console.log(this.props.trip.lat, this.props.trip.long);
+    //console.log(this.props.trip.lat, this.props.trip.long);
 
     if (!this.props.trip.lat || !this.props.trip.long)
       return (
