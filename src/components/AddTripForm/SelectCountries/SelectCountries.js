@@ -8,6 +8,7 @@ export default class SelectCountries extends React.Component {
         name="country"
         id="country"
       >
+        <option>United States, us</option>
         <option>Afghanistan, af</option>
         <option>Albania, al</option>
         <option>Algeria, dz</option>
@@ -233,7 +234,6 @@ export default class SelectCountries extends React.Component {
         <option>Ukraine, ua</option>
         <option>United Arab Emirates, ae</option>
         <option>United Kingdom, uk</option>
-        <option>United States, us</option>
         <option>United States Minor Outlying Islands, um</option>
         <option>Uruguay, uy</option>
         <option>Uzbekistan, uz</option>
