@@ -11,7 +11,7 @@ export default class PlaceSearch extends React.Component {
         <GoogleComponent
           apiKey={SEARCH_API_KEY}
           language={'en'}
-          country={'country:in|country:us'}
+          country={'country:in|country:us|country:it|country:de|country:jp'}
           coordinates={true}
           currentCoordinates={{
             lat: 41.7151377,
