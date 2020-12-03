@@ -57,7 +57,11 @@
     }
 
     .background img {
-        width: 50% !important;
+        width: 40% !important;
+    }
+    
+    .landing-page {
+        /* width: 100vw !important; */
     }
 
 }
@@ -98,6 +102,8 @@
     position: absolute;
     z-index: 1;
     margin-top: 11em;
+    margin-right: 0;
+    width: 100% !important;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -154,7 +160,7 @@ section.landing-page::before {
     padding-right: 5vw;
     /* margin-right: 400px; */
     /* position: absolute; */
-    width: 75%;
+    width: 75% !important;
     height: auto;
     position: absolute;
     /* border: 2px solid red; */
@@ -168,8 +174,16 @@ section.landing-page::before {
     background-color: #65b2ef;
 }
 
-.fas {
-    color: white;
+.fa-hotel {
+    color: #65b1ef;
+}
+
+.fa-plane-departure {
+    color: #a353d8;
+}
+
+.fa-car {
+    color: #d33e88 !important;
 }
 
 .about-ways {
@@ -182,7 +196,9 @@ section.landing-page::before {
 }
 
 .wrapper {
-    background-color: #65b1ef;
+    position: relative;
+    background-color: white;
+    color: #65b2ef;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -193,6 +209,7 @@ section.landing-page::before {
     padding-top: 20px;
 }
 
+
 .lets-go-btn {
     box-shadow: none;
     margin-top: 1em;
@@ -202,28 +219,12 @@ section.landing-page::before {
 }
 
 .wrapper hr {
-    border: 1px solid#c9e7ff;
+    border: 1px solid#65b1ef;
 }
 
 .linkToDashButton {
     margin-top: 10px;
 }
-
-/* .circle-container {
-    width: 100vw;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.circle {
-    width:250px; 
-     height:250px;
-     border:1px solid #000;  
-     border-radius: 0 0 0 240px;
-    background: #65b2ef;
-    z-index: 1;
-    position: absolute;
-} */
 
 .background-image {
     position: absolute;
@@ -247,7 +248,6 @@ body {
   padding: 0;
   overflow-x: hidden; 
 }
-
 
 .landing-page-container-1 {
     /* margin-top: 5%; */
