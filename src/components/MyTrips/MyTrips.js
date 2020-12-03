@@ -48,7 +48,7 @@ export default class MyTrips extends Component {
     const tripCards = userTrips.map((trip, index) => {
       count++;
       return (
-        <div key={index} className="my-trip-card-wrapper">
+        <div key={trip.id} className="my-trip-card-wrapper">
           <TripCards
             id={trip.id}
             index={index}
