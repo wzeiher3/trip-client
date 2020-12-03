@@ -1,51 +1,43 @@
-# Spaced Repetition Capstone
+# Ways App
+ This app helps you plan the perfect trip! You can also see other trips to get ideas for your trip. 
 
-## Setup
+ ### Demo Accounts:
 
-To setup the application
+- username: John Rambo
+- password: password
 
-1. Fork and clone the project to your machine
-2. `npm install`. This will also install the application *Cypress.io* for running browser integration tests
+OR
 
-The project expects you have the Spaced repetition API project setup and running on http://localhost:8000.
+- username: Natasha Romanovam
+- password: password
 
-Find instructions to setup the API here https://github.com/Thinkful-Ed/spaced-repetition-api.
+## Tech Stack
 
-## Running project
+### Development
 
-This is a `create-react-app` project so `npm start` will start the project in development mode with hot reloading by default.
+- React
+  - Create React App
+  - React Router
+- HTML5
+- CSS3
 
-## Running the tests
+### Testing
 
-This project uses [Cypress IO](https://docs.cypress.io) for integration testing using the Chrome browser.
+- Jest (Smoke and Snapshot tests)
 
-Cypress has the following expectations:
+### Production
 
-- You have cypress installed (this is a devDependency of the project)
-- You have your application running at http://localhost:3000.
-  - You can change the address of this expectation in the `./cypress.json` file.
-- Your `./src/config.js` is using http://localhost:8000/api as the `API_ENDPOINT`
+- Deployed via Vercel
+https://ways-client.vercel.app/
 
-To start the tests run the command:
+### Server
+- server can be found
+https://github.com/Mf-ff99/ways-API.git 
 
-```bash
-npm run cypress:open
-```
-
-On the first run of this command, the cypress application will verify its install. Any other runs after this, the verification will be skipped.
-
-The command will open up the Cypress application which reads tests from the `./cypress/integration/` directory. You can then run individual tests by clicking on the file names or run all tests by clicking the "run all tests" button in the cypress GUI.
-
-Tests will assert against your running localhost client application.
-
-You can also start all of the tests in the command line only (not using the GUI) by running the command:
-
-```bash
-npm run cypress:run
-```
-
-This will save video recordings of the test runs in the directory `./cypress/videos/`.
+-Deploeyed via Heroku
+https://ways-database-api.herokuapp.com/
 
 
+## About the Devs
 
-AIzaSyAjx5a3WSB697aqphYmFs8qYpDaee0Id_c
+-[Devon](https://github.com/DevonReihl) -[Mark](https://github.com/Mf-ff99) -[Richard](https://github.com/Richardscripts) -[Will](https://github.com/wzeiher3) 

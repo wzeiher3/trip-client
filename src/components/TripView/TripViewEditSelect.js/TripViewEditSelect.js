@@ -14,6 +14,7 @@ export default class TripViewEditSelect extends React.Component {
           className="select-edit"
           multiple
         >
+          <div tabIndex={0}>Amusement Park</div>
           <div tabIndex={0}>Bakery</div>
           <div tabIndex={0}>Bank</div>
           <div tabIndex={0}>Bar</div>
@@ -28,6 +29,7 @@ export default class TripViewEditSelect extends React.Component {
           <div tabIndex={0}>Hospital</div>
           <div tabIndex={0}>Jewelry Store</div>
           <div tabIndex={0}>Movie Theater</div>
+          <div tabIndex={0}>National Park</div>
           <div tabIndex={0}>Night Club</div>
           <div tabIndex={0}>Park</div>
           <div tabIndex={0}>Pharmacy</div>

@@ -27,7 +27,6 @@ export default class Trip extends React.Component {
     selections: [],
     error: null,
     userHasRated: false,
-    userHasLoggedIn: false,
     isModalOpen: false,
   };
 
@@ -129,6 +128,8 @@ export default class Trip extends React.Component {
     this.context.setLoading(true);
     TripApiService.patchTrip(trip, id)
       .then((res) => {
+        let rating = this.state.trip[0].rating;
+        res[0].rating = rating;
         this.setState({ trip: res });
       })
       .catch((error) => {
@@ -255,19 +256,16 @@ export default class Trip extends React.Component {
     },
   };
 
-  closeModal = () => {
-    this.setState({ isModalOpen: false });
-  };
-
-  openModal = () => {
-    this.setState({ isModalOpen: true });
+  toggleModal = (boolean) => {
+    this.setState({ isModalOpen: boolean });
   };
 
   userHasRated = () => {
     const trip_id = this.props.match.params.trips_id;
     const user_id = this.context.returnUserID();
     this.context.setLoading(true);
-    TripApiService.checkUserHasRated(trip_id)
+    if(user_id !== undefined) {
+      TripApiService.checkUserHasRated(trip_id)
       .then((res) => {
         for (let i = 0; i < res.length; i++) {
           if (res[i].user_id === user_id) {
@@ -283,8 +281,9 @@ export default class Trip extends React.Component {
       .finally(() => {
         this.context.setLoading(false);
       });
+    }
   };
-
+  
   isTripCreator = () => {
     let isTripCreator = this.context.verifyAuth(this.state.trip[0].user_id);
     return isTripCreator;
@@ -486,7 +485,7 @@ export default class Trip extends React.Component {
                           >
                             <button
                               className="myButton"
-                              onClick={() => this.closeModal()}
+                              onClick={() => this.toggleModal(false)}
                             >
                               Close
                             </button>
@@ -496,7 +495,7 @@ export default class Trip extends React.Component {
                             className="like-btn"
                             onClick={() => {
                               if (!this.context.returnUserID())
-                                this.openModal();
+                                this.toggleModal(true);
                               this.handleRating();
                             }}
                           >
@@ -532,8 +531,8 @@ export default class Trip extends React.Component {
                   <h2 className="trip-name">{trip.destination}</h2>
                   <p>{trip.short_description}</p>
                   <p>
-                    Activities: {trip.activities} <br />
-                    Days: {trip.days}
+                    <span>Activities:</span> {trip.activities} <br />
+                    <span>Days:</span> {trip.days}
                   </p>
                 </>
               )}

@@ -45,18 +45,10 @@ export class MapContainer extends React.Component {
     });
   };
 
-  // setTrip = (trip) => {
-  //   this.setState({
-  //       currTrip: trip
-  //   })
-  // }
 
   render() {
-    // this.setTrip(this.props.trip)
-    //console.log(this.props.trip);
 
     const { lat, long } = this.state.currTrip;
-    //console.log(this.props.trip.lat, this.props.trip.long);
 
     if (!this.props.trip.lat || !this.props.trip.long)
       return (
@@ -67,7 +59,6 @@ export class MapContainer extends React.Component {
         />
       );
 
-    //console.log(MAP_API_KEY);
     return (
       <Map
         key={long}

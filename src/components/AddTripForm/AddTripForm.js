@@ -5,6 +5,7 @@ import images from '../../assets/images/images';
 import PlaceSearch from '../PlaceSearch/PlaceSearch';
 
 import './AddTripForm.css';
+import SelectCountries from './SelectCountries/SelectCountries';
 
 // import { Label, Required, Input, Textarea} from '../Form/Form'
 
@@ -15,6 +16,7 @@ export default class AddTripForm extends React.Component {
     days: 2,
     destination: 'New York, NY',
     place: { place: 'New York', coordinates: { lng: null, lat: null } },
+    countryCode: 'us',
     error: null,
     images: [
       'city',
@@ -26,13 +28,25 @@ export default class AddTripForm extends React.Component {
       'amusementpark',
     ],
     imagesScroll: 0,
+    placesTouched: false,
   };
 
   static contextType = TripContext;
 
+  handleSelectCountries = (e) => {
+    const country = e.currentTarget.value;
+    this.setState({
+      countryCode: country.slice(-2, country.length),
+    });
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({ error: null });
+    const { short_description, country, days, activities } = e.target;
+    this.setState({
+      error: null,
+      country: country.value.slice(-2, country.value.length),
+    });
     if (
       !this.state.place.coordinates.lng ||
       !this.state.place.coordinates.lat
@@ -40,7 +54,7 @@ export default class AddTripForm extends React.Component {
       this.setState({ error: 'Must select a real place from dropdown list.' });
       return;
     }
-    const { short_description, days, activities } = e.target;
+
     let trip = {
       destination: this.state.place.place,
       short_description: short_description.value,
@@ -61,7 +75,15 @@ export default class AddTripForm extends React.Component {
       });
   };
 
+  resetPlace = () => {
+    this.context.setLoading(false);
+  };
+
   storePlace = (place) => {
+    console.log(
+      this.state.place.coordinates.lng,
+      this.state.place.coordinates.lat
+    );
     if (this.state.place.coordinates.lng || this.state.place.coordinates.lat) {
       this.context.setLoading(false);
     } else {
@@ -106,8 +128,22 @@ export default class AddTripForm extends React.Component {
               action="#"
               onSubmit={this.handleSubmit}
             >
-              <label>Destination:</label>
-              <PlaceSearch storePlace={this.storePlace} />
+              <div className="placeSearch">
+                <div className="selectDestination">
+                  <label htmlFor="location-box">Destination:</label>
+                  <PlaceSearch
+                    countryCode={this.state.countryCode}
+                    storePlace={this.storePlace}
+                    resetPlace={this.resetPlace}
+                  />
+                </div>
+                <div className="selectCountry">
+                  <label htmlFor="country">Country:*</label>
+                  <SelectCountries
+                    handleSelectCountries={this.handleSelectCountries}
+                  />
+                </div>
+              </div>
               <br />
               <label htmlFor="short_description">
                 Type in a short description of your trip!

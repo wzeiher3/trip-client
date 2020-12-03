@@ -48,7 +48,7 @@ export default class MyTrips extends Component {
     const tripCards = userTrips.map((trip, index) => {
       count++;
       return (
-        <div key={index} className="my-trip-card-wrapper">
+        <div key={trip.id} className="my-trip-card-wrapper">
           <TripCards
             id={trip.id}
             index={index}
@@ -75,7 +75,7 @@ export default class MyTrips extends Component {
               <div className="dropdown">
                 <div className="modal-content">
                   <ul>City, States visited:
-                    <li>{this.renderStates()}</li>
+                    {this.renderStates()}
                   </ul>
                   <ul>Total trips:
                     <li> {count}</li>
