@@ -277,7 +277,8 @@ export default class Trip extends React.Component {
     const trip_id = this.props.match.params.trips_id;
     const user_id = this.context.returnUserID();
     this.context.setLoading(true);
-    TripApiService.checkUserHasRated(trip_id)
+    if(user_id !== undefined) {
+      TripApiService.checkUserHasRated(trip_id)
       .then((res) => {
         for (let i = 0; i < res.length; i++) {
           if (res[i].user_id === user_id) {
@@ -293,8 +294,9 @@ export default class Trip extends React.Component {
       .finally(() => {
         this.context.setLoading(false);
       });
+    }
   };
-
+  
   isTripCreator = () => {
     let isTripCreator = this.context.verifyAuth(this.state.trip[0].user_id);
     return isTripCreator;
