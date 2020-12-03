@@ -43,7 +43,6 @@ export default class Dashboard extends React.Component {
   };
 
   render() {
-    console.log(this.context.trips);
     //console.log('this is trips', this.context.trips)
     let tripsToMap = [];
     if (this.state.filteredTrips.length > 0) {
