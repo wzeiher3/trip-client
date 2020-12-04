@@ -230,7 +230,7 @@ export default class AddTripForm extends React.Component {
               </div>
               <br />
               <div className="button-wrapper">
-                <button className="myButton" type="submit">
+                <button className="myButton addTripButton" type="submit">
                   Submit!
                 </button>
               </div>
