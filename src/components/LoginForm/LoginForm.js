@@ -70,6 +70,13 @@ class LoginForm extends Component {
             />
           </div>
           <br />
+          <div>
+            <p>Demo:
+             Username: John Rambo,
+             Password: password
+            </p>
+            
+          </div>
           <div className="button-wrapper">
             <Button className="myButton" type="submit">
               Login
