@@ -13,7 +13,7 @@
 
 OR
 
-- username: Natasha Romanovam
+- username: Natasha Romanova
 - password: password
 
 ## Tech Stack
@@ -40,4 +40,4 @@ https://ways-client.vercel.app/
 https://github.com/Mf-ff99/ways-API.git 
 
 - Deployed via Heroku
-https://ways-database-api.herokuapp.com/
+https://ways-database-api.herokuapp.com
