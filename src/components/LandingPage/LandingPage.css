@@ -24,6 +24,14 @@
   /* overflow-x: hidden; */
 }
 
+.dash-btn {
+  background-color: white !important;
+}
+
+.dash-btn:hover {
+  color:#e61f82!important;
+}
+
 .ways-header {
   position: absolute;
   z-index: -1;
@@ -217,6 +225,20 @@ body {
 
   .landing-page-background {
     margin: 0 !important;
+  }
+}
+
+@media (max-width: 530px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column !important;
+    align-items: center;
+    width: 100vw !important;
+
+  }
+
+  .linkToDashButton {
+    width: 100vw !important;
   }
 }
 
