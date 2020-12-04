@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import './MyTrips.css';
 import TripApiService from '../../services/trip-service';
 
-
 export default class MyTrips extends Component {
   static contextType = TripContext;
 
@@ -18,32 +17,27 @@ export default class MyTrips extends Component {
     let jwt = TokenService.getAuthToken();
     const user = TokenService.parseJwt(jwt);
 
-    TripApiService.getAllStops(user.user_id)
-    .then((res) => {
-      this.setState({stops: res})
-    })
+    TripApiService.getAllStops(user.user_id).then((res) => {
+      this.setState({ stops: res });
+    });
   }
 
   renderStates = () => {
-    let stops = this.state.stops
+    let stops = this.state.stops;
     return stops.map((stop, index) => (
-    <li key={index}>{stop.city}, {stop.state}</li>
-    ))
-
-    // return states.filter((a, b) => states.indexOf(a) === b)
-    // function removeDuplicates(array) {
-    //   return array.filter((a, b) => array.indexOf(a) === b)
-    // };
-  }
+      <li key={index}>
+        {stop.city}, {stop.state}
+      </li>
+    ));
+  };
 
   render() {
     let jwt = TokenService.getAuthToken();
     const user = TokenService.parseJwt(jwt);
-    
     const userTrips = this.context.trips.filter(
-      (trip) => trip.user_id === user.user_id,
+      (trip) => trip.user_id === user.user_id
     );
-    
+
     let count = 0;
     const tripCards = userTrips.map((trip, index) => {
       count++;
@@ -82,6 +76,7 @@ export default class MyTrips extends Component {
                   </ul>
                 </div> 
               </div>
+            </div>
           </div>
           <div className="addTripButton">
             <Link to="/add-trip">

@@ -6,9 +6,34 @@ export default function Footer() {
     <footer>
       <div className="footer-spacer"></div>
       <div className="footer-spacer">
-        © 2020. All rights reserved.
+        Icons by{' '}
+        <a
+          rel="noopener noreferrer"
+          target={'_blank'}
+          href="https://www.flaticon.com/"
+        >
+          FlatIcons
+        </a>
         <br />
-        Icons by <a href="https://www.flaticon.com/">FlatIcons</a>
+        Photos by
+        <a
+          rel="noopener noreferrer"
+          target={'_blank'}
+          href="https://www.pixabay.com/"
+        >
+          {' '}
+          Pixabay
+        </a>{' '}
+        |
+        <a
+          rel="noopener noreferrer"
+          target={'_blank'}
+          href="https://www.flickr.com/"
+        >
+          {' '}
+          Flickr
+        </a>
+        <br />© 2020. All rights reserved.
       </div>
       <div className="footer-credit">
         <div className="devs-section">

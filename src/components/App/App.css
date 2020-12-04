@@ -35,14 +35,3 @@ input {
 .form-wrapper {
   text-align: left;
 }
-
-/* @media all and (min-width: 360px) {
-  .LoginForm > div > input {
-    width: 320px;
-  }
-} */
-
-.fade {
-  animation: fadeIn; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 0.9s; /* don't forget to set a duration! */
-}

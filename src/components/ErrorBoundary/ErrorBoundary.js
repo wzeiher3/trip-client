@@ -1,33 +1,31 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 class ErrorBoundary extends Component {
-    constructor(props){
-        super(props)
-        this.state = { error: null, errorInfo: null }
-    }
-    
-    // static getDerivedStateFromProps(error){
-    //   return { error: true }
-    // }
+  constructor(props) {
+    super(props);
+    this.state = { error: null, errorInfo: null };
+  }
 
-    componentDidCatch(error, info){
-        this.setState({ error: error, errorInfo: info })
-    }
+  componentDidCatch(error, info) {
+    this.setState({ error: error, errorInfo: info });
+  }
 
-    render() {
-        if(this.state.errorInfo){
-            return (
-                <div className="error-boundary">
-                    <summary>Something went wrong</summary>
-                    {/* <details style={{ whiteSpace: 'pre-wrap' }}> */}
-                        {/* { this.state.error && this.state.error.toString() }
+  render() {
+    if (this.state.errorInfo) {
+      return (
+        <div className="error-boundary">
+          <summary>
+            <center>Something went wrong! Please refresh your page.</center>
+          </summary>
+          {/* <details style={{ whiteSpace: 'pre-wrap' }}> */}
+          {/* { this.state.error && this.state.error.toString() }
                         { this.state.errorInfo.componentStack } */}
-                    {/* </details> */}
-                </div>
-            )
-        }
-        return this.props.children
+          {/* </details> */}
+        </div>
+      );
     }
+    return this.props.children;
+  }
 }
 
 export default ErrorBoundary;

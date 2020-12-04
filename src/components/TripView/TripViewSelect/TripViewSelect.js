@@ -15,6 +15,7 @@ export default class TripViewSelect extends React.Component {
           multiple
         >
           <div tabIndex={0}>Amusement Park</div>
+          <div tabIndex={0}>Aquarium</div>
           <div tabIndex={0}>Bakery</div>
           <div tabIndex={0}>Bank</div>
           <div tabIndex={0}>Bar</div>

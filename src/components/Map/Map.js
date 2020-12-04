@@ -1,5 +1,5 @@
 import React from 'react';
-import { Map, GoogleApiWrapper, Marker, Listing } from 'google-maps-react';
+import { Map, GoogleApiWrapper } from 'google-maps-react';
 import './Map.css';
 import images from '../../assets/images/images';
 
@@ -29,27 +29,8 @@ export class MapContainer extends React.Component {
     }
   }
 
-  displayMarkers = () => {
-    return this.state.stores.map((store, index) => {
-      return (
-        <Marker
-          key={index}
-          id={index}
-          position={{
-            lat: store.latitude,
-            lng: store.longitude,
-          }}
-          onClick={() => console.log('You clicked me!')}
-        />
-      );
-    });
-  };
-
-
   render() {
-
-    const { lat, long } = this.state.currTrip;
-
+    const { long } = this.state.currTrip;
     if (!this.props.trip.lat || !this.props.trip.long)
       return (
         <img
@@ -67,9 +48,7 @@ export class MapContainer extends React.Component {
         style={mapStyles}
         containerStyle={containerStyle}
         initialCenter={{ lat: this.props.trip.lat, lng: this.props.trip.long }}
-      >
-        {/* {this.displayMarkers()} */}
-      </Map>
+      ></Map>
     );
   }
 }

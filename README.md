@@ -1,6 +1,11 @@
 # Ways App
  This app helps you plan the perfect trip! You can also see other trips to get ideas for your trip. 
 
+
+## About the Devs
+
+-[Devon Reihl](https://github.com/DevonReihl) -[Mark Force](https://github.com/Mf-ff99) -[Richard Scott](https://github.com/Richardscripts) -[Will Zeiher](https://github.com/wzeiher3)
+
  ### Demo Accounts:
 
 - username: John Rambo
@@ -31,13 +36,8 @@ OR
 https://ways-client.vercel.app/
 
 ### Server
-- server can be found
+- Server repo can be found
 https://github.com/Mf-ff99/ways-API.git 
 
--Deploeyed via Heroku
+- Deployed via Heroku
 https://ways-database-api.herokuapp.com/
-
-
-## About the Devs
-
--[Devon](https://github.com/DevonReihl) -[Mark](https://github.com/Mf-ff99) -[Richard](https://github.com/Richardscripts) -[Will](https://github.com/wzeiher3) 

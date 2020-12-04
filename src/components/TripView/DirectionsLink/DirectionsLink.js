@@ -21,7 +21,6 @@ class DirectionsLink extends Component {
       }
       return `${stopName}+${stopCity}+${stopState}%7C`;
     });
-    console.log(link.join(''));
     return (
       <>
         <a
