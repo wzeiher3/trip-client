@@ -2,6 +2,7 @@ import React from 'react';
 import images from '../../../assets/images/images';
 
 export default function RenderStop(props) {
+  if (!props.stop.img) props.stop.img = images.no_camera;
   return (
     <div className="trip-stop-wrapper" key={props.stop.id}>
       <div className="trip-stop trip-div">

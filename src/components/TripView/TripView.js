@@ -334,7 +334,6 @@ export default class Trip extends React.Component {
   render() {
     const trip = this.state.trip[0];
     const stops = this.state.stops.map((stop, index) => {
-      if (!stop.img) stop.img = images.no_camera;
       if (stop.id === this.state.stopEditingID) {
         return (
           <EditStopForm
@@ -366,7 +365,7 @@ export default class Trip extends React.Component {
     return (
       <>
         <div className="trip">
-          <div className="tripView-upperSection longFade">
+          <div className="tripView-upperSection">
             <div className="trip-info">
               {this.state.toggleEditTrip ? (
                 this.renderEditTrip(trip)

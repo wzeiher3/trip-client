@@ -276,7 +276,7 @@
 .buffer-img {
   position: absolute;
   z-index: 50;
-  transform: translate(-50%, -0%);
+  transform: translate(-50%, 55%);
   margin-left: 35px;
 }
 
@@ -326,11 +326,6 @@ img.heart {
   font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
   font-size: 20px;
 }
-
-/* .fade {
-  animation: fadeIn; 
-  animation-duration: 0s; 
-} */
 
 @media all and (min-width: 675px) {
   .addStopForm {
