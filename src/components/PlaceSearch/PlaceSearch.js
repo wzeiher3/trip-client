@@ -1,7 +1,7 @@
 import React from 'react';
 import { GoogleComponent } from 'react-google-location';
 
-const SEARCH_API_KEY = 'AIzaSyDKPDbk7DXoycomaamRr6fatOE3xqJ6HJg';
+const SEARCH_API_KEY = 'AIzaSyAF0LCbqpdlaVROEeXSC9rxW8blwyF5Reg';
 
 export default class PlaceSearch extends React.Component {
   render() {
@@ -14,7 +14,6 @@ export default class PlaceSearch extends React.Component {
         <GoogleComponent
           apiKey={SEARCH_API_KEY}
           language={'en'}
-          // country={'country:in|country:us'}
           country={`country:${this.props.countryCode}`}
           coordinates={true}
           currentCoordinates={{
@@ -22,9 +21,6 @@ export default class PlaceSearch extends React.Component {
             lng: 44.827096,
           }}
           placeholder={'Start typing location...(May take a few seconds)'}
-          //   locationBoxStyle={'custom-style'}
-          //   locationListStyle={'custom-style-list'}
-
           onChange={(e) => {
             this.props.storePlace(e);
           }}
