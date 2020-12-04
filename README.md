@@ -40,4 +40,4 @@ https://ways-database-api.herokuapp.com/
 
 ## About the Devs
 
--[Devon](https://github.com/DevonReihl) -[Mark](https://github.com/Mf-ff99) -[Richard](https://github.com/Richardscripts) -[Will](https://github.com/wzeiher3) 
+-[Devon Reihl](https://github.com/DevonReihl) -[Mark Force](https://github.com/Mf-ff99) -[Richard Scott](https://github.com/Richardscripts) -[Will Zeiher](https://github.com/wzeiher3)
