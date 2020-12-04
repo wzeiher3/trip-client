@@ -138,7 +138,7 @@ section.landing-page::before {
 
 .landing-page-background {
   position: absolute;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -244,7 +244,7 @@ body {
 
 @media (max-width: 600px) {
   .background img {
-    width: 80% !important;
+    width: 70% !important;
   }
 }
 
