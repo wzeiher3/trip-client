@@ -77,7 +77,7 @@ export default class MyTrips extends Component {
                 </div> 
               </div>
             </div>
-          </div>
+          
           <div className="addTripButton">
             <Link to="/add-trip">
               <div className="bttn">Add a Trip!</div>
