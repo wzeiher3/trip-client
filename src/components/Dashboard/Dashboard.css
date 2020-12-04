@@ -125,10 +125,18 @@ div.lowerSection {
   }
 }
 
+@media all and (max-width: 400px) {
+  .myButton {
+    font-size: 16px;
+    width: 160px;
+    padding: 8px 0px;
+  }
+}
+
 
 /* ////////////////////////////// */
 
-@import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:700";
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:700");
 *,
 *::before,
 *::after {
@@ -146,7 +154,7 @@ body {
   padding: 0px;
   margin: 0;
   font-family: "Source Sans Pro", sans-serif;
-  background: #F5F0FF;
+  /* background: #F5F0FF; */
   -webkit-font-smoothing: antialiased;
 }
 /* 

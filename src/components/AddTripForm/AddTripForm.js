@@ -229,11 +229,11 @@ export default class AddTripForm extends React.Component {
                 />
               </div>
               <br />
-              <div className="flex">
+              {/* <div className="flex"> */}
                 <button className="myButton" type="submit">
                   Submit!
                 </button>
-              </div>
+              {/* </div> */}
             </form>
           </div>
         </section>

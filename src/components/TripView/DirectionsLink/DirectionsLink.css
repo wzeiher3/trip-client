@@ -20,13 +20,6 @@ html, body {
   width: 100%;
 }
 
-body {
-  padding: 0px;
-  margin: 0;
-  font-family: "Source Sans Pro", sans-serif;
-  background: #F5F0FF;
-  -webkit-font-smoothing: antialiased;
-}
 
 .dark {
   background: #24252A;

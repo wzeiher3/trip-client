@@ -325,7 +325,7 @@ export default class Trip extends React.Component {
       );
     });
     return (
-      <>
+      <section className="trip-view">
         <div className="trip">
           <div className="tripView-upperSection">
             <div className="trip-info">
@@ -436,7 +436,7 @@ export default class Trip extends React.Component {
                 <br />
                 <div
                   style={{ marginBottom: '20px' }}
-                  className="myButton"
+                  className="myButton addStopBtn"
                   onClick={() => {
                     this.setState({ toggleAddStop: !this.state.toggleAddStop });
                   }}
@@ -447,7 +447,7 @@ export default class Trip extends React.Component {
             )}
           </div>
         </div>
-      </>
+      </section>
     );
   }
 }
