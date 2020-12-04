@@ -170,6 +170,7 @@ export default class Trip extends React.Component {
         const stops = this.state.stops.filter((stop) => stop.id !== res.id);
         this.setState({
           stops: [...stops, res],
+          selections: [],
         });
       })
       .catch((res) => {
@@ -276,8 +277,8 @@ export default class Trip extends React.Component {
   };
 
   toggleEditTrip = () => {
-    this.setState({ toggleEditTrip: false})
-  }
+    this.setState({ toggleEditTrip: false });
+  };
 
   handleDeleteStop = (stop_id) => {
     TripApiService.deleteStop(stop_id)
@@ -329,10 +330,10 @@ export default class Trip extends React.Component {
           <div className="tripView-upperSection">
             <div className="trip-info">
               {this.state.toggleEditTrip ? (
-                <RenderEditTrip 
-                trip={trip} 
-                toggleEditTrip={this.toggleEditTrip}
-                handleSubmitEditedTrip={this.handleSubmitEditedTrip}
+                <RenderEditTrip
+                  trip={trip}
+                  toggleEditTrip={this.toggleEditTrip}
+                  handleSubmitEditedTrip={this.handleSubmitEditedTrip}
                 />
               ) : (
                 <>
