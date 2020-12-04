@@ -10,6 +10,7 @@ import Helpers from '../../helpers/helpers';
 import EditStopForm from './EditStopForm/EditStopForm';
 import './TripView.css';
 import images from '../../assets/images/images';
+import RenderEditTrip from './RenderEditTrip/RenderEditTrip';
 
 Modal.setAppElement('#root');
 
@@ -274,50 +275,9 @@ export default class Trip extends React.Component {
     return isTripCreator;
   };
 
-  renderEditTrip = (trip) => {
-    return (
-      <div className="edit-trip">
-        <form onSubmit={(e) => this.handleSubmitEditedTrip(e, trip.id)}>
-          <h2 className="trip-name">{trip.destination}</h2>
-          <br />
-          <input
-            defaultValue={trip.short_description}
-            name="short_description"
-            maxLength={30}
-            required
-          ></input>
-          <br />
-          <input
-            defaultValue={trip.activities}
-            name="activities"
-            maxLength={40}
-            required
-          ></input>
-          <br />
-
-          <input
-            defaultValue={trip.days}
-            type="number"
-            min={0}
-            name="days"
-            max={99}
-            required
-          />
-          <div className="edit-trip-button-container">
-            <button
-              className="tripViewButton"
-              onClick={() => this.setState({ toggleEditTrip: false })}
-            >
-              Cancel
-            </button>
-            <button className="tripViewButton" type="submit">
-              Submit
-            </button>
-          </div>
-        </form>
-      </div>
-    );
-  };
+  toggleEditTrip = () => {
+    this.setState({ toggleEditTrip: false})
+  }
 
   handleDeleteStop = (stop_id) => {
     TripApiService.deleteStop(stop_id)
@@ -368,7 +328,11 @@ export default class Trip extends React.Component {
           <div className="tripView-upperSection">
             <div className="trip-info">
               {this.state.toggleEditTrip ? (
-                this.renderEditTrip(trip)
+                <RenderEditTrip 
+                trip={trip} 
+                toggleEditTrip={this.toggleEditTrip}
+                handleSubmitEditedTrip={this.handleSubmitEditedTrip}
+                />
               ) : (
                 <>
                   {!this.context.loading ? (
