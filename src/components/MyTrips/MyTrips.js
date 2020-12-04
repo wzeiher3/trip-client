@@ -65,23 +65,22 @@ export default class MyTrips extends Component {
         </section>
         <section className="my-trip-info-group">
           <div className="my-trip-dropdown">
-            <button className="my-trip-info">Trips Stats</button>
-            <div className="dropdown">
-              <div className="modal-content">
-                <ul>
-                  City, States visited:
-                  {this.renderStates()}
-                </ul>
-                <ul>
-                  Total trips:
-                  <li> {count}</li>
-                </ul>
+            <div className="bttn">Trips Stats</div>
+              <div className="dropdown">
+                <div className="modal-content">
+                  <ul>City, States visited:
+                    {this.renderStates()}
+                  </ul>
+                  <ul>Total trips:
+                    <li> {count}</li>
+                  </ul>
+                </div> 
               </div>
             </div>
           </div>
           <div className="addTripButton">
             <Link to="/add-trip">
-              <div className="myButton">Add a Trip!</div>
+              <div className="bttn">Add a Trip!</div>
             </Link>
           </div>
         </section>

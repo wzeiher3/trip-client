@@ -52,7 +52,7 @@ export default class LandingPage extends Component {
             </div>
             <div className="linkToDashButton">
               <Link to="/dashboard">
-                <div className="myButton lets-go-btn">Let's Go!</div>
+                <div className="bttn lets-go-btn">Let's Go!</div>
               </Link>
             </div>
           </section>
