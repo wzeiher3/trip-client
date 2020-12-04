@@ -37,6 +37,7 @@ export default class AddTripForm extends React.Component {
     const country = e.currentTarget.value;
     this.setState({
       countryCode: country.slice(-2, country.length),
+      place: { place: 'New York', coordinates: { lng: null, lat: null } },
     });
   };
 

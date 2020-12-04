@@ -327,6 +327,11 @@ img.heart {
   font-size: 20px;
 }
 
+/* .fade {
+  animation: fadeIn; 
+  animation-duration: 0s; 
+} */
+
 @media all and (min-width: 675px) {
   .addStopForm {
     width: 675px;

@@ -6,11 +6,7 @@ import images from '../../../assets/images/images';
 class EditStopForm extends Component {
   static contextType = TripContext;
 
-  state={error: null}
-
   render() {
-
-
     const id = this.props.stop.id;
     return (
       <div className="trip-stop-wrapper" key={this.props.stop.id}>
@@ -57,10 +53,10 @@ class EditStopForm extends Component {
                 required
               />
             </div>
-            {this.state.error && (
+            {this.props.error && (
               <>
                 <br />
-                {this.state.error}
+                {this.props.error}
                 <br />
                 <br />
               </>
@@ -93,7 +89,10 @@ class EditStopForm extends Component {
           </form>
         </div>
         <br />
-        {this.props.index === this.props.stops.length - 1 ? null : this.props.index % 2 !== 0 ? (
+        {this.props.index === this.props.stops.length - 1 ? null : this.props
+            .index %
+            2 !==
+          0 ? (
           <img
             className="road-img"
             src={images.road_a}

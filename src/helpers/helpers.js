@@ -15,13 +15,26 @@ const Helpers = {
         return res;
       });
   },
+
   generateFlikrLink(res) {
-    if (res.photos.total === '0') {
+    console.log(res.photos);
+    if (res.photos.photo.length === 0) {
       return '';
     }
     const flikr = res.photos.photo[0];
     const link = `https://live.staticflickr.com/${flikr.server}/${flikr.id}_${flikr.secret}.jpg`;
     return link;
+  },
+
+  customModalStyles: {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
   },
 };
 

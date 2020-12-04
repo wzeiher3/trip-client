@@ -21,18 +21,22 @@ export default class LandingPage extends Component {
               <p>Ways!</p>
             </div>
             <div className="airplane-bg">
-              <img src={Airplane} alt="airplane taking off" />
+              <img
+                className="airplane-bg zoom"
+                src={Airplane}
+                alt="airplane taking off"
+              />
             </div>
           </div>
 
           <section className="landing-page">
             <div className="wrapper">
-              <div className="one">
+              <div className="one longFade">
                 <i className="fas fa-plane-departure xl fa-2x"></i>
                 <hr />
                 <p>Our goal is getting your vacay off the ground!</p>
               </div>
-              <div className="two what-to-do">
+              <div className="two what-to-do longFade">
                 <i className="fas fa-hotel fa-2x"></i>
                 <hr />
                 <p>
@@ -40,7 +44,7 @@ export default class LandingPage extends Component {
                 </p>
               </div>
 
-              <div className="three call-to-action">
+              <div className="three call-to-action longFade">
                 <i className="fas fa-car fa-2x"></i>
                 <hr />
                 <p>Plan out every stop, or take a trip another user added!</p>

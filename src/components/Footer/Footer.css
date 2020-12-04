@@ -8,6 +8,7 @@ footer {
   align-items: center;
   justify-content: center;
   height: 78px;
+  text-align: center;
   /* margin-top: 40px; */
 }
 
@@ -16,13 +17,17 @@ footer {
   align-items: center;
   justify-content: center;
   margin-left: 10px;
-  font-size: 14px;
 }
 
 .footer-spacer {
   text-align: center;
 
   font-size: 14px;
+  color: grey;
+}
+
+.footer-spacer > a {
+  font-weight: bold;
   color: grey;
 }
 
@@ -33,6 +38,12 @@ footer > div > ul > li > a {
 
 footer > div > ul > li > a:hover {
   color: rgb(161, 161, 161);
+}
+
+footer > div > ul {
+  margin: 0;
+  padding: 0;
+  margin-right: -25px;
 }
 
 body {
@@ -102,11 +113,21 @@ section.auth-section {
 
   .footer-spacer {
     width: 260px;
+    margin-left: 0px;
   }
 
-  .ways-footer,
+  .ways-footer {
+    font-size: 16px;
+  }
+
   .devs-footer {
     font-size: 18px;
+  }
+
+  footer > div > ul {
+    margin: 0;
+    padding: 0;
+    margin-right: 0px;
   }
 }
 
@@ -117,6 +138,7 @@ section.auth-section {
   }
 
   .devs-sections {
-    min-width: 50px;
+    min-width: 190px;
+    background-color: crimson;
   }
 }

@@ -215,7 +215,7 @@ section.landing-page::before {
 
 .background-image {
   position: absolute;
-  opacity: 50%;
+  /* opacity: 50%; */
   width: 100vw;
   height: 100vh;
 }
@@ -241,4 +241,17 @@ body {
   padding: 0;
   height: 100vh;
   width: 100vw;
+}
+
+/* .zoom {
+  display: inline-block;
+  margin: 0 0.5rem;
+
+  animation: zoomInRight; 
+  animation-duration: 3s; 
+} */
+
+.longFade {
+  animation: fadeIn;
+  animation-duration: 0.9s;
 }

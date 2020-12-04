@@ -17,7 +17,7 @@ import TripApiService from '../../services/trip-service';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import './App.css';
 import LandingPage from '../LandingPage/LandingPage';
-import Footer from '../Footer/Footer'
+import Footer from '../Footer/Footer';
 
 export default class App extends Component {
   static contextType = TripContext;
@@ -71,7 +71,7 @@ export default class App extends Component {
             </Switch>
           </ErrorBoundary>
         </main>
-          <Footer />
+        <Footer />
       </div>
     );
   }

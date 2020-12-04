@@ -2,7 +2,6 @@ import React from 'react';
 import TripApiService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
 import TripViewNav from './TripViewNav/TripViewNav';
-import TripViewEditSelect from './TripViewEditSelect.js/TripViewEditSelect';
 import RenderStop from './RenderStop/RenderStop';
 import MapContainer from '../Map/Map';
 import Modal from 'react-modal';
@@ -11,12 +10,11 @@ import Helpers from '../../helpers/helpers';
 import EditStopForm from './EditStopForm/EditStopForm';
 import './TripView.css';
 import images from '../../assets/images/images';
-// do not change this
+
 Modal.setAppElement('#root');
 
 export default class Trip extends React.Component {
   static contextType = TripContext;
-
   state = {
     stops: [],
     trip: [{ user_id: 0, short_description: 'Add a Stop!' }],
@@ -32,8 +30,7 @@ export default class Trip extends React.Component {
   };
 
   componentDidMount() {
-    const { match } = this.props;
-    const trip_id = match.params.trips_id;
+    const trip_id = this.props.match.params.trips_id;
     this.userHasRated();
     this.context.setLoading(true);
     TripApiService.getTrip(trip_id)
@@ -153,8 +150,7 @@ export default class Trip extends React.Component {
       stopEditingID: 0,
     });
     const { stop_name, description, city, state } = e.target;
-    const { match } = this.props;
-    let tripId = match.params.trips_id;
+    let tripId = this.props.match.params.trips_id;
     let stop = {
       trip_id: tripId,
       longitude: 0.0,
@@ -191,8 +187,7 @@ export default class Trip extends React.Component {
     }
     this.setState({ error: null });
     const { stop_name, description, city, state } = e.target;
-    const { match } = this.props;
-    let tripId = match.params.trips_id;
+    let tripId = this.props.match.params.trips_id;
     let stop = {
       trip_id: tripId,
       longitude: -32.77779,
@@ -244,17 +239,6 @@ export default class Trip extends React.Component {
           console.error(error);
         });
     }
-  };
-
-  customModalStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
   };
 
   toggleModal = (boolean) => {
@@ -363,6 +347,7 @@ export default class Trip extends React.Component {
             stop={stop}
             index={index}
             stops={this.state.stops}
+            error={this.state.error}
           />
         );
       }
@@ -381,7 +366,7 @@ export default class Trip extends React.Component {
     return (
       <>
         <div className="trip">
-          <div className="tripView-upperSection">
+          <div className="tripView-upperSection longFade">
             <div className="trip-info">
               {this.state.toggleEditTrip ? (
                 this.renderEditTrip(trip)
@@ -393,7 +378,7 @@ export default class Trip extends React.Component {
                         <>
                           <Modal
                             isOpen={this.state.isModalOpen}
-                            style={this.customModalStyles}
+                            style={Helpers.customModalStyles}
                             contentLabel="Log in!"
                           >
                             <button
@@ -402,7 +387,9 @@ export default class Trip extends React.Component {
                             >
                               Close
                             </button>
-                            <h3>You must log in to rate a trip!</h3>
+                            <h3>
+                              <center>You must log in to heart a trip!</center>
+                            </h3>
                           </Modal>
                           <button
                             className="like-btn"
