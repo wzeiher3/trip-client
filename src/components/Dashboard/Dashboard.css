@@ -32,7 +32,7 @@
   width: 100%;
 }
 
-.myButton {
+ .myButton {
   font-size: 19px;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -48,7 +48,7 @@
   border-radius: 2px;
   position: relative;
   box-shadow: 2px 2px 3 px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
-}
+} 
 
 .myButton:before {
   -webkit-transition: 0.5s all ease;
@@ -149,7 +149,7 @@ body {
   background: #F5F0FF;
   -webkit-font-smoothing: antialiased;
 }
-
+/* 
 .dark {
   background: #24252A;
 }
@@ -217,11 +217,12 @@ a.bttn-dark:focus {
   background-color:  rgb(230, 31, 130);
   z-index: -2;
 }
+
 .bttn:hover:before {
   -webkit-transition: 0.5s all ease;
   transition: 0.5s all ease;
   left: 0;
-  border-style: none;
+  /* border-style: none; */
   right: 0;
   opacity: 1;
 }
@@ -273,5 +274,6 @@ a.bttn-dark:focus {
   left: 0;
   right: 0;
   opacity: 1;
-}
+}  
+
 
