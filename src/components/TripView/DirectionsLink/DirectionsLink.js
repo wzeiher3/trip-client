@@ -30,8 +30,9 @@ class DirectionsLink extends Component {
           href={`https://www.google.com/maps/dir/?api=1&map_action=map&origin=${link.join(
             ','
           )}`}
-        >
-          <div className="myButton nav-buttons">Get Directions</div>
+        > <div className="flex">
+                <div className="bttn nav-buttons">Get Directions</div>
+          </div>
         </a>
       </>
     );
