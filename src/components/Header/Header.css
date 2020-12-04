@@ -1,33 +1,64 @@
 header {
   display: flex;
   justify-content: space-between;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 1px;
   background-color: white;
+  position: fixed;
+  width: 100%;
+  z-index: 1500;
 }
 
 header > span > h1 > a {
   text-decoration: none;
   color: rgb(230, 31, 130);
   text-shadow: 2px 1px 2px rgb(0, 0, 0);
-  /* color: black; */
 }
 
 header > span > h1 {
   font-family: 'Archivo Black', Arial, Helvetica, sans-serif;
-  font-size: 46px;
+  font-size: 34px;
   margin: 0;
   display: inline-flex;
   letter-spacing: -3px;
 }
 
 header > span > img {
-  width: 55px;
+  width: 34px;
   vertical-align: -34%;
+}
+
+.loading-img {
+  width: 42px;
+  margin-left: 5px;
+}
+
+.loading-img-map {
+  width: 48px;
+  margin-top: 160px;
 }
 
 nav {
   padding: 10px;
   font-weight: bold;
   color: #65b1ef;
+  text-align: right;
+}
+
+@media all and (min-width: 360px) {
+  header > span > img {
+    width: 55px;
+  }
+
+  header > span > h1 {
+    font-size: 46px;
+  }
+
+  header > span > img {
+    vertical-align: -34%;
+  }
+
+  header {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }

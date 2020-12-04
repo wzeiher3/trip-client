@@ -1,31 +1,58 @@
 import React from 'react';
-import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
-import TripApiService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
 import TripCards from '../TripCards/TripCards';
 import './Dashboard.css';
 
 export default class Dashboard extends React.Component {
-  state = {
-    error: null,
-  };
+  constructor() {
+    super();
+    this.state = {
+      error: null,
+      searchQuery: '',
+      filteredTrips: [],
+      resultsFound: true,
+    };
+  }
 
   static contextType = TripContext;
 
-  componentDidMount() {
-    TripApiService.getTrips()
-      .then((res) => {
-        this.context.setTrips(res);
-      })
-      .catch((error) => this.setState({ error: error }));
-  }
+  setQuery = (e) => {
+    let value = e.target.value;
+    this.setState(
+      {
+        filteredTrips: this.context.trips.filter((trip) => {
+          return (
+            trip.destination.toLowerCase().includes(value.toLowerCase()) ||
+            trip.short_description
+              .toLowerCase()
+              .includes(value.toLowerCase()) ||
+            trip.activities.toLowerCase().includes(value.toLowerCase())
+          );
+        }),
+      },
+      () => {
+        // if else statement to determine if search results are populated
+        if (this.state.filteredTrips.length > 0)
+          this.setState({ resultsFound: true });
+        else {
+          this.setState({ resultsFound: false });
+        }
+      }
+    );
+  };
 
   render() {
-    const tripCards = this.context.trips.map((trip, index) => {
+    let tripsToMap = [];
+    if (this.state.filteredTrips.length > 0) {
+      tripsToMap = this.state.filteredTrips;
+    } else {
+      tripsToMap = this.context.trips;
+    }
+    let tripCards = tripsToMap.map((trip, index) => {
       return (
         <TripCards
-          key={index}
+          key={trip.id}
           id={trip.id}
           index={index}
           days={trip.days}
@@ -42,23 +69,35 @@ export default class Dashboard extends React.Component {
         <div className="upperSection">
           <div className="addTripButton">
             <Link to="/add-trip">
-              <div className="myButton">Add a Trip!</div>
+              {/* <div className="myButton">Add a Trip!</div> */}
+              <div className="flex">
+                    <div className="bttn">Add Trip</div>
+              </div>
             </Link>
           </div>
           <div className="tripSearchBar">
             <label htmlFor="tripSearchBar">Search Bar</label>
             <input
               type="text"
-              placeholder={'Search Trips'}
+              placeholder={'Search for a destination...'}
               name="tripSearchBar"
+              onChange={(e) => {
+                this.setQuery(e);
+              }}
             ></input>
           </div>
-          <div className="titleDiv"></div>
           <div className="myTripButton">
-            <div className="myButton">My Trips</div>
+            <Link to="/my-trips">
+              {/* <div className="myButton">My Trips</div> */}
+              <div className="flex">
+                  <div className="bttn">My Trips</div>
+              </div>
+            </Link>
           </div>
         </div>
-        <div className="lowerSection">{tripCards}</div>
+        <div className="lowerSection">
+          {this.state.resultsFound ? tripCards : 'no results! search again!'}
+        </div>
       </section>
     );
   }

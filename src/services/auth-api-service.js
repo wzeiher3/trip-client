@@ -2,7 +2,6 @@ import config from '../config';
 import TokenService from './token-service';
 
 const AuthApiService = {
-  // register user
   postUser(user) {
     return fetch(`${config.API_ENDPOINT}/user`, {
       method: 'POST',
@@ -14,7 +13,7 @@ const AuthApiService = {
       !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
     );
   },
-  // login user
+
   postLogin({ username, password }) {
     return fetch(`${config.API_ENDPOINT}/auth/token`, {
       method: 'POST',
@@ -26,6 +25,7 @@ const AuthApiService = {
       !res.ok ? res.json().then((err) => Promise.reject(err)) : res.json()
     );
   },
+
   refreshToken() {
     return fetch(`${config.API_ENDPOINT}/auth/token`, {
       method: 'PUT',

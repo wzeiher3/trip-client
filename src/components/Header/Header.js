@@ -15,11 +15,12 @@ class Header extends Component {
   renderLogoutLink() {
     return (
       <div>
-        <span>{this.context.user.name}</span>
         <nav>
           <Link onClick={this.handleLogoutClick} to="/login">
             Logout
           </Link>
+          <br />
+          <span>{this.context.user.username}</span>
         </nav>
       </div>
     );
@@ -39,8 +40,15 @@ class Header extends Component {
         <span>
           <img src={images.map} alt="small globe" />
           <h1>
-            <Link to="/">Ways</Link>
+            <Link to="/dashboard">Ways!</Link>
           </h1>
+          {this.props.loading && (
+            <img
+              className="loading-img"
+              src={images.loading}
+              alt="loading icon"
+            />
+          )}
         </span>
         {TokenService.hasAuthToken()
           ? this.renderLogoutLink()

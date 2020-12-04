@@ -10,68 +10,73 @@ import TripContext from '../../contexts/TripContext';
 import NotFoundRoute from '../../routes/NotFoundRoute/NotFoundRoute';
 import AddTripForm from '../AddTripForm/AddTripForm';
 import TripView from '../TripView/TripView';
+import MyTrips from '../MyTrips/MyTrips';
+import TripApiService from '../../services/trip-service';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import ScrollToTop from '../../helpers/ScrollToTop';
 import './App.css';
+import LandingPage from '../LandingPage/LandingPage';
+import Footer from '../Footer/Footer';
 
 export default class App extends Component {
+  static contextType = TripContext;
   state = {
     hasError: false,
-    trips: [],
-    currTripId: null,
   };
+
+  static contextType = TripContext;
 
   static getDerivedStateFromError(error) {
     console.error(error);
     return { hasError: true };
   }
 
-  setTrips = (res) => {
-    this.setState({
-      trips: res,
-    });
-  };
-
-  setCurrTripId = (id) => {
-    this.setState({
-      currTripId: id,
-    });
-  };
-
-  handleAddTrip = (trip) => {
-    this.setState({
-      trips: [...this.state.trips, trip],
-    });
+  componentDidMount = () => {
+    this.context.setLoading(true);
+    TripApiService.getTrips()
+      .then((res) => {
+        this.context.setTrips(res);
+      })
+      .catch((res) => this.setState({ error: res.error }))
+      .finally(() => {
+        this.context.setLoading(false);
+      });
   };
 
   render() {
     const { hasError } = this.state;
 
-    const value = {
-      trips: this.state.trips,
-      currTripId: this.state.currTripId,
-      setTrips: this.setTrips,
-      setCurrTripId: this.setCurrTripId,
-      addTrip: this.handleAddTrip,
-    };
-
     return (
       <div className="App">
-        <TripContext.Provider value={value}>
-          <Header />
-          <main>
-            {hasError && <p>There was an error! Oh no!</p>}
+        <Header loading={this.context.loading} />
+        <main>
+          {hasError && <p>There was an error! Oh no!</p>}
+          <ErrorBoundary>
             <Switch>
-              <PrivateRoute exact path={'/add-trip'} component={AddTripForm} />
-              <Route exact path={'/'} component={DashboardRoute} />
-              <Route path={'/trips/:trips_id'} component={TripView} />
-              <PublicOnlyRoute
-                path={'/register'}
-                component={RegistrationRoute}
-              />
-              <PublicOnlyRoute path={'/login'} component={LoginRoute} />
+              <ScrollToTop>
+                <PrivateRoute
+                  exact
+                  path={'/add-trip'}
+                  component={AddTripForm}
+                />
+                <PrivateRoute path={'/my-trips'} component={MyTrips} />
+                <Route exact path={'/dashboard'} component={DashboardRoute} />
+                <Route
+                  path={'/trips/:trips_id'}
+                  render={(props) => <TripView {...props} />}
+                />
+                <PublicOnlyRoute
+                  path={'/register'}
+                  component={RegistrationRoute}
+                />
+                <Route exact path={'/'} component={LandingPage} />
+                <PublicOnlyRoute path={'/login'} component={LoginRoute} />
+              </ScrollToTop>
               <Route component={NotFoundRoute} />
             </Switch>
-          </main>
-        </TripContext.Provider>
+          </ErrorBoundary>
+        </main>
+        <Footer />
       </div>
     );
   }
