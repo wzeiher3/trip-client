@@ -33,7 +33,7 @@
 }
 
 .myButton {
-  font-size: 18px;
+  font-size: 19px;
   letter-spacing: 2px;
   text-transform: uppercase;
   display: inline-block;
@@ -42,7 +42,7 @@
   margin-left: 65px;
   margin-right: 65px;
   font-weight: bold;
-  padding: 14px 0px;
+  padding: 12px 0px;
   color: rgb(230, 31, 130);
   border: 2px solid rgb(230, 31, 130);
   border-radius: 2px;
