@@ -12,8 +12,6 @@ import AddTripForm from '../AddTripForm/AddTripForm';
 import TripView from '../TripView/TripView';
 import MyTrips from '../MyTrips/MyTrips';
 import TripApiService from '../../services/trip-service';
-// import Map from '../Map/Map';
-// import PlaceSearch from '../PlaceSearch/PlaceSearch';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import './App.css';
 import LandingPage from '../LandingPage/LandingPage';

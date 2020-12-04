@@ -29,11 +29,6 @@ export default class MyTrips extends Component {
     return stops.map((stop, index) => (
     <li key={index}>{stop.city}, {stop.state}</li>
     ))
-
-    // return states.filter((a, b) => states.indexOf(a) === b)
-    // function removeDuplicates(array) {
-    //   return array.filter((a, b) => array.indexOf(a) === b)
-    // };
   }
 
   render() {

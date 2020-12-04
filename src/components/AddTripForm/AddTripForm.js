@@ -7,8 +7,6 @@ import PlaceSearch from '../PlaceSearch/PlaceSearch';
 import './AddTripForm.css';
 import SelectCountries from './SelectCountries/SelectCountries';
 
-// import { Label, Required, Input, Textarea} from '../Form/Form'
-
 export default class AddTripForm extends React.Component {
   state = {
     short_description: 'Times Square',
