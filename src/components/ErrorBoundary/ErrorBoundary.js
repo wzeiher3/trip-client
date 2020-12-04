@@ -5,10 +5,6 @@ class ErrorBoundary extends Component {
         super(props)
         this.state = { error: null, errorInfo: null }
     }
-    
-    // static getDerivedStateFromProps(error){
-    //   return { error: true }
-    // }
 
     componentDidCatch(error, info){
         this.setState({ error: error, errorInfo: info })
