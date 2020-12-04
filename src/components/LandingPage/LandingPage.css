@@ -5,9 +5,7 @@
 
 .landing-page {
   text-align: center;
-  /* border: 2px solid red; */
   padding: 0.5em;
-  /* background-color: gray; */
   position: absolute;
   z-index: 1;
   margin-top: 11em;
@@ -21,7 +19,6 @@
 .landing-page-container {
   display: flex;
   justify-content: center;
-  /* overflow-x: hidden; */
 }
 
 .dash-btn {
@@ -29,24 +26,21 @@
 }
 
 .dash-btn:hover {
-  color:#e61f82!important;
+  color: #e61f82 !important;
 }
 
 .ways-header {
   position: absolute;
   z-index: -1;
-  /* vertical-align: middle !important; */
   font-size: 10vw;
   color: #e61f82;
   font-family: 'Archivo Black', Arial, Helvetica, sans-serif;
   text-shadow: 2px 1px 2px rgb(0, 0, 0);
   letter-spacing: -10px;
   height: auto;
-  /* min-width: 50em; */
   width: auto;
   margin-top: 2%;
   margin-right: 10%;
-  /* margin: auto; */
 }
 
 section.landing-page::before {
@@ -56,7 +50,6 @@ section.landing-page::before {
 
 .background {
   position: relative;
-  /* margin-left: 2em; */
   width: 100vw;
   z-index: 1000;
   display: flex;
@@ -65,8 +58,6 @@ section.landing-page::before {
   margin-right: 20%;
   display: flex;
   flex-direction: row;
-  /* justify-content: center; */
-  /* float: center; */
 }
 
 .background img {
@@ -74,12 +65,9 @@ section.landing-page::before {
   margin-top: 3vh;
   margin-right: 90vw;
   padding-right: 5vw;
-  /* margin-right: 400px; */
-  /* position: absolute; */
   width: 75% !important;
   height: auto;
   position: absolute;
-  /* border: 2px solid red; */
 }
 
 .about-ways-container {
@@ -118,7 +106,6 @@ section.landing-page::before {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  /* align-items: center; */
   width: 100vw;
   font-size: 20px;
   font-weight: 900;
@@ -128,7 +115,6 @@ section.landing-page::before {
 .lets-go-btn {
   box-shadow: none;
   margin-top: 20px;
-  /* padding-bottom: 10%; */
   text-align: center;
   width: 180px;
   background-color: white;
@@ -166,19 +152,10 @@ body {
 }
 
 .landing-page-container-1 {
-  /* margin-top: 5%; */
   padding: 0;
   min-height: 1000px;
   width: 100vw;
 }
-
-/* .zoom {
-  display: inline-block;
-  margin: 0 0.5rem;
-
-  animation: zoomInRight; 
-  animation-duration: 3s; 
-} */
 
 .longFade {
   animation: fadeIn;
@@ -206,7 +183,6 @@ body {
     flex-direction: column !important;
     justify-content: space-around;
     align-items: center;
-    /* align-items: center; */
     width: 100vw;
     font-size: 20px;
     font-weight: 500;
@@ -239,7 +215,6 @@ body {
     flex-direction: column !important;
     align-items: center;
     width: 100vw !important;
-
   }
 
   .linkToDashButton {
@@ -263,10 +238,6 @@ body {
   .background img {
     width: 40% !important;
   }
-
-  .landing-page {
-    /* width: 100vw !important; */
-  }
 }
 
 @media (max-width: 600px) {
@@ -276,10 +247,6 @@ body {
 }
 
 @media (max-width: 920px) and (min-width: 600px) {
-  /* .background {
-    display: flex;
-    flex-direction: column;
-  } */
   .ways-header {
     font-size: 12vw !important;
     letter-spacing: -5px !important;
