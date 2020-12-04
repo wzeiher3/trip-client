@@ -215,7 +215,7 @@ section.landing-page::before {
 
 .background-image {
   position: absolute;
-  /* opacity: 50%; */
+  opacity: 80% !important;
   width: 100vw;
   height: 100vh;
 }
