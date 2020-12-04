@@ -14,7 +14,6 @@ export default class PlaceSearch extends React.Component {
         <GoogleComponent
           apiKey={SEARCH_API_KEY}
           language={'en'}
-          // country={'country:in|country:us'}
           country={`country:${this.props.countryCode}`}
           coordinates={true}
           currentCoordinates={{
@@ -22,9 +21,6 @@ export default class PlaceSearch extends React.Component {
             lng: 44.827096,
           }}
           placeholder={'Start typing location...(May take a few seconds)'}
-          //   locationBoxStyle={'custom-style'}
-          //   locationListStyle={'custom-style-list'}
-
           onChange={(e) => {
             this.props.storePlace(e);
           }}

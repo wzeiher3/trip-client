@@ -37,8 +37,8 @@ export default class Trip extends React.Component {
       .then((res) => {
         this.setState({ trip: res, currTripID: res.id });
       })
-      .catch((error) => {
-        console.error(error);
+      .catch((res) => {
+        this.setState({ error: res.error });
       })
       .finally(() => {
         this.context.setLoading(false);
@@ -48,8 +48,8 @@ export default class Trip extends React.Component {
       .then((res) => {
         this.setState({ stops: res });
       })
-      .catch((error) => {
-        console.error(error);
+      .catch((res) => {
+        this.setState({ error: res.error });
       })
       .finally(() => {
         this.context.setLoading(false);
@@ -103,8 +103,8 @@ export default class Trip extends React.Component {
         );
         this.props.history.push('/dashboard');
       })
-      .catch((error) => {
-        this.setState({ error: error });
+      .catch((res) => {
+        this.setState({ error: res.error });
       })
       .finally(() => {
         this.context.setLoading(false);
@@ -130,8 +130,8 @@ export default class Trip extends React.Component {
         res[0].rating = rating;
         this.setState({ trip: res });
       })
-      .catch((error) => {
-        this.setState({ error });
+      .catch((res) => {
+        this.setState({ error: res.error });
       })
       .finally(() => {
         this.context.setLoading(false);
@@ -171,8 +171,8 @@ export default class Trip extends React.Component {
           stops: [...stops, res],
         });
       })
-      .catch((error) => {
-        this.setState({ error });
+      .catch((res) => {
+        this.setState({ error: res.error });
       })
       .finally(() => {
         this.context.setLoading(false);
@@ -208,8 +208,8 @@ export default class Trip extends React.Component {
           toggleAddStop: false,
         });
       })
-      .catch((error) => {
-        this.setState({ error });
+      .catch((res) => {
+        this.setState({ error: res.error });
       })
       .finally(() => {
         this.context.setLoading(false);
@@ -235,8 +235,8 @@ export default class Trip extends React.Component {
           });
           this.context.setTripRating(trip_id);
         })
-        .catch((error) => {
-          console.error(error);
+        .catch((res) => {
+          this.setState({ error: res.error });
         });
     }
   };
@@ -260,8 +260,8 @@ export default class Trip extends React.Component {
             }
           }
         })
-        .catch((error) => {
-          this.setState({ error: error });
+        .catch((res) => {
+          this.setState({ error: res.error });
         })
         .finally(() => {
           this.context.setLoading(false);
@@ -326,8 +326,8 @@ export default class Trip extends React.Component {
           stops: this.state.stops.filter((stop) => stop_id !== stop.id),
         });
       })
-      .catch((error) => {
-        console.error(error);
+      .catch((res) => {
+        this.setState({ error: res.error });
       });
   };
 
@@ -337,6 +337,7 @@ export default class Trip extends React.Component {
       if (stop.id === this.state.stopEditingID) {
         return (
           <EditStopForm
+            key={stop.id}
             handleSelect={this.handleSelect}
             clearSelections={this.clearSelections}
             selections={this.state.selections}

@@ -3,12 +3,9 @@ import UserContext from './UserContext';
 
 const TripContext = React.createContext({
   trips: [],
-  stops: [],
   currTripId: null,
   setCurrTripId: () => {},
   setTrips: () => {},
-  addTrip: () => {},
-  addStop: () => {},
   verifyAuth: () => {},
   setLoading: () => {},
   returnUserID: () => {},
@@ -59,21 +56,9 @@ export class TripProvider extends React.Component {
     });
   };
 
-  storeCurrPlace = (place) => {
-    this.setState({
-      currPlace: place,
-    });
-  };
-
   handleAddTrip = (trip) => {
     this.setState({
       trips: [...this.state.trips, trip],
-    });
-  };
-
-  addStop = (stop) => {
-    this.setState({
-      stops: [...this.state.stops, stop],
     });
   };
 
@@ -91,10 +76,6 @@ export class TripProvider extends React.Component {
       currTripId: this.state.currTripId,
       setTrips: this.setTrips,
       setCurrTripId: this.setCurrTripId,
-      addTrip: this.handleAddTrip,
-      addStop: this.addStop,
-      stops: this.state.stops,
-      storeCurrPlace: this.storeCurrPlace,
       verifyAuth: this.verifyAuth,
       loading: this.state.loading,
       setLoading: this.setLoading,

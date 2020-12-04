@@ -3,11 +3,8 @@ import TripService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
 import images from '../../assets/images/images';
 import PlaceSearch from '../PlaceSearch/PlaceSearch';
-
 import './AddTripForm.css';
 import SelectCountries from './SelectCountries/SelectCountries';
-
-// import { Label, Required, Input, Textarea} from '../Form/Form'
 
 export default class AddTripForm extends React.Component {
   state = {
@@ -71,8 +68,8 @@ export default class AddTripForm extends React.Component {
         this.context.setTrips([res, ...currentTrips]);
         this.props.history.push('/my-trips');
       })
-      .catch((error) => {
-        this.setState({ error });
+      .catch((res) => {
+        this.setState({ error: res.error });
       });
   };
 

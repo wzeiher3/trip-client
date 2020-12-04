@@ -9,7 +9,7 @@ class EditStopForm extends Component {
   render() {
     const id = this.props.stop.id;
     return (
-      <div className="trip-stop-wrapper" key={this.props.stop.id}>
+      <div className="trip-stop-wrapper">
         <div className="trip-stop edit-stop" key={this.props.index}>
           {this.context.loading && (
             <div className="bufffer-img-wrapper ">

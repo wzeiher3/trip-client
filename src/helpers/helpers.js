@@ -17,7 +17,6 @@ const Helpers = {
   },
 
   generateFlikrLink(res) {
-    console.log(res.photos);
     if (res.photos.photo.length === 0) {
       return '';
     }

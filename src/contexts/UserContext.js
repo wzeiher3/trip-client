@@ -96,8 +96,8 @@ export class UserProvider extends Component {
           this.fetchRefreshToken();
         });
       })
-      .catch((err) => {
-        this.setError(err);
+      .catch((res) => {
+        this.setState({ error: res.error });
       });
   };
 
