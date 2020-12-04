@@ -1,3 +1,5 @@
+
+
 .trip {
   width: 100%;
   border-radius: 1px;
@@ -325,6 +327,10 @@ img.heart {
   text-shadow: 1px 2px 2px black;
   font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
   font-size: 20px;
+}
+
+.addStopBtn:hover {
+  cursor: pointer;
 }
 
 @media all and (min-width: 675px) {

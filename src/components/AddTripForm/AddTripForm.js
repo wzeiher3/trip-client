@@ -227,16 +227,13 @@ export default class AddTripForm extends React.Component {
                   src={images.arrow_right}
                   alt="right arrow"
                 />
-
-
-                
               </div>
               <br />
-              <div className="flex">
-                <div className="bttn" type="submit">
+              {/* <div className="flex"> */}
+                <button className="myButton" type="submit">
                   Submit!
-                </div>
-              </div>
+                </button>
+              {/* </div> */}
             </form>
           </div>
         </section>
