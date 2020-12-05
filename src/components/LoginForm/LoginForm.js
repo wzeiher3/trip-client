@@ -7,7 +7,7 @@ import './LoginForm.css';
 
 class LoginForm extends Component {
   static defaultProps = {
-    onLoginSuccess: () => {},
+    onLoginSuccess: () => { },
   };
 
   static contextType = UserContext;
@@ -48,6 +48,9 @@ class LoginForm extends Component {
     return (
       <div className="form-wrapper">
         <form action="#" className="LoginForm" onSubmit={this.handleSubmit}>
+        <div> 
+          <p>Demo: Username: John Rambo, Password: password </p>
+        </div>
           <div role="alert">{error && <p>{error}</p>}</div>
           <div>
             <Label htmlFor="login-username-input">Username</Label>
