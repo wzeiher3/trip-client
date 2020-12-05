@@ -208,6 +208,7 @@ export default class Trip extends React.Component {
         this.setState({
           stops: [...this.state.stops, res],
           toggleAddStop: false,
+          selections: [],
         });
       })
       .catch((res) => {
