@@ -21,6 +21,7 @@ class LoginForm extends Component {
     const { username, password } = ev.target;
 
     this.setState({ error: null });
+    this.props.setLoading(true);
     AuthApiService.postLogin({
       username: username.value,
       password: password.value,
@@ -33,6 +34,9 @@ class LoginForm extends Component {
       })
       .catch((res) => {
         this.setState({ error: res.error });
+      })
+      .finally(() => {
+        this.props.setLoading(false);
       });
   };
 

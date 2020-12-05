@@ -1,8 +1,9 @@
 .addTripForm {
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  width: 97%;
+  padding: 5px;
+  width: 98%;
+  margin: auto;
 }
 
 .addTripButton:hover {
@@ -83,6 +84,7 @@
   margin-top: 12px;
   color: rgb(82, 82, 82);
   text-transform: lowercase;
+  margin-left: 10px;
 }
 
 .country-menu > option {
@@ -117,6 +119,24 @@
   background-color: #f6f6f6;
 }
 
+.TripCard-bottom-demo {
+  height: 80px;
+  width: 315px;
+  color: white;
+  text-shadow: 2px 1px 1px rgb(36, 36, 36);
+  font-family: 'Fredoka One', Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+
+.TripCard-bottom-info-demo {
+  padding-top: 25px;
+  width: 315px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 @media all and (min-width: 600px) {
   .addTripForm {
     width: 600px;
@@ -129,6 +149,7 @@
   .country-menu {
     width: 165px;
     margin-top: 0px;
+    margin-left: 0px;
   }
 
   .selectCountry {
@@ -156,6 +177,15 @@
   }
 
   .TripCardDemo {
-    width: 250px;
+    width: 295px;
+  }
+
+  .TripCard-bottom-demo {
+    width: 100%;
+  }
+
+  .TripCard-bottom-info-demo {
+    width: 100%;
+    display: inline-block;
   }
 }

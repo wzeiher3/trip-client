@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import LoginForm from '../../components/LoginForm/LoginForm';
+import TripContext from '../../contexts/TripContext';
 
 class LoginRoute extends Component {
+  static contextType = TripContext;
   static defaultProps = {
     location: {},
     history: {
@@ -18,7 +20,10 @@ class LoginRoute extends Component {
     return (
       <section className="auth-section">
         <h2>Login</h2>
-        <LoginForm onLoginSuccess={this.handleLoginSuccess} />
+        <LoginForm
+          onLoginSuccess={this.handleLoginSuccess}
+          setLoading={this.context.setLoading}
+        />
       </section>
     );
   }

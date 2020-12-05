@@ -17,6 +17,7 @@ class RegistrationForm extends Component {
   handleSubmit = (ev) => {
     ev.preventDefault();
     const { name, username, password } = ev.target;
+    this.props.setLoading(true);
     AuthApiService.postUser({
       name: name.value,
       username: username.value,
@@ -30,6 +31,9 @@ class RegistrationForm extends Component {
       })
       .catch((res) => {
         this.setState({ error: res.error });
+      })
+      .finally(() => {
+        this.props.setLoading(false);
       });
   };
 

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
+import TripContext from '../../contexts/TripContext';
 
 class RegistrationRoute extends Component {
+  static contextType = TripContext;
   static defaultProps = {
     history: {
       push: () => {},
@@ -19,6 +21,7 @@ class RegistrationRoute extends Component {
         <h2>Sign up</h2>
         <RegistrationForm
           onRegistrationSuccess={this.handleRegistrationSuccess}
+          setLoading={this.context.setLoading}
         />
       </section>
     );

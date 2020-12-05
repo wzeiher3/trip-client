@@ -111,6 +111,7 @@ export default class AddTripForm extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <>
         <section className="addTripSection">
@@ -215,9 +216,9 @@ export default class AddTripForm extends React.Component {
                         </p>
                       </div>
                     </div>
-                    <div className={`TripCard-bottom blue`}>
-                      <div className="TripCard-bottom-info">
-                        Days {this.state.days} | Rating <span>N/A</span>
+                    <div className={`TripCard-bottom-demo blue`}>
+                      <div className="TripCard-bottom-info-demo">
+                        Days {this.state.days} | Rating <span>N\A</span>
                       </div>
                     </div>
                   </div>

@@ -24,8 +24,6 @@ export default class App extends Component {
     hasError: false,
   };
 
-  static contextType = TripContext;
-
   static getDerivedStateFromError(error) {
     console.error(error);
     return { hasError: true };
@@ -59,7 +57,7 @@ export default class App extends Component {
                   path={'/add-trip'}
                   component={AddTripForm}
                 />
-                <PrivateRoute path={'/my-trips'} component={MyTrips} />
+                <PrivateRoute exact path={'/my-trips'} component={MyTrips} />
                 <Route exact path={'/dashboard'} component={DashboardRoute} />
                 <Route
                   path={'/trips/:trips_id'}
