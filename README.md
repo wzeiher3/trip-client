@@ -1,8 +1,11 @@
 # Ways App
  This app helps you plan the perfect trip! You can also see other trips to get ideas for your trip. 
 
+## Demo
+![Imgur](https://imgur.com/DtyXkSf)
 
 ## About the Devs
+
 
 -[Devon Reihl](https://github.com/DevonReihl) -[Mark Force](https://github.com/Mf-ff99) -[Richard Scott](https://github.com/Richardscripts) -[Will Zeiher](https://github.com/wzeiher3)
 
