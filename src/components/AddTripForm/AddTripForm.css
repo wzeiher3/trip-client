@@ -5,6 +5,10 @@
   width: 97%;
 }
 
+.addTripButton:hover {
+  cursor: pointer;
+}
+
 .addTripForm > label,
 .placeSearch {
   font-size: 20px;
