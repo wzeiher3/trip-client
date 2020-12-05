@@ -69,7 +69,6 @@ export default class Dashboard extends React.Component {
         <div className="upperSection">
           <div className="addTripButton">
             <Link to="/add-trip">
-              {/* <div className="myButton">Add a Trip!</div> */}
               <div className="flex">
                     <div className="bttn">Add Trip</div>
               </div>
@@ -88,7 +87,6 @@ export default class Dashboard extends React.Component {
           </div>
           <div className="myTripButton">
             <Link to="/my-trips">
-              {/* <div className="myButton">My Trips</div> */}
               <div className="flex">
                   <div className="bttn">My Trips</div>
               </div>

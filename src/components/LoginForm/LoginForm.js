@@ -7,7 +7,7 @@ import './LoginForm.css';
 
 class LoginForm extends Component {
   static defaultProps = {
-    onLoginSuccess: () => { },
+    onLoginSuccess: () => {},
   };
 
   static contextType = UserContext;
@@ -21,7 +21,6 @@ class LoginForm extends Component {
     const { username, password } = ev.target;
 
     this.setState({ error: null });
-
     AuthApiService.postLogin({
       username: username.value,
       password: password.value,
@@ -48,9 +47,6 @@ class LoginForm extends Component {
     return (
       <div className="form-wrapper">
         <form action="#" className="LoginForm" onSubmit={this.handleSubmit}>
-        <div> 
-          <p>Demo: Username: John Rambo, Password: password </p>
-        </div>
           <div role="alert">{error && <p>{error}</p>}</div>
           <div>
             <Label htmlFor="login-username-input">Username</Label>
@@ -79,6 +75,18 @@ class LoginForm extends Component {
             </Button>
           </div>
         </form>
+        <br />
+        <div>
+          <center>
+            <p>
+              <b>Demo:</b>
+              <br />
+              Username: John Rambo
+              <br />
+              Password: password{' '}
+            </p>
+          </center>
+        </div>
       </div>
     );
   }
