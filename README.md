@@ -3,6 +3,7 @@
 
 ## Demo
 ![Imgur](https://i.imgur.com/DtyXkSf.mp4)
+!video[Imgur](https://i.imgur.com/DtyXkSf.mp4)
 
 ## About the Devs
 
