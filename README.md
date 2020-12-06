@@ -3,6 +3,7 @@
 
 ## Demo
 ![Imgur](https://i.imgur.com/DtyXkSf.mp4)
+<video src="https://i.imgur.com/DtyXkSf.mp4" width="320" height="200" controls preload></video>
 
 ## About the Devs
 
