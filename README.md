@@ -3,9 +3,8 @@
 
 ## Demo
 ![Imgur](https://i.imgur.com/DtyXkSf.mp4)
-<video width="320" height="240" controls>
-  <source src="https://i.imgur.com/DtyXkSf.mp4" type="video/mp4">
-</video>
+<iframe width="420" height="315" src="https://i.imgur.com/DtyXkSf.mp4" frameborder="0" allowfullscreen></iframe>
+
 ## About the Devs
 
 
