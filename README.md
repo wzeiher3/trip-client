@@ -3,8 +3,9 @@
 
 ## Demo
 ![Imgur](https://i.imgur.com/DtyXkSf.mp4)
-<video src="https://i.imgur.com/DtyXkSf.mp4" width="320" height="200" controls preload></video>
-
+<video src="https://i.imgur.com/DtyXkSf.mp4"></video><video width="320" height="240" controls>
+  <source src="https://i.imgur.com/DtyXkSf.mp4" type="video/mp4">
+</video>
 ## About the Devs
 
 
