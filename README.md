@@ -4,8 +4,8 @@ This app helps you plan the perfect trip! You can also see other trips to get id
 
 ## Demo
 
-[![Click for Video](https://i.imgur.com/UMHDcEO.png 'Click for Video')](https://i.imgur.com/DtyXkSf.mp4 'Click for Video')
-[![Click for Video](https://i.imgur.com/xNjW7Yo.png 'Click for Video')](https://i.imgur.com/DtyXkSf.mp4 'Click for Video')
+[![Click for Video](https://i.imgur.com/XCF3K41.png 'Click for Video')](https://i.imgur.com/DtyXkSf.mp4 'Click for Video')
+[![Click for Video](https://i.imgur.com/8FYXl3f.png 'Click for Video')](https://i.imgur.com/DtyXkSf.mp4 'Click for Video')
 
 ## About the Devs
 
