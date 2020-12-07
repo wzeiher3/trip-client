@@ -36,8 +36,8 @@
 
 .my-trip-info {
   box-shadow: 0px 1px 0px 0px #ffffff;
-  border: 2px solid #0070cc;
-  background-color: #0070cc;
+  border: 2px solid rgb(46, 140, 216);
+  background-color: rgb(46, 140, 216);
   display: inline-block;
   cursor: pointer;
   color: #ffffff;
@@ -64,8 +64,8 @@ ul {
 
 .my-trip-info:hover {
   background-color: white;
-  color: #0070cc;
-  border: 2px solid #0070cc;
+  color: rgb(46, 140, 216);
+  border: 2px solid rgb(46, 140, 216);
 }
 
 .dropdown {

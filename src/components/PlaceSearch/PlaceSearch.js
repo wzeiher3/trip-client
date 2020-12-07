@@ -1,7 +1,6 @@
 import React from 'react';
 import { GoogleComponent } from './GoogleComponent';
-
-const SEARCH_API_KEY = 'AIzaSyAF0LCbqpdlaVROEeXSC9rxW8blwyF5Reg';
+import config from '../../config';
 
 export default class PlaceSearch extends React.Component {
   render() {
@@ -12,7 +11,7 @@ export default class PlaceSearch extends React.Component {
         }}
       >
         <GoogleComponent
-          apiKey={SEARCH_API_KEY}
+          apiKey={config.SEARCH_API_KEY}
           language={'en'}
           country={`country:${this.props.countryCode}`}
           coordinates={true}

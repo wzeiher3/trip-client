@@ -150,6 +150,7 @@ export default class AddTripForm extends React.Component {
                 placeholder={'New York Shopping, Backpacking through Europe!'}
                 type="text"
                 name="short_description"
+                id="short_description"
                 required
               />
               <br />
