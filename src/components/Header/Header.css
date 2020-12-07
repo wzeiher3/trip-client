@@ -8,13 +8,19 @@ header {
   z-index: 1500;
 }
 
-header > span > h1 > a {
+header > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+header > div > h1 > a {
   text-decoration: none;
   color: rgb(230, 31, 130);
   text-shadow: 2px 1px 1px rgb(0, 0, 0);
 }
 
-header > span > h1 {
+header > div > h1 {
   font-family: 'Archivo Black', Arial, Helvetica, sans-serif;
   font-size: 34px;
   margin: 0;
@@ -22,7 +28,7 @@ header > span > h1 {
   letter-spacing: -3px;
 }
 
-header > span > img {
+header > img {
   width: 34px;
   vertical-align: -34%;
 }
@@ -44,16 +50,22 @@ nav {
   text-align: right;
 }
 
+@media all and (max-width: 360px) {
+  header > div > span > img {
+    width: 55px;
+  }
+}
+
 @media all and (min-width: 360px) {
-  header > span > img {
+  header > div > span > img {
     width: 55px;
   }
 
-  header > span > h1 {
+  header > h1 {
     font-size: 46px;
   }
 
-  header > span > img {
+  header > img {
     vertical-align: -34%;
   }
 

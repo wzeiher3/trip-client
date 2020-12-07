@@ -37,19 +37,21 @@ class Header extends Component {
   render() {
     return (
       <header>
+        <div>
         <span>
           <img src={images.map} alt="small globe" />
-          <h1>
-            <Link to="/dashboard">Ways!</Link>
-          </h1>
-          {this.props.loading && (
-            <img
-              className="loading-img"
-              src={images.loading}
-              alt="loading icon"
-            />
-          )}
         </span>
+        <h1>
+          <Link to="/dashboard">Ways!</Link>
+        </h1>
+        {this.props.loading && (
+          <img
+          className="loading-img"
+          src={images.loading}
+          alt="loading icon"
+          />
+          )}
+          </div>
         {TokenService.hasAuthToken()
           ? this.renderLogoutLink()
           : this.renderLoginLink()}
