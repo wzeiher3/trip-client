@@ -52,6 +52,7 @@ exports[`LoginForm component Matches snapshot 1`] = `
     </div>
   </form>
   <br />
+<<<<<<< HEAD
   <div
     style={
       Object {
@@ -63,6 +64,13 @@ exports[`LoginForm component Matches snapshot 1`] = `
       <p>
         <b>
           Demo User:
+=======
+  <div>
+    <center>
+      <p>
+        <b>
+          Demo:
+>>>>>>> aa7c922c194f69cb8395cfca26c919721ea8fd61
         </b>
         <br />
         Username: John Rambo

@@ -12,6 +12,8 @@ import './TripView.css';
 import images from '../../assets/images/images';
 import RenderEditTrip from './RenderEditTrip/RenderEditTrip';
 
+// Modal.setAppElement('#root');
+
 export default class Trip extends React.Component {
   static contextType = TripContext;
   state = {

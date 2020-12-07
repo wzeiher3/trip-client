@@ -2,7 +2,7 @@
  This app helps you plan the perfect trip! You can also see other trips to get ideas for your trip. 
 
 ## Demo
-![Imgur](https://imgur.com/DtyXkSf)
+![Imgur](https://i.imgur.com/DtyXkSf.mp4)
 
 ## About the Devs
 

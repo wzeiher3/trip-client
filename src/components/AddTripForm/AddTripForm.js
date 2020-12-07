@@ -111,7 +111,6 @@ export default class AddTripForm extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <>
         <section className="addTripSection">
@@ -144,15 +143,18 @@ export default class AddTripForm extends React.Component {
                 Type in a short description of your trip!
               </label>
               <input
-                maxLength={24}
+                maxLength={30}
                 onChange={(e) =>
                   this.setState({ short_description: e.target.value })
                 }
                 placeholder={'New York Shopping, Backpacking through Europe!'}
                 type="text"
                 name="short_description"
+<<<<<<< HEAD
                 id="short_description"
                 maxLength={30}
+=======
+>>>>>>> aa7c922c194f69cb8395cfca26c919721ea8fd61
                 required
               />
               <br />

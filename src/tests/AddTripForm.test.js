@@ -1,8 +1,8 @@
 import React from 'react';
-import toJson from 'enzyme-to-json';
+import AddTripForm from '../components/AddTripForm/AddTripForm';
 import { shallow } from 'enzyme';
 import TripContext from '../contexts/TripContext';
-import AddTripForm from '../components/AddTripForm/AddTripForm';
+import toJson from 'enzyme-to-json';
 
 describe(`AddTripForm component`, () => {
   it('Renders without crashing', () => {
