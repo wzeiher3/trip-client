@@ -51,5 +51,20 @@ exports[`LoginForm component Matches snapshot 1`] = `
       </ForwardRef>
     </div>
   </form>
+  <br />
+  <div>
+    <center>
+      <p>
+        <b>
+          Demo:
+        </b>
+        <br />
+        Username: John Rambo
+        <br />
+        Password: password
+         
+      </p>
+    </center>
+  </div>
 </div>
 `;

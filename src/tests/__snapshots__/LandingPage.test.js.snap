@@ -31,6 +31,7 @@ exports[`LandingPage component Matches snapshot 1`] = `
       >
         <img
           alt="airplane taking off"
+          className="airplane-bg zoom"
           src="airplane.png"
         />
       </div>
@@ -42,7 +43,7 @@ exports[`LandingPage component Matches snapshot 1`] = `
         className="wrapper"
       >
         <div
-          className="one"
+          className="one longFade"
         >
           <i
             className="fas fa-plane-departure xl fa-2x"
@@ -53,7 +54,7 @@ exports[`LandingPage component Matches snapshot 1`] = `
           </p>
         </div>
         <div
-          className="two what-to-do"
+          className="two what-to-do longFade"
         >
           <i
             className="fas fa-hotel fa-2x"
@@ -64,7 +65,7 @@ exports[`LandingPage component Matches snapshot 1`] = `
           </p>
         </div>
         <div
-          className="three call-to-action"
+          className="three call-to-action longFade"
         >
           <i
             className="fas fa-car fa-2x"

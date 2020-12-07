@@ -1,5 +1,5 @@
 import React from 'react';
-import { GoogleComponent } from 'react-google-location';
+import { GoogleComponent } from './GoogleComponent';
 
 const SEARCH_API_KEY = 'AIzaSyAF0LCbqpdlaVROEeXSC9rxW8blwyF5Reg';
 
