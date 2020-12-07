@@ -143,14 +143,13 @@ export default class AddTripForm extends React.Component {
                 Type in a short description of your trip!
               </label>
               <input
-                maxLength={24}
+                maxLength={30}
                 onChange={(e) =>
                   this.setState({ short_description: e.target.value })
                 }
                 placeholder={'New York Shopping, Backpacking through Europe!'}
                 type="text"
                 name="short_description"
-                maxLength={30}
                 required
               />
               <br />
