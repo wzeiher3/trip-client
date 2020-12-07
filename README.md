@@ -28,8 +28,20 @@ OR
 - React
   - Create React App
   - React Router
+- JSX
 - HTML5
 - CSS3
+
+### Third Party APIs Used
+
+- Google Maps 
+  - Maps JavaScript API
+  - Places API
+  - Autocomplete API
+  - Geocoding API
+  - Maps URLS
+- Flikr API
+  - Photo Search Query
 
 ### Testing
 
