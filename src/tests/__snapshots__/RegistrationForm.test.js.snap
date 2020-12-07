@@ -55,7 +55,7 @@ exports[`RegistrationForm component Matches snapshot 1`] = `
         type="password"
       />
     </div>
-    <footer>
+    <div>
       <div
         className="button-wrapper"
       >
@@ -75,7 +75,7 @@ exports[`RegistrationForm component Matches snapshot 1`] = `
         </ForwardRef>
          
       </div>
-    </footer>
+    </div>
   </form>
 </div>
 `;

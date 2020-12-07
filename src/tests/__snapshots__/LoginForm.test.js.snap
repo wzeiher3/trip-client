@@ -51,5 +51,26 @@ exports[`LoginForm component Matches snapshot 1`] = `
       </ForwardRef>
     </div>
   </form>
+  <br />
+  <div
+    style={
+      Object {
+        "fontSize": "16px",
+      }
+    }
+  >
+    <center>
+      <p>
+        <b>
+          Demo User:
+        </b>
+        <br />
+        Username: John Rambo
+        <br />
+        Password: password
+         
+      </p>
+    </center>
+  </div>
 </div>
 `;

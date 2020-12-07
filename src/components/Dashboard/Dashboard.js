@@ -70,7 +70,7 @@ export default class Dashboard extends React.Component {
           <div className="addTripButton">
             <Link to="/add-trip">
               <div className="flex">
-                    <div className="bttn">Add Trip</div>
+                <div className="bttn">Add Trip</div>
               </div>
             </Link>
           </div>
@@ -80,6 +80,7 @@ export default class Dashboard extends React.Component {
               type="text"
               placeholder={'Search for a destination...'}
               name="tripSearchBar"
+              id="tripSearchBar"
               onChange={(e) => {
                 this.setQuery(e);
               }}
@@ -88,7 +89,7 @@ export default class Dashboard extends React.Component {
           <div className="myTripButton">
             <Link to="/my-trips">
               <div className="flex">
-                  <div className="bttn">My Trips</div>
+                <div className="bttn">My Trips</div>
               </div>
             </Link>
           </div>

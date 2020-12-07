@@ -1,18 +1,16 @@
 import React from 'react';
+import Modal from 'react-modal';
 import TripApiService from '../../services/trip-service';
 import TripContext from '../../contexts/TripContext';
 import TripViewNav from './TripViewNav/TripViewNav';
 import RenderStop from './RenderStop/RenderStop';
 import MapContainer from '../Map/Map';
-import Modal from 'react-modal';
 import AddStopForm from './AddStopForm.js/AddStopForm';
 import Helpers from '../../helpers/helpers';
 import EditStopForm from './EditStopForm/EditStopForm';
 import './TripView.css';
 import images from '../../assets/images/images';
 import RenderEditTrip from './RenderEditTrip/RenderEditTrip';
-
-Modal.setAppElement('#root');
 
 export default class Trip extends React.Component {
   static contextType = TripContext;
