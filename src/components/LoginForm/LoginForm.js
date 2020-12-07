@@ -80,10 +80,10 @@ class LoginForm extends Component {
           </div>
         </form>
         <br />
-        <div>
+        <div style={{ fontSize: '16px' }}>
           <center>
             <p>
-              <b>Demo:</b>
+              <b>Demo User:</b>
               <br />
               Username: John Rambo
               <br />

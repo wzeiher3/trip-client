@@ -21,12 +21,12 @@ footer {
 .footer-spacer {
   text-align: center;
   font-size: 12px;
-  color: grey;
+  color: rgb(71, 71, 71);
 }
 
 .footer-spacer > a {
   font-weight: bold;
-  color: grey;
+  color: rgb(71, 71, 71);
 }
 
 footer > div > ul > li > a {
@@ -63,7 +63,7 @@ footer ul {
 
 .ways-footer {
   font-weight: bold;
-  color: rgb(230, 31, 130);
+  color: rgb(65, 65, 65);
   font-size: 12px;
 }
 

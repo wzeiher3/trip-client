@@ -17,7 +17,7 @@ import ScrollToTop from '../../helpers/ScrollToTop';
 import './App.css';
 import LandingPage from '../LandingPage/LandingPage';
 import Footer from '../Footer/Footer';
-import Modal from 'react-modal'
+import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 

@@ -52,11 +52,17 @@ exports[`LoginForm component Matches snapshot 1`] = `
     </div>
   </form>
   <br />
-  <div>
+  <div
+    style={
+      Object {
+        "fontSize": "16px",
+      }
+    }
+  >
     <center>
       <p>
         <b>
-          Demo:
+          Demo User:
         </b>
         <br />
         Username: John Rambo

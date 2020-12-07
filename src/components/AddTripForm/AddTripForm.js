@@ -119,6 +119,7 @@ export default class AddTripForm extends React.Component {
             {this.state.error && <center>{this.state.error}</center>}
             <form
               className="addTripForm"
+              id="addTripForm"
               action="#"
               onSubmit={this.handleSubmit}
             >
@@ -132,7 +133,6 @@ export default class AddTripForm extends React.Component {
                   />
                 </div>
                 <div className="selectCountry">
-                  <label htmlFor="country">Country:*</label>
                   <SelectCountries
                     handleSelectCountries={this.handleSelectCountries}
                   />
@@ -150,6 +150,7 @@ export default class AddTripForm extends React.Component {
                 placeholder={'New York Shopping, Backpacking through Europe!'}
                 type="text"
                 name="short_description"
+                id="short_description"
                 required
               />
               <br />
@@ -160,6 +161,7 @@ export default class AddTripForm extends React.Component {
                 onChange={(e) => this.setState({ activities: e.target.value })}
                 type="text"
                 name="activities"
+                id="activities"
                 placeholder={'Shopping, Sight-seeing, Gnoshing...'}
                 maxLength={40}
                 required
