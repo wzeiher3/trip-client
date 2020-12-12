@@ -119,6 +119,7 @@ export default class AddTripForm extends React.Component {
             {this.state.error && <center>{this.state.error}</center>}
             <form
               className="addTripForm"
+              id="addTripForm"
               action="#"
               onSubmit={this.handleSubmit}
             >
@@ -233,9 +234,9 @@ export default class AddTripForm extends React.Component {
               </div>
               <br />
               <div className="flex">
-                <div className="bttn" type="submit">
-                  Submit!
-                </div>
+                <button className="bttn" type="submit">
+                  Submit
+                </button>
               </div>
             </form>
           </div>
